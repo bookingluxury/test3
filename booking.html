@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đặt Lịch Hẹn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Google Roboto & Font Awesome -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* Reset & Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+        color: #333;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      /* Header với Background Image (không có tiêu đề) */
+      header {
+        background: url("https://source.unsplash.com/1600x400/?office,meeting")
+          no-repeat center/cover;
+        height: 300px;
+        position: relative;
+      }
+      header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      /* Main Content */
+      main {
+        max-width: 900px;
+        margin: -80px auto 50px;
+        padding: 20px;
+      }
+      /* Card Container */
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        margin-bottom: 30px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      }
+      /* Tiêu đề động với hiệu ứng gradient chuyển động */
+      .step-title {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+        background: linear-gradient(270deg, #6a82fb, #fc5c7d, #ff9a9e);
+        background-size: 600% 600%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientAnimation 5s ease infinite;
+      }
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        border: 1px solid #cbd5e0;
+        border-radius: 5px;
+        outline: none;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #6a82fb;
+        box-shadow: 0 0 8px rgba(106, 130, 251, 0.3);
+      }
+      .form-row {
+        display: flex;
+        gap: 15px;
+      }
+      .form-row > div {
+        flex: 1;
+      }
+      /* Nút bấm hiện đại với hiệu ứng ripple */
+      .btn-submit {
+        background: linear-gradient(45deg, #36d1dc, #5b86e5);
+        border: none;
+        color: #fff;
+        padding: 10px 15px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+        font-weight: bold;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 20px rgba(255, 65, 108, 0.4);
+      }
+      .btn-submit:active {
+        transform: scale(0.98);
+      }
+      .btn-submit::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+      }
+      .btn-submit:active::after {
+        width: 300%;
+        height: 300%;
+        opacity: 0;
+        transition: 0s;
+      }
+      .btn-location {
+        padding: 10px 14px;
+        border: none;
+        background: linear-gradient(45deg, #ffc107, #ffdd57);
+        color: #000;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+      .btn-location:hover {
+        transform: scale(1.1);
+      }
+      .help-text {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 12px;
+        color: #777;
+      }
+      .help-text a {
+        color: #6a82fb;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .help-text a:hover {
+        text-decoration: underline;
+      }
+      .booking-code-img {
+        display: block;
+        border-radius: 10px;
+        margin: 0 auto 20px;
+        width: 140px;
+      }
+      /* Step Content */
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+      /* Model Info Container - hiển thị giữa màn hình */
+      #modelInfoContainer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px 40px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        max-width: 400px;
+        z-index: 1000;
+        display: none;
+      }
+      #modelInfoContainer h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      /* Model Header: Avatar kèm tên */
+      .model-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .model-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 3px solid #ff9900;
+      }
+      .model-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .model-name .toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-left: 8px;
+        font-size: 1.2rem;
+        color: #00ffea;
+      }
+      /* Thông tin các dòng */
+      .info-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .info-label {
+        width: 100px;
+        font-weight: 600;
+      }
+      .info-value {
+        flex: 1;
+        font-size: 1rem;
+        letter-spacing: 1px;
+      }
+      .toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #00ffea;
+      }
+      :root {
+        --nav-bg: #e9ecef;
+        --accent: #007bff;
+        --text-color: #333;
+        --hover-bg: #ced4da;
+      }
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--nav-bg);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+     
+        z-index: 20;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+      }
+      .bottom-nav::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-item {
+        text-decoration: none;
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+        padding: 8px 12px;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        font-weight: bold;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 70px;
+        color: var(--text-color);
+      }
+      .nav-item:hover {
+        background-color: #eaeaea;
+        transform: scale(1.05);
+      }
+      .nav-item.active {
+        background-color: var(--hover-bg);
+      }
+      .nav-item i {
+        font-size: 24px;
+        margin-bottom: 4px;
+        transition: color 0.3s ease;
+        color: var(--text-color);
+      }
+      .nav-item span {
+        font-size: 12px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        color: var(--text-color);
+      }
+      .nav-item.active i,
+      .nav-item.active span {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      /* Hiệu ứng tung hoa */
+      .flower {
+        position: fixed;
+        top: -50px;
+        pointer-events: none;
+        z-index: 2000;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      .logo-top {
+        width: 300px;
+        height: 80px;
+        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+          center/contain;
+        background-size: cover;
+        z-index: 1001;
+        transition: transform 0.3s ease;
+        padding: 5px;
+        margin-bottom: 10px;
+        backdrop-filter: blur(5px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-top"></div>
+
+      <!-- Step 1: Booking Details -->
+      <div class="card step active" id="step1">
+        <div class="step-title">Nhập Thông Tin Đặt Lịch</div>
+        <div class="form-group">
+          <label for="partnerSelect">Chọn đối tác</label>
+          <select id="partnerSelect" required>
+            <option value="">-- Chọn đối tác --</option>
+          </select>
+        </div>
+        <!-- (Phần preview đối tác đã bị loại bỏ theo yêu cầu) -->
+        <div class="form-group">
+          <label for="timeInput">Thời gian</label>
+          <input type="datetime-local" id="timeInput" required />
+        </div>
+        <div class="form-group">
+          <label for="locationInput">Địa điểm</label>
+          <div class="form-row">
+            <div>
+              <input
+                type="text"
+                id="locationInput"
+                placeholder="Nhập địa điểm"
+                required
+              />
+            </div>
+            <div style="flex: 0 0 auto">
+              <button
+                type="button"
+                class="btn-location"
+                onclick="getCurrentLocation()"
+              >
+                📍
+              </button>
+            </div>
+          </div>
+          <p
+            id="locationError"
+            style="color: red; font-size: 0.85rem; display: none"
+          ></p>
+        </div>
+        <div class="form-group">
+          <label for="servicePackage">Gói dịch vụ</label>
+          <select id="servicePackage" required>
+            <option value="basic">Basic Service</option>
+            <option value="vip">Special Service</option>
+            <option value="luxury">Diamond Service</option>
+            <option value="vip-tour">Platinum Service</option>
+          </select>
+        </div>
+        <div class="center">
+          <button class="btn btn-submit" onclick="goToStep2()">Tiếp tục</button>
+        </div>
+      </div>
+      <!-- Step 2: Membership Code -->
+      <div class="card step" id="step2">
+        <div class="step-title">Xác Nhận Mã Thành Viên</div>
+        <div class="center">
+          <img
+            src="https://i.ibb.co/7GmDHKL/H-n-2.png"
+            alt="Membership Card"
+            class="booking-code-img"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="bookingCodeInput"
+            placeholder="Nhập mã thẻ thành viên"
+            required
+          />
+        </div>
+        <div class="center">
+          <button class="btn btn-submit" onclick="submitBookingCode()">
+            Xác nhận
+          </button>
+        </div>
+        <p class="help-text">
+          Chưa có Membership Card?
+          <a href="https://t.me/HUYENTRAN19900" target="_blank">Bấm vào đây</a>
+        </p>
+      </div>
+      <!-- Model Info Container: hiển thị ở giữa màn hình -->
+      <div id="modelInfoContainer">
+        <h2>Thông Tin Đối Tác</h2>
+        <div class="model-header">
+          <img
+            class="model-avatar"
+            src="https://i.ibb.co/CVsgcbB/photo-311-23-06-2024-17-58-00.jpg"
+            alt="Model Avatar"
+          />
+          <div class="model-name">
+            <span class="info-value" data-value="Khánh Huyền">••••••••</span>
+            <button class="toggle-btn" onclick="toggleInfo(this)">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><strong>SĐT:</strong></div>
+          <div class="info-value" data-value="+61 412 345 678">••••••••••</div>
+          <button class="toggle-btn" onclick="toggleInfo(this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><strong>Địa chỉ:</strong></div>
+          <div class="info-value" data-value="Sydney, New South Wales, Úc">
+            ••••••••••••••••
+          </div>
+          <button class="toggle-btn" onclick="toggleInfo(this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><strong>Zalo:</strong></div>
+          <div class="info-value" data-value="+84987654321">••••••••••</div>
+          <button class="toggle-btn" onclick="toggleInfo(this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+        <div class="info-row">
+          <div class="info-label"><strong>Email:</strong></div>
+          <div class="info-value" data-value="ngocanh.vietnam@gmail.com">
+            •••••••••••••
+          </div>
+          <button class="toggle-btn" onclick="toggleInfo(this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          <button class="btn btn-submit" onclick="hideModelInfo()">Đóng</button>
+        </div>
+      </div>
+    </main>
+    <div class="bottom-nav">
+      <a class="nav-item active" href="index.html">
+        <i class="fa fa-home"></i>
+        <span>Trang Chủ</span>
+      </a>
+      <a class="nav-item" href="review.html">
+        <i class="fa fa-star"></i>
+        <span>Đánh Giá</span>
+      </a>
+      <a class="nav-item" href="video.html">
+        <i class="fa fa-film"></i>
+        <span>Video Nổi Bật</span>
+      </a>
+      <a class="nav-item" href="profile.html">
+        <i class="fa fa-user"></i>
+        <span>Hồ Sơ</span>
+      </a>
+      <a class="nav-item" href="services.html">
+        <i class="fa fa-briefcase"></i>
+        <span>Dịch Vụ</span>
+      </a>
+      <a class="nav-item" href="booking.html">
+        <i class="fa fa-calendar-check"></i>
+        <span>Đặt Lịch</span>
+      </a>
+      <a class="nav-item" href="photos.html">
+        <i class="fa fa-camera"></i>
+        <span>Thư Viện Ảnh</span>
+      </a>
+      <a class="nav-item" href="private-connection.html">
+        <i class="fa fa-lock"></i>
+        <span>Kết Nối Riêng Tư</span>
+      </a>
+      <a class="nav-item" href="add-credit.html">
+        <i class="fa fa-credit-card"></i>
+        <span>Thêm Tín Dụng</span>
+      </a>
+      <a class="nav-item" href="logout.html">
+        <i class="fa fa-sign-out"></i>
+        <span>Đăng Xuất</span>
+      </a>
+    </div>
+    
+    </div>
+    
+    <script>
+      // Khi trang tải xong, nạp danh sách đối tác và thêm sự kiện onchange cho dropdown
+      document.addEventListener("DOMContentLoaded", function () {
+        populatePartnerList();
+        document
+          .getElementById("partnerSelect")
+          .addEventListener("change", function () {
+            const selected = this.value;
+            // Lấy avatar theo đối tác từ mapping
+            const avatarURL =
+              partnerAvatars[selected] || "https://i.pravatar.cc/100?img=65";
+            // Cập nhật khung Model Info
+            document.querySelector(".model-avatar").src = avatarURL;
+            document
+              .querySelector(".model-name .info-value")
+              .setAttribute("data-value", selected);
+            let mask = "";
+            for (let i = 0; i < selected.length; i++) {
+              mask += "•";
+            }
+            document.querySelector(".model-name .info-value").textContent =
+              mask;
+          });
+      });
+
+      // Danh sách đối tác mẫu
+      const partnersByRank = {
+        S: [
+          "✸ Vân Nhi ✸",
+          "Yuna",
+          "✪ Khánh Huyền ✪",
+          "Chang",
+          "❋ Trúc An ❋",
+          "♛ Thùy Trang ♛",
+          "✦ Tú Anh ✦",
+          "Trâm Anh",
+          "❀ Phương Ly ❀",
+          "Amy",
+          "✿ Ánh Tuyết ✿",
+          "♢ Hạnh Duyên ♢",
+          "✿ Bích Phương ✿",
+          "❖ Hải Yến ❖",
+          "⚜  ⚜",
+          "Yumi",
+        ],
+        A: [
+          "Lan Chi ☘",
+          "♡°Cẩm Tú°♡",
+          "✾ Minh Tú ✾",
+          "Quỳnh Nhi",
+          "✦ Khánh Nhi ✦",
+          "♛ Thảo Vy ♛",
+          "♡ Nhã Uyên ♡",
+          "✧ Uyen Saki ✧",
+          "❥Thiên Kim❥",
+          "Quỳnh Anh",
+          "✿ Bảo Trân ✿",
+          "✦ Diệu Hương ✦",
+          "♢ Linh Vy ♢",
+          "✿ Ngọc Diễm ✿",
+          "✦ Bảo Nhi ✦",
+          "✿ Lan Anh ✿",
+          "✦ Khánh Hà ✦",
+          "✸ Mỹ Ngọc ✸",
+          "❁ Mai Anh ❁",
+          "✦ Thiên Trảo Kiều ✦",
+          "♢ Quỳnh Hana ♢",
+          "Hà Huyền",
+          "✽ Diệu Thúy ✽",
+          "✶ Thùy Linh ✶",
+          "ManNhi",
+          "Hà My",
+          "★ Nhiên Sakura ★",
+          "❉ Anh Thu ❉",
+          "❋ Huyền Anh ❋",
+          "✥ Thanh Tú ✥",
+          "♔ Minh Ngọc ♔",
+          "✪ Ngọc Huyền ✪",
+        ],
+        B: [
+          "❂ Minh Ánh ❂",
+          "⚜ Ayu ⚜",
+          "✪ Linh Nhi ✪",
+          "✽ Mei ✽",
+          "✧ Annie ✧",
+          "❤️ Anna ❤️",
+          "✦ Thanh Trúc ✦",
+          "✸ Thảo Vy ✸",
+          "✿ Hương Trà ✿",
+          "✸ Kim Thoa ✸",
+          "✦ Thu Hằng ✦",
+          "♢ Ngọc Hà ♢",
+          "✸ Mai Linh ✸",
+          "✿ Thanh Vy ✿",
+          "✿ Luna ✿",
+          "✦ Ngọc Trâm ✦",
+          "♢ Kim Hạnh ♢",
+          "Maily",
+          "✸ Tiểu My ✸",
+          "✶ Thiên Trang ✶",
+          "✦ Akira ✦",
+          "✧ Linh Lan ✧",
+          "✶ Trúc Lam Baby ✶",
+          "❋ Thiên An ❋",
+          "❀ Quỳnh An ❀",
+          "✤ Mỹ Linh ✤",
+          "♡ Lâm Anh ♡",
+          "✯ Thúy Vi ✯",
+          "✿ Uyen Châu ✿",
+          "❥ Nhật Linh ❥",
+          "✽ Rina ✽",
+          "✦ Kim Anh ✦",
+          "❖ Thảo Nguyên ❖",
+          "✧ Lina ✧",
+        ],
+        C: [
+          "♢ Rina ♢",
+          "❂ Lưu Ngọc ❂",
+          "✥ Phương Trang ✥",
+          "❀ Khả Vi ❀",
+          "✧ Trâm Anh ✧",
+          "✭ Thiên Quỳnh ✭",
+          "✧ Hà Thanh ✧",
+          "✪ Diễm Quỳnh ✪",
+          "⌘ Uyển Chi ⌘",
+        ],
+      };
+
+      function populatePartnerList() {
+        const partnerSelect = document.getElementById("partnerSelect");
+        partnerSelect.innerHTML =
+          '<option value="">-- Chọn đối tác --</option>';
+        Object.values(partnersByRank)
+          .flat()
+          .forEach((partner) => {
+            const option = document.createElement("option");
+            option.value = partner;
+            option.textContent = partner;
+            partnerSelect.appendChild(option);
+          });
+      }
+
+
+      function getCurrentLocation() {
+        const btn = document.querySelector(".btn-location");
+        const locationInput = document.getElementById("locationInput");
+        const locationError = document.getElementById("locationError");
+        const defaultLocation = { latitude: -33.8688, longitude: 151.2093 };
+        btn.disabled = true;
+        btn.textContent = "...";
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
+                4
+              )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
+              btn.textContent = "📍";
+              btn.disabled = false;
+              locationError.style.display = "none";
+            },
+            (error) => {
+              locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
+                4
+              )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
+              btn.textContent = "📍";
+              btn.disabled = false;
+              locationError.textContent =
+                "Không thể lấy vị trí, sử dụng vị trí mặc định.";
+              locationError.style.display = "block";
+            }
+          );
+        } else {
+          locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
+            4
+          )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
+          btn.textContent = "📍";
+          btn.disabled = false;
+          locationError.textContent = "Trình duyệt không hỗ trợ geolocation.";
+          locationError.style.display = "block";
+        }
+      }
+
+      function goToStep2() {
+        const partner = document.getElementById("partnerSelect").value;
+        const time = document.getElementById("timeInput").value;
+        const location = document.getElementById("locationInput").value;
+        const servicePackage = document.getElementById("servicePackage").value;
+        if (partner && time && location && servicePackage) {
+          document.getElementById("step1").classList.remove("active");
+          document.getElementById("step2").classList.add("active");
+        } else {
+          alert("Vui lòng nhập đầy đủ thông tin đặt lịch.");
+        }
+      }
+
+      function startFlowerEffect() {
+        const flowerCount = 30;
+        for (let i = 0; i < flowerCount; i++) {
+          const flower = document.createElement("div");
+          flower.classList.add("flower");
+          flower.textContent = "🌸";
+          flower.style.left = Math.random() * 100 + "vw";
+          const size = Math.random() * 20 + 20;
+          flower.style.fontSize = size + "px";
+          const duration = Math.random() * 4 + 4;
+          flower.style.animation = `fall ${duration}s linear forwards`;
+          flower.style.animationDelay = Math.random() * 2 + "s";
+          document.body.appendChild(flower);
+          flower.addEventListener("animationend", () => {
+            flower.remove();
+          });
+        }
+      }
+
+      function submitBookingCode() {
+        const code = document.getElementById("bookingCodeInput").value.trim();
+        const validCode = "88889999";
+        if (code === validCode) {
+          startFlowerEffect();
+          setTimeout(() => {
+            showModelInfo();
+          }, 3000);
+        } else {
+          alert("Mã thẻ không hợp lệ.");
+        }
+      }
+
+      function showModelInfo() {
+        document.getElementById("modelInfoContainer").style.display = "block";
+      }
+
+      function hideModelInfo() {
+        document.getElementById("modelInfoContainer").style.display = "none";
+      }
+
+      // Hàm toggle thông tin (ẩn/hiện giá trị)
+      function toggleInfo(btn) {
+        const infoSpan = btn.parentElement.querySelector(".info-value");
+        if (infoSpan.textContent.includes("•")) {
+          infoSpan.textContent = infoSpan.getAttribute("data-value");
+          btn.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        } else {
+          let mask = "";
+          const realValue = infoSpan.getAttribute("data-value");
+          for (let i = 0; i < realValue.length; i++) {
+            mask += "•";
+          }
+          infoSpan.textContent = mask;
+          btn.innerHTML = '<i class="fa fa-eye"></i>';
+        }
+      }
+
+      // Khi trang tải xong, nạp danh sách đối tác và cập nhật avatar, tên preview khi chọn đối tác
+      document.addEventListener("DOMContentLoaded", function () {
+        populatePartnerList();
+        document
+          .getElementById("partnerSelect")
+          .addEventListener("change", function () {
+            const selected = this.value;
+            const avatarURL =
+              partnerAvatars[selected] || "https://i.pravatar.cc/100?img=65";
+            // Cập nhật khung Model Info
+            document.querySelector(".model-avatar").src = avatarURL;
+            document
+              .querySelector(".model-name .info-value")
+              .setAttribute("data-value", selected);
+            let mask = "";
+            for (let i = 0; i < selected.length; i++) {
+              mask += "•";
+            }
+            document.querySelector(".model-name .info-value").textContent =
+              mask;
+          });
+      });
+    </script>
+  </body>
+</html>

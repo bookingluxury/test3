@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bảng Giá Dịch Vụ - Phong Cách Australia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Font Roboto & Font Awesome -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Tổng thể giao diện: nền gradient xanh bầu trời & màu cát, mang cảm giác bãi biển Australia */
+      body {
+        background: linear-gradient(90deg, #87ceeb, #f4a460);
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        padding-bottom: 100px; /* Dự phòng cho thanh điều hướng */
+        font-family: "Roboto", sans-serif;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        color: #0d3b66;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Container chứa nội dung */
+      #content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      /* CSS Grid cho container các card */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px; /* Khoảng cách đều giữa các card */
+      }
+      /* Trên màn hình nhỏ, hiển thị 1 cột */
+      @media (max-width: 600px) {
+        .card-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Card Styles: nền trắng, bo tròn nhẹ, shadow mượt */
+      .card {
+        background-color: #fff;
+        color: #333;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      /* Card chiếm 2 cột nếu cần */
+      .card.full-width {
+        grid-column: span 2;
+      }
+      @media (max-width: 600px) {
+        .card.full-width {
+          grid-column: span 1;
+        }
+      }
+
+      /* Tiêu đề card với gradient xanh - vàng (gợi nhớ biển và ánh nắng Australia) */
+      .card h2 {
+        margin: 0;
+        font-size: 24px;
+        text-align: center;
+        background: linear-gradient(90deg, #0d3b66, #f4d35e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+      }
+      .card p {
+        font-size: 14px;
+        margin: 6px 0;
+        text-align: center;
+      }
+      /* Giá hiển thị với màu vàng ấm áp */
+      .card .price {
+        font-size: 26px;
+        font-weight: 700;
+        color: #f4d35e;
+        text-align: center;
+        margin: 10px 0;
+      }
+      .card ul {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
+        font-size: 13px;
+      }
+      .card ul li {
+        margin-bottom: 6px;
+        text-align: left;
+      }
+
+      /* Nút chọn gói với gradient xanh – vàng, tạo cảm giác năng động & hiện đại */
+      .card .btn {
+        display: block;
+        text-align: center;
+        background: linear-gradient(135deg, #0d3b66, #f4d35e);
+        color: #fff;
+        padding: 10px 0;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-top: 15px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+      .card .btn:hover {
+        background: linear-gradient(135deg, #0a2d4e, #d8b45d);
+        transform: translateY(-3px);
+      }
+
+      /* Nhóm hình ảnh: bố trí đều, bo góc nhẹ */
+      .image-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .image-group img {
+        border-radius: 5px;
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border: 2px solid #444;
+      }
+
+      .logo-top {
+        width: 400px;
+        height: 120px;
+        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+          center/contain;
+        background-size: cover;
+        z-index: 1001;
+        transition: transform 0.3s ease;
+        padding: 5px;
+        backdrop-filter: blur(5px);
+        margin: 0 auto 20px;
+      }
+      @media (max-width: 600px) {
+        .logo-top {
+          width: 250px;
+          height: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-top"></div>
+        <div id="navbar-placeholder"></div>
+    <h1>Bảng Giá Dịch Vụ</h1>
+    <!-- Vùng chứa nội dung chính -->
+    <div id="content">
+      <div class="card-container">
+        <!-- Card: Basic Service -->
+        <div class="card">
+          <h2>Basic Service</h2>
+          <p><strong>Thời gian:</strong> 60 phút</p>
+          <div class="price">€100</div>
+          <div class="image-group">
+            <img
+              src="https://i.ibb.co/SdFGz9B/nguathai-removebg-preview.png"
+              alt="Basic Service"
+            />
+          </div>
+          <ul>
+            <li>Tắm chung thư giãn</li>
+            <li>Massage nhẹ nhàng</li>
+            <li>HJ và BJ chuyên nghiệp</li>
+            <li>Quan hệ 2 lần</li>
+          </ul>
+          <p>
+            <em>Basic Service là lựa chọn lý tưởng cho lần đầu trải nghiệm.</em>
+          </p>
+          <a href="#" class="btn">Chọn Gói</a>
+        </div>
+
+        <!-- Card: Special Service -->
+        <div class="card">
+          <h2>Special Service</h2>
+          <p><strong>Thời gian:</strong> 90 phút</p>
+          <div class="price">€250</div>
+          <div class="image-group">
+            <img
+              src="https://i.ibb.co/yg6830F/keo-sam-hamer-tang-cuong-sinh-ly-1-vien-jpg-removebg-preview.png"
+              alt="Special Service 1"
+            />
+            <img
+              src="https://i.ibb.co/SdFGz9B/nguathai-removebg-preview.png"
+              alt="Special Service 2"
+            />
+          </div>
+          <ul>
+            <li>Massage kết hợp</li>
+            <li>HJ và BJ với kỹ thuật nóng/lạnh</li>
+            <li>Quan hệ 3 lần</li>
+            <li>Đổi nhân viên 1 lần nếu chưa hài lòng</li>
+          </ul>
+          <p>
+            <em
+              >Special Service nâng cao trải nghiệm với những khoảnh khắc đặc
+              biệt.</em
+            >
+          </p>
+          <a href="#" class="btn">Chọn Gói</a>
+        </div>
+
+        <!-- Card: Diamond Service -->
+        <div class="card">
+          <h2>Diamond Service</h2>
+          <p><strong>Thời gian:</strong> 180 phút</p>
+          <div class="price">€400</div>
+          <div class="image-group">
+            <img
+              src="https://i.ibb.co/yg6830F/keo-sam-hamer-tang-cuong-sinh-ly-1-vien-jpg-removebg-preview.png"
+              alt="Diamond Service 1"
+            />
+            <img
+              src="https://i.ibb.co/SdFGz9B/nguathai-removebg-preview.png"
+              alt="Diamond Service 2"
+            />
+            <img
+              src="https://i.ibb.co/98401Xz/Sin-Su-nuoc-chinh-hang-removebg-preview.png"
+              alt="Diamond Service 3"
+            />
+          </div>
+          <ul>
+            <li>Tắm chung, sử dụng đồ chơi cao cấp</li>
+            <li>Massage kỹ thuật Nuru với dầu đặc biệt</li>
+            <li>HJ và BJ, xuất vào miệng kèm chơi some</li>
+            <li>Quan hệ không giới hạn</li>
+            <li>Đổi nhân viên 3 lần nếu chưa hài lòng</li>
+          </ul>
+          <p>
+            <em
+              >Trải nghiệm đỉnh cao của sự xa hoa và tinh tế với Diamond
+              Service.</em
+            >
+          </p>
+          <a href="#" class="btn">Chọn Gói</a>
+        </div>
+
+        <!-- Card: Platinum Service -->
+        <div class="card">
+          <h2>Platinum Service</h2>
+          <p><strong>Thời gian:</strong> 8 tiếng</p>
+          <div class="price">€800</div>
+          <div class="image-group">
+            <img
+              src="https://i.ibb.co/SdFGz9B/nguathai-removebg-preview.png"
+              alt="Platinum Service 1"
+            />
+            <img
+              src="https://i.ibb.co/98401Xz/Sin-Su-nuoc-chinh-hang-removebg-preview.png"
+              alt="Platinum Service 2"
+            />
+            <img
+              src="https://i.ibb.co/yg6830F/keo-sam-hamer-tang-cuong-sinh-ly-1-vien-jpg-removebg-preview.png"
+              alt="Platinum Service 3"
+            />
+          </div>
+          <ul>
+            <li>Tận hưởng toàn diện bao gồm tất cả các gói dịch vụ</li>
+            <li>Phục vụ tận tình chu đáo hơn cả người yêu</li>
+            <li>Đổi nhân viên không giới hạn</li>
+            <li>Hài lòng tuyệt đối</li>
+          </ul>
+          <p>
+            <em
+              >Platinum Service dành cho khách hàng tìm kiếm sự kết hợp giữa
+              dịch vụ cao cấp và gắn bó lâu dài.</em
+            >
+          </p>
+          <a href="#" class="btn">Chọn Gói</a>
+        </div>
+
+        <!-- Card: Khuyến mãi đặc biệt (chiếm toàn bộ 2 cột) -->
+        <div class="card full-width">
+          <h2>Khuyến mãi đặc biệt</h2>
+          <div class="image-group">
+            <img
+              src="https://i.ibb.co/ZfcbMm8/1108106.webp"
+              alt="Khuyến mãi 1"
+            />
+            <img
+              src="https://i.ibb.co/5xnBnZT/Untitled-design-34.png"
+              alt="Khuyến mãi 2"
+            />
+            <img
+              src="https://i.ibb.co/NTZ2yJS/photo-2024-11-08-17-50-13.jpg"
+              alt="Khuyến mãi 3"
+            />
+            <img
+              src="https://i.ibb.co/6Fpx80P/676a7a40-db86-4123-8cf9-3489b119c3f2.jpg"
+              alt="Khuyến mãi 4"
+            />
+            <img
+              src="https://i.ibb.co/bb02z1n/reup-nhu-y-tinh-cam-gam-cao-may-thoang-phuc-vu-nhiet-tinh-3189630-original.jpg"
+              alt="Khuyến mãi 5"
+            />
+            <img
+              src="https://i.ibb.co/Dz6n4HN/kieu-anh-dam-nu-lam-tinh-cuc-phe-3197857-original.jpg"
+              alt="Khuyến mãi 6"
+            />
+            <img
+              src="https://i.ibb.co/zJfm74N/reup-bao-vy-2k3-cuc-pham-gai-xinh-trang-treo-body-cuc-nuot-3230131-original.jpg"
+              alt="Khuyến mãi 7"
+            />
+            <img
+              src="https://i.ibb.co/tz34g6N/reup-bao-vy-2k3-cuc-pham-gai-xinh-trang-treo-body-cuc-nuot-3230130-original.jpg"
+              alt="Khuyến mãi 8"
+            />
+          </div>
+          <p>
+            <strong>Chi tiết:</strong> Tất cả các gói có quà tặng kèm theo nếu
+            khách hàng có nhu cầu. Khách hàng có thể chọn cosplay theo mã số
+            trang phục.
+          </p>
+          <a href="#" class="btn">Xem Chi Tiết</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="menu.js"></script>
+
+    <script>
+      fetch("navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+      fetch("http://localhost:1337/api/navigation-items")
+        .then((response) => response.json())
+        .then((data) => {
+          const services = data.data; // Truy cập vào dữ liệu thực tế
+          services.forEach((service) => {
+            document.querySelector(
+              `.price-${service.id}`
+            ).innerHTML = `€${service.attributes.price}`;
+          });
+        });
+
+      function updatePrice(serviceId) {
+        const newPrice = document.getElementById(`price-${serviceId}`).value;
+
+        fetch(`http://localhost:1337/api/navigation-items/${serviceId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              price: newPrice,
+            },
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.data) {
+              alert("✅ Cập nhật giá thành công!");
+              document.querySelector(
+                `.price-${serviceId}`
+              ).innerHTML = `€${newPrice}`;
+            } else {
+              alert("❌ Lỗi khi cập nhật giá!");
+            }
+          })
+          .catch((error) => console.error("Lỗi:", error));
+      }
+
+      const navItems = document.querySelectorAll(".nav-item");
+
+      navItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          navItems.forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+
+          const href = item.getAttribute("href");
+          if (href) {
+            window.location.href = href; // Điều hướng trang đúng link
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

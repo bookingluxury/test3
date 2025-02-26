@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live 18+ - Danh sách & Tương tác</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+     /* Tiêu đề chính với hiệu ứng chuyển động */
+     h1 {
+        position: relative;
+
+        text-align: center;
+        font-size: 2.5rem;
+
+        border-radius: 8px;
+        background: linear-gradient(
+          45deg,
+          #ff5252,
+          #ff9800,
+          #4caf50,
+          #2196f3,
+          #9c27b0
+        );
+        background-size: 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        animation: gradientAnimation 5s ease infinite, slideIn 1s ease-out;
+      }
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Category Tabs */
+      .category-tabs {
+        background: linear-gradient(90deg, #916a7f, rgba(198, 160, 149, 1));
+        border-radius: 8px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .category-tabs .nav-link {
+        color: #fff;
+        padding: 10px 15px;
+      }
+      .category-tabs .nav-link.active {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+      }
+      .category-tabs .nav-item {
+        margin: 0;
+      }
+      body {
+        background-color: #f8f9fa;
+    
+        margin: 0;
+        padding: 0;
+      }
+      /* Để không bị che bởi Bottom Navigation, thêm padding dưới cho nội dung */
+      .content {
+        padding: 20px;
+        padding-bottom: 120px;
+      }
+      /* ---------- Logo Top ---------- */
+      .logo-top {
+        width: 400px;
+        height: 120px;
+        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+          center/contain;
+        background-size: cover;
+        margin: 0 auto 10px;
+        padding: 5px;
+        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
+      }
+      .logo-top:hover {
+        transform: scale(1.05);
+      }
+ 
+
+.new-btn {
+  background: linear-gradient(135deg, #ff7b7b, #ff0000);
+  padding: 4px 10px !important;
+  border: 3px solid transparent; /* Viền rực rỡ */
+  margin: 5px;
+  color: #fff;
+  padding-top: 20px;
+  border-radius: 18px;
+  font-size: 15px;
+  font-weight: bold;
+ 
+}
+.new-btn:hover {
+  background: linear-gradient(135deg, #ff7b7b, #ff0000);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+}
+
+      /* ---------- Live Cards & Grid ---------- */
+      .live-grid {
+        margin-top: 20px;
+      }
+      /* Sử dụng Bootstrap nav-tabs cho các mục live */
+      .nav-tabs {
+        margin-bottom: 15px;
+      }
+      .live-row {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        margin: 15px 0;
+        scroll-snap-type: x mandatory;
+        flex-wrap: nowrap;
+      }
+      .live-row::-webkit-scrollbar {
+        height: 6px;
+      }
+      .live-row::-webkit-scrollbar-thumb {
+        background-color: #b74cd9;
+        border-radius: 10px;
+      }
+      .live-card {
+        position: relative;
+        background-color: #222;
+        border-radius: 12px;
+        text-align: center;
+        width: 45%;
+        max-width: 200px;
+        height: 280px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        flex-shrink: 0;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+      .live-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(183, 76, 217, 0.6);
+      }
+      .live-card img,
+      .live-card video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .status {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 550;
+        border-radius: 5px;
+        color: #fff;
+        background-color: rgba(0, 255, 60, 0.7);
+        opacity: 0.8;
+        animation: blink 1.5s infinite alternate;
+      }
+      .status.offline {
+        background-color: rgba(255, 0, 25, 0.7);
+      }
+      @keyframes blink {
+        0% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0.4;
+        }
+      }
+      .card-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .card-info .flag {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+      .card-info .name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .top-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 3;
+      }
+      .top-badge img.top-logo {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+      }
+      .favorite-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 27px;
+        height: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        cursor: pointer;
+        z-index: 3;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      .favorite-btn:hover {
+        background-color: rgba(255, 0, 0, 1);
+        transform: scale(1.1);
+      }
+      .favorite-btn.active {
+        color: #ff2b61;
+      }
+      /* ---------- Live Stream Popup ---------- */
+      .live-stream-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0px;
+      max-width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 1000;
+      padding: 0px; /* Thêm padding để tạo khoảng cách với biên màn hình */
+      box-sizing: border-box;
+    }
+/* Wrapper chứa viền động */
+.live-wrapper {
+  display: inline-block;           /* Giúp padding hoạt động chính xác */
+  background: conic-gradient(from 0deg, #00e5ff, #ff00ff, #00e5ff);
+  border-radius: 25px;              /* Bo tròn cho wrapper (nhiều hơn live-container) */
+  padding: 5px;                     /* Độ dày của viền */
+  animation: rotateBorder 5s linear infinite; /* Hiệu ứng quay */
+}
+
+/* Khung live bên trong */
+.live-container {
+  position: relative;
+  margin: auto;
+  /* Kích thước giới hạn của khung live */
+  width: 410px;
+  height: 85vh;
+  max-width: 900px;
+  max-height: 750px;
+  border-radius: 15px;              /* Bo tròn cho khung live */
+  background: #000;                 /* Nền đen (hoặc transparent nếu bạn muốn) */
+  overflow: hidden;
+}
+
+/* Hiệu ứng quay cho wrapper */
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+      #liveFrame {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        border: none;
+      }
+      /* ---------- Các thành phần trong Live Stream Popup ---------- */
+      .fake-live-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.80);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+  backdrop-filter: blur(3px);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+      .luxury-live-title {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-weight: 550;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        z-index: 2;
+        font-size: 11px;
+        color: #fff;
+      }
+      .live-badge {
+        background-color: #f03;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        animation: blink 1s infinite;
+      }
+      .viewers-count {
+        position: absolute;
+        top: 5px;
+        right: 0px;
+        color: #fff;
+        padding: 6px 18px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .comment-section {
+        position: absolute;
+        bottom: -5px;
+        width: 260px;
+        max-height: 200px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+      /* ---------- Gift Popup ---------- */
+      .gift-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #1c1c1c;
+        border: 5px solid;
+        border-image: linear-gradient(to right, #0f0, #f00, #fc0, #f0f) 1;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        width: 80%;
+        max-width: 500px;
+        display: none;
+      }
+      .gift-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .gift-header span {
+        font-size: 20px;
+        font-weight: bold;
+        color: #fc0;
+      }
+      .close-live-btn {
+  background: linear-gradient(135deg, #ff7b7b, #ff0000);
+  color: #fff;
+
+  border: 3px solid transparent; /* Viền rực rỡ */
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease, box-shadow 0.4s ease;
+
+  width: 100%;
+  text-align: center;
+  z-index: 1006; /* Đảm bảo nằm trên các phần tử khác */
+  margin-bottom: 20px; /* Tạo khoảng cách phía trên */
+}
+
+.close-live-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+
+}
+
+      .gift-items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+      .gift-item {
+        width: 60px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .gift-item img {
+        width: 35px;
+        height: 35px;
+      }
+      .gift-item span {
+        display: block;
+        margin-top: 3px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .gift-item:hover {
+        transform: scale(1.05);
+      }
+      .gift-quantity-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 15px;
+      }
+      #gift-quantity {
+        width: 80px;
+        padding: 5px;
+        border: 2px solid #fc0;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 14px;
+      }
+      .send-gift-btn {
+        background: linear-gradient(to right, #0c6, #00b359);
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .send-gift-btn:hover {
+        background: linear-gradient(to right, #0f0, #00e600);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 255, 0, 0.5);
+      }
+      .cancel-gift-btn {
+        background-color: #f44;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.2s;
+      }
+      .cancel-gift-btn:hover {
+        background-color: #e03333;
+        transform: scale(1.05);
+      }
+      .gift-success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        z-index: 1002;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: zoomIn 0.4s ease-out;
+        box-shadow: 0 4px 15px rgba(183, 76, 217, 0.5);
+        max-width: 90%;
+        text-align: center;
+      }
+      @keyframes zoomIn {
+        from {
+          transform: translate(-50%, -50%) scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+      .gift-box-img {
+        width: 100px;
+        animation: bounce 1s infinite;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 0, 0.7));
+      }
+     /* Category Tabs */
+     .category-tabs {
+        background: linear-gradient(90deg, #916a7f, rgba(198, 160, 149, 1));
+        border-radius: 8px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .category-tabs .nav-link {
+        color: #fff;
+        padding: 10px 15px;
+      }
+      .category-tabs .nav-link.active {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+      }
+      .category-tabs .nav-item {
+        margin: 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <!-- Logo Top -->
+    <div class="logo-top"></div>
+
+    
+
+    <!-- Main Content: Live 18+ với phân mục (tabs) -->
+    <div class="content" id="live18Section" style="display: block">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Nhập tên idol..." />
+        <button id="btn-find" class="new-btn" title="Tìm kiếm">
+          <i class="fas fa-search"></i> Tìm kiếm
+        </button>
+      </div>
+
+      <ul class="nav nav-tabs" id="liveTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="all-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#all"
+            type="button"
+            role="tab"
+            aria-controls="all"
+            aria-selected="true">
+            Tất cả
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="featured-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#featured"
+            type="button"
+            role="tab"
+            aria-controls="featured"
+            aria-selected="false">
+            Nổi bật
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="online-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#online"
+            type="button"
+            role="tab"
+            aria-controls="online"
+            aria-selected="false">
+            Đang trực tiếp
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="offline-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#offline"
+            type="button"
+            role="tab"
+            aria-controls="offline"
+            aria-selected="false">
+            Offline
+          </button>
+        </li>
+      </ul>
+      
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="liveTabContent">
+        <!-- Tất cả -->
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all-tab"
+        >
+          <div id="allLiveCards" class="live-grid">
+            <div class="live-row">
+              <!-- Ví dụ một số live-card; bạn có thể copy và dán thêm các card khác -->
+              <div class="live-card" data-name="Nhã Uyên" onclick="showLiveStream('https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/4b6efd5ec0dc2d0fe0afc3912cb65753/iframe')">
+                <span class="status online">● Online</span>
+                <img src="https://i.ibb.co/f4PG8x1/photo-186-23-06-2024-16-25-39.jpg" alt="Streamer 2" />
+                <video autoplay muted playsinline loop preload="auto" poster="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/4b6efd5ec0dc2d0fe0afc3912cb65753/thumbnails/thumbnail.jpg?time=&height=600">
+                  <source src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/4b6efd5ec0dc2d0fe0afc3912cb65753/iframe" type="video/mp4" />
+                  Trình duyệt của bạn không hỗ trợ video.
+                </video>
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Nhã Uyên</span>
+                </div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                  <i class="fas fa-heart"></i>
+                </button>
+              </div>
+              <div class="live-card" data-name="Miu Miu" onclick="showLiveStream('https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/2c40a9a74d7b838fb83ef0e3f9fbd779/iframe')">
+                <span class="status online">● Online</span>
+                <img src="https://i.ibb.co/Kb7yzwR/photo-3291-24-06-2024-20-38-28.jpg" alt="Streamer 3" />
+                <video autoplay muted playsinline loop preload="auto" poster="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/2c40a9a74d7b838fb83ef0e3f9fbd779/thumbnails/thumbnail.jpg?time=&height=600">
+                  <source src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/2c40a9a74d7b838fb83ef0e3f9fbd779/iframe" type="video/mp4" />
+                  Trình duyệt của bạn không hỗ trợ video.
+                </video>
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Miu Miu</span>
+                </div>
+                <span class="top-badge">
+                  <img src="https://i.ibb.co/5W327R1/md-3572a88c007d18e2ac7f4b9655297589-removebg-preview.png" alt="Top Logo" class="top-logo" />
+                </span>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                  <i class="fas fa-heart"></i>
+                </button>
+              </div>
+              <div class="live-card" data-name="Khánh Nhi" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/MBDjSHf/photo-429-23-06-2024-18-25-29.jpg" alt="Streamer 4" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Khánh Nhi</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Bé Mây" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/5hHmBzT/photo-321-23-06-2024-17-59-23.jpg" alt="Streamer 5" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Bé Mây</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Tiểu My" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/QfS8gKg/photo-414-23-06-2024-18-23-45.jpg" alt="Streamer 6" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Tiểu My</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Quỳnh Chi" onclick="showLiveStream('https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/f18f47df36f2736a2137ff0415da96ef/iframe')">
+                <span class="status online">● Online</span>
+                <img src="https://i.ibb.co/Jxfx0Hr/photo-156-23-06-2024-16-11-36.jpg" alt="Streamer 7" />
+                <video autoplay muted playsinline loop preload="auto" poster="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/f18f47df36f2736a2137ff0415da96ef/thumbnails/thumbnail.jpg">
+                  <source src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/f18f47df36f2736a2137ff0415da96ef/iframe" type="video/mp4" />
+                  Trình duyệt của bạn không hỗ trợ video.
+                </video>
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Quỳnh Chi</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <span class="top-badge">
+                  <img src="https://i.ibb.co/TBSjbNS/pngtree-ranking-label-png-image-3569728-removebg-preview.png" alt="Top Logo" class="top-logo" />
+                </span>
+              </div>
+            </div>
+            <!-- Live Row 2 -->
+            <div class="live-row">
+              <div class="live-card" data-name="Na Na" onclick="showLiveStream('https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/24d8bfce23458250aee4d05cc57f3a8a/iframe?poster=https%3A%2F%2Fcustomer-vd2dw6zchzsa06w6.cloudflarestream.com%2F24d8bfce23458250aee4d05cc57f3a8a%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/RDfmvy8/photo-203-23-06-2024-17-08-44.jpg" alt="Streamer 8" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Na Na</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Phương Mai" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/NKZ2SYg/photo-2989-24-06-2024-19-55-17.jpg" alt="Streamer 9" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Phương Mai</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Dâu Tây" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/cLQSBtk/photo-125-23-06-2024-16-08-46-thumb.jpg" alt="Streamer 10" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Dâu Tây</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Aria" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/D9pv4B0/photo-269-23-06-2024-17-51-29-Sao-ch-p.jpg" alt="Streamer 11" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Aria</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Kim Anh" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/bmJcmz1/photo-281-23-06-2024-17-53-18-Sao-ch-p.jpg" alt="Streamer 12" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Kim Anh</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Hana" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/3C87zds/Untitled-design-69.png" alt="Streamer 13" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Hana</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <span class="top-badge">
+                  <img src="https://i.ibb.co/r2v5F6b/reawr-removebg-preview.png" alt="Top Logo" class="top-logo" />
+                </span>
+              </div>
+              <div class="live-card" data-name="Chíp Chíp" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/sJnTc6x/photo-288-23-06-2024-17-54-23-Sao-ch-p.jpg" alt="Streamer 14" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Chíp Chíp</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Trúc Linh" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/XkQwtFR/photo-477-23-06-2024-18-30-26.jpg" alt="Streamer 15" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Trúc Linh</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Xoài Non" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/hFp4GgM/photo-233-23-06-2024-17-45-55-Sao-ch-p.jpg" alt="Streamer 16" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Xoài Non</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Lily" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/61FD3VM/photo-98-23-06-2024-16-02-09.jpg" alt="Streamer 17" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Lily</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Thảo Vy" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/fDRCDqv/photo-525-23-06-2024-18-37-40.jpg" alt="Streamer 18" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Thảo Vy</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Tuyết Nhi" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/dQfs1MR/photo-1-16136972389091030663303.jpg" alt="Streamer 19" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Tuyết Nhi</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="live-card" data-name="Diệu Huyền" onclick="showLiveStream('https://i.ibb.co/VWwZccP/live-streaming-symbol-set-online-broadcast-icon-the-concept-of-live-streaming-for-selling-on-social.webp')">
+                <span class="status offline">● Offline</span>
+                <img src="https://i.ibb.co/VNxrp1j/photo-173-23-06-2024-16-20-25-thumb.jpg" alt="Streamer 20" />
+                <div class="card-info">
+                  <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag" class="flag" />
+                  <span class="name">Diệu Huyền</span>
+                  <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Đang trực tiếp (Online) -->
+        <div
+          class="tab-pane fade"
+          id="online"
+          role="tabpanel"
+          aria-labelledby="online-tab"
+        >
+          <!-- Các card sẽ được lọc qua JS từ "allLiveCards" -->
+          <div class="live-grid">
+            <div class="live-row" id="onlineCardsContainer"></div>
+          </div>
+        </div>
+        <!-- Offline -->
+        <div
+          class="tab-pane fade"
+          id="offline"
+          role="tabpanel"
+          aria-labelledby="offline-tab"
+        >
+          <!-- Các card sẽ được lọc qua JS từ "allLiveCards" -->
+          <div class="live-grid">
+            <div class="live-row" id="offlineCardsContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <!-- Live Stream Wrapper (Popup) -->
+   <div id="liveStreamWrapper" class="live-stream-wrapper">
+    <div id="live-container" class="live-container">
+      <iframe
+        id="liveFrame"
+        src="https://player.vimeo.com/video/1040977081?autoplay=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+      ></iframe>
+      <div id="fake-live-overlay" class="fake-live-overlay">
+        <div class="fake-live-content">
+          <span class="luxury-live-text">
+            LUXURY GIRL BOOKING <span class="live-badge">LIVE</span>
+          </span>
+          <span class="waiting-text"><br>Bạn chưa được cấp quyền kết nối...</span>
+        </div>
+      </div>
+      <div class="luxury-live-title">
+        <span class="luxury-text">
+          LUXURY GIRL BOOKING <span class="live-badge">LIVE</span>
+        </span>
+      </div>
+      <div id="donate-notification" class="donate-notification" style="display: none;">
+        <div class="donate-content">
+          <strong id="donor-name">User <br /></strong>đã gửi <span id="gift-name">quà</span>
+          <img id="donate-gift-img" src="path-to-gift-image.png" alt="Gift" class="gift-icon" />
+        </div>
+      </div>
+      <div id="insufficient-notification" class="donate-notification" style="display: none; color: red;">
+        <div class="donate-content">
+          <strong id="donor-name-error">User</strong> không đủ số lượng để gửi quà.
+        </div>
+      </div>
+      <div id="viewers-count" class="viewers-count">🔴 154 đang xem</div>
+      <div class="comment-section" id="comment-section">
+        <div id="comments" style="overflow-y: auto; color: #fff;  border-radius: 10px;"></div>
+      </div>
+    </div>
+    <div class="live-overlay" id="liveOverlay" style="display: none;">
+      <div class="overlay-content"><span class="status-ended">LIVE ĐÃ KẾT THÚC</span></div>
+    </div>
+    <div class="action-buttons">
+ 
+
+      <button id="btn-present" class="new-btn" title="Gửi quà" onclick="toggleGiftPopup()">
+        <i class="fas fa-gift"></i> Chọn quà
+      </button>
+  
+      <div class="controls">
+        <button class="close-live-btn" onclick="closeLiveStream()">Đóng</button>
+      </div>
+      
+      <div id="gift-animation-container"></div>
+      <!-- Gift Popup -->
+      <div id="gift-popup" class="gift-popup">
+        <div class="gift-header">
+          <span>Chọn quà tặng</span>
+          <button class="close-btn" onclick="toggleGiftPopup()">×</button>
+        </div>
+        <div class="gift-items">
+          <!-- Các mục quà tặng -->
+          <div class="gift-item" onclick="selectGift('Hoa hồng', 'https://i.ibb.co/pWMRsmX/a3c056ea80ebf11b730d268b913ecaa0-1-d-a-removebg-preview-removebg-preview.png')">
+            <img src="https://i.ibb.co/pWMRsmX/a3c056ea80ebf11b730d268b913ecaa0-1-d-a-removebg-preview-removebg-preview.png" alt="Hoa hồng" />
+            <span>Hoa hồng</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Corgi', 'https://i.ibb.co/5YwDLR2/a3c056ea80ebf11b730d268b913ecaa0-1-it-removebg-preview.png')">
+            <img src="https://i.ibb.co/5YwDLR2/a3c056ea80ebf11b730d268b913ecaa0-1-it-removebg-preview.png" alt="Corgi" />
+            <span>Corgi</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Ngôi sao', 'https://i.ibb.co/GTdjFWY/4a5975631db2863cc15722704d9470ad-removebg-preview.png')">
+            <img src="https://i.ibb.co/GTdjFWY/4a5975631db2863cc15722704d9470ad-removebg-preview.png" alt="Ngôi sao" />
+            <span>Ngôi sao</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Kim cương', 'https://i.ibb.co/VVRr2Mv/f3638925ed676be1b1d828afbd114898-removebg-preview.png')">
+            <img src="https://i.ibb.co/VVRr2Mv/f3638925ed676be1b1d828afbd114898-removebg-preview.png" alt="Kim cương" />
+            <span>Kim cương</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Bàn tay sét', 'https://i.ibb.co/qMvrfZq/b3f6922a794374338c672b5a4c936aa0.webp')">
+            <img src="https://i.ibb.co/qMvrfZq/b3f6922a794374338c672b5a4c936aa0.webp" alt="Bàn tay sét" />
+            <span>Bàn tay sét</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Mặt trăng', 'https://i.ibb.co/5LDz3JW/494b818b6a4217f1807255ca148c7b2d.webp')">
+            <img src="https://i.ibb.co/5LDz3JW/494b818b6a4217f1807255ca148c7b2d.webp" alt="Mặt trăng" />
+            <span>Mặt trăng</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Chim xanh', 'https://i.ibb.co/C2pvchn/9917cc4ca38657550f29759fa7df1439.png')">
+            <img src="https://i.ibb.co/C2pvchn/9917cc4ca38657550f29759fa7df1439.png" alt="Chim xanh" />
+            <span>Chim xanh</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Thư tình', 'https://i.ibb.co/sWr9FLK/fc521ab0494eb35cef33fde0c2b51555.webp')">
+            <img src="https://i.ibb.co/sWr9FLK/fc521ab0494eb35cef33fde0c2b51555.webp" alt="Thư tình" />
+            <span>Thư tình</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Trái tim hồng', 'https://i.ibb.co/wKgnxjK/519497b062ded1019c958d5d0b352a7e.webp')">
+            <img src="https://i.ibb.co/wKgnxjK/519497b062ded1019c958d5d0b352a7e.webp" alt="Trái tim hồng" />
+            <span>Trái tim hồng</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Máy bay giấy', 'https://i.ibb.co/tKgcTV6/bf071c7cc84cf3aac6435adbd222f577.png')">
+            <img src="https://i.ibb.co/tKgcTV6/bf071c7cc84cf3aac6435adbd222f577.png" alt="Máy bay giấy" />
+            <span>Máy bay giấy</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Son môi', 'https://i.ibb.co/VQwn7DF/546ec0aefaca6b96a3da4d79a41899b6.png')">
+            <img src="https://i.ibb.co/VQwn7DF/546ec0aefaca6b96a3da4d79a41899b6.png" alt="Son môi" />
+            <span>Son môi</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Báo đen', 'https://i.ibb.co/pRx49LQ/32f205cf24dcf07f5e8f308d9d425d59.webp')">
+            <img src="https://i.ibb.co/pRx49LQ/32f205cf24dcf07f5e8f308d9d425d59.webp" alt="Báo đen" />
+            <span>Báo đen</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Hoa anh đào', 'https://i.ibb.co/vDDz180/3b7fbd6377416a52f8ea1a25bf03380c.png')">
+            <img src="https://i.ibb.co/vDDz180/3b7fbd6377416a52f8ea1a25bf03380c.png" alt="Hoa anh đào" />
+            <span>Hoa anh đào</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Cánh bướm', 'https://i.ibb.co/QnG37jj/bfdf297ce4fd01a5c2dc1087a30f7ce8.webp')">
+            <img src="https://i.ibb.co/QnG37jj/bfdf297ce4fd01a5c2dc1087a30f7ce8.webp" alt="Cánh bướm" />
+            <span>Cánh bướm</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Trái tim lửa', 'https://i.ibb.co/0qQJ2Bj/28b8da2878a420f8465cbbc1ec1e6b58.webp')">
+            <img src="https://i.ibb.co/0qQJ2Bj/28b8da2878a420f8465cbbc1ec1e6b58.webp" alt="Trái tim lửa" />
+            <span>Trái tim lửa</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Heo hồng', 'https://i.ibb.co/Lz4Ybv6/a9241b01b970aa44c2d5cea5e8ba69d6.webp')">
+            <img src="https://i.ibb.co/Lz4Ybv6/a9241b01b970aa44c2d5cea5e8ba69d6.webp" alt="Heo hồng" />
+            <span>Heo hồng</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Dơi tím', 'https://i.ibb.co/x57RJBZ/bcfc4ff0ee15edd649713791ba54660b.webp')">
+            <img src="https://i.ibb.co/x57RJBZ/bcfc4ff0ee15edd649713791ba54660b.webp" alt="Dơi tím" />
+            <span>Dơi tím</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Mặt cười vui nhộn', 'https://i.ibb.co/Qk9JjD1/279e323a302baa7d535d987b78b0e555.webp')">
+            <img src="https://i.ibb.co/Qk9JjD1/279e323a302baa7d535d987b78b0e555.webp" alt="Mặt cười vui nhộn" />
+            <span>Mặt cười vui nhộn</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Chong chóng', 'https://i.ibb.co/Pwyc3J2/6752fc4bc182ad8bda4fad8e5bccbc5f.webp')">
+            <img src="https://i.ibb.co/Pwyc3J2/6752fc4bc182ad8bda4fad8e5bccbc5f.webp" alt="Chong chóng" />
+            <span>Chong chóng</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Ngôi sao xoay', 'https://i.ibb.co/PFvxZxk/6592047ca6d5cacd01d06f47653633f4.png')">
+            <img src="https://i.ibb.co/PFvxZxk/6592047ca6d5cacd01d06f47653633f4.png" alt="Ngôi sao xoay" />
+            <span>Ngôi sao xoay</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Hộp quà xanh', 'https://i.ibb.co/3Y80fcq/be4e1bf3190bdd2017d314a796e5d99d.png')">
+            <img src="https://i.ibb.co/3Y80fcq/be4e1bf3190bdd2017d314a796e5d99d.png" alt="Hộp quà xanh" />
+            <span>Hộp quà xanh</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Trái tim hồng xoay', 'https://i.ibb.co/DV1F11W/0be54b4cf3e40c52fca6be3f71220d69.png')">
+            <img src="https://i.ibb.co/DV1F11W/0be54b4cf3e40c52fca6be3f71220d69.png" alt="Trái tim hồng xoay" />
+            <span>Trái tim hồng xoay</span>
+          </div>
+          <div class="gift-item" onclick="selectGift('Nút like', 'https://i.ibb.co/V2NhRBH/49252fd7c65b99a3acf3e2ee18af2d67.png')">
+            <img src="https://i.ibb.co/V2NhRBH/49252fd7c65b99a3acf3e2ee18af2d67.png" alt="Nút like" />
+            <span>Nút like</span>
+          </div>
+        </div>
+        <div class="gift-quantity-section" id="gift-quantity-section" style="display: none;">
+          <input type="number" id="gift-quantity" min="1" placeholder="Nhập số lượng" />
+          <button class="send-gift-btn" onclick="confirmGift()">Gửi quà</button>
+          <button class="cancel-gift-btn" onclick="toggleGiftPopup()">Hủy</button>
+        </div>
+      </div>
+
+<div id="navbar-placeholder"></div>
+
+<script src="menu.js"></script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+      function filterCards(category) {
+        const allCards = document.querySelectorAll("#allLiveCards .live-card");
+        allCards.forEach((card) => {
+          const statusElem = card.querySelector(".status");
+          if (category === "all") {
+            card.style.display = "inline-block";
+          } else if (category === "online") {
+            if (statusElem.classList.contains("online")) {
+              card.style.display = "inline-block";
+            } else {
+              card.style.display = "none";
+            }
+          } else if (category === "offline") {
+            if (statusElem.classList.contains("offline")) {
+              card.style.display = "inline-block";
+            } else {
+              card.style.display = "none";
+            }
+          }
+        });
+      }
+
+      // Lắng nghe sự kiện khi tab được hiển thị (Bootstrap Tab event)
+      const liveTabEl = document.getElementById("liveTab");
+      liveTabEl.addEventListener("shown.bs.tab", function (event) {
+        const targetId = event.target.getAttribute("data-bs-target");
+        if (targetId === "#all") {
+          filterCards("all");
+        } else if (targetId === "#online") {
+          filterCards("online");
+        } else if (targetId === "#offline") {
+          filterCards("offline");
+        }
+      });
+
+      /* ---------- Tìm kiếm ---------- */
+      document
+        .getElementById("btn-find")
+        .addEventListener("click", function () {
+          const searchValue = document
+            .getElementById("search-input")
+            .value.toLowerCase();
+          const liveCards = document.querySelectorAll(
+            "#allLiveCards .live-card"
+          );
+          let found = false;
+          liveCards.forEach((card) => {
+            const name = card.getAttribute("data-name").toLowerCase();
+            if (name.includes(searchValue)) {
+              card.style.display = "inline-block";
+              found = true;
+            } else {
+              card.style.display = "none";
+            }
+          });
+          if (!found) {
+            alert("Không tìm thấy idol nào phù hợp.");
+          }
+        });
+      document
+        .getElementById("search-input")
+        .addEventListener("input", function () {
+          if (this.value.trim() === "") {
+            filterCards("all");
+          }
+        });
+
+      /* ---------- Đánh dấu yêu thích ---------- */
+      function toggleFavorite(btn) {
+        btn.classList.toggle("active");
+      }
+
+      let currentStreamUrl = ""; // Biến lưu URL hiện tại
+      function resumeVideo() {
+  const video = document.getElementById("liveFrame");
+  // Lấy thời điểm đã lưu (dùng localStorage; nếu chỉ muốn trong phiên làm việc, dùng sessionStorage)
+  const savedTime = localStorage.getItem("savedVideoTime");
+  // Nếu metadata đã sẵn sàng, có thể gán currentTime ngay
+  if (savedTime && video.readyState > 0) {
+    video.currentTime = savedTime;
+  }
+  video.play();
+}
+
+function showLiveStream(url) {
+  const liveFrame = document.getElementById("liveFrame");
+  
+  // Nếu đang phát live của URL này rồi, chỉ cần hiển thị overlay và cập nhật số người xem
+  if (currentStreamUrl === url && liveFrame.src) {
+    document.getElementById("liveStreamWrapper").style.display = "flex";
+    updateViewersCount();
+    return;
+  }
+  
+  // Nếu URL khác (hoặc lần đầu) thì cập nhật biến và gán src mới
+  currentStreamUrl = url;
+  const updatedUrl = new URL(url);
+  updatedUrl.searchParams.set("autoplay", "1");
+  updatedUrl.searchParams.set("muted", "1");
+  liveFrame.src = updatedUrl.toString();
+  
+  document.getElementById("liveStreamWrapper").style.display = "flex";
+  updateViewersCount();
+}
+
+function closeLiveStream() {
+  // Chỉ ẩn giao diện hiển thị live stream, không reset src để live tiếp tục phát
+  document.getElementById("liveStreamWrapper").style.display = "none";
+}
+
+      /* ---------- Cập nhật số người xem ---------- */
+      function updateViewersCount() {
+        const viewersCountElement = document.getElementById("viewers-count");
+        const randomViewers = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+        viewersCountElement.textContent = `🔴 ${randomViewers} đang xem`;
+      }
+      setInterval(updateViewersCount, 7000);
+
+      /* ---------- Chức năng Gửi Quà ---------- */
+      function toggleGiftPopup() {
+        const popup = document.getElementById("gift-popup");
+        popup.style.display =
+          popup.style.display === "block" ? "none" : "block";
+        if (popup.style.display === "none") {
+          document.getElementById("gift-quantity-section").style.display =
+            "none";
+        }
+      }
+      let selectedGift = "";
+      let selectedGiftImage = "";
+      function selectGift(giftName) {
+        selectedGift = giftName;
+        switch (giftName) {
+          case "Hoa hồng":
+            selectedGiftImage =
+              "https://i.ibb.co/pWMRsmX/a3c056ea80ebf11b730d268b913ecaa0-1-d-a-removebg-preview-removebg-preview.png";
+            break;
+          case "Corgi":
+            selectedGiftImage =
+              "https://i.ibb.co/5YwDLR2/a3c056ea80ebf11b730d268b913ecaa0-1-it-removebg-preview.png";
+            break;
+          case "Ngôi sao":
+            selectedGiftImage =
+              "https://i.ibb.co/GTdjFWY/4a5975631db2863cc15722704d9470ad-removebg-preview.png";
+            break;
+          case "Kim cương":
+            selectedGiftImage =
+              "https://i.ibb.co/VVRr2Mv/f3638925ed676be1b1d828afbd114898-removebg-preview.png";
+            break;
+          case "Bàn tay sét":
+            selectedGiftImage =
+              "https://i.ibb.co/qMvrfZq/b3f6922a794374338c672b5a4c936aa0.webp";
+            break;
+          // Thêm các case khác nếu cần
+          default:
+            selectedGiftImage = "";
+        }
+        document.getElementById("gift-quantity-section").style.display =
+          "block";
+      }
+      function getTodayKey() {
+        const today = new Date();
+        return `${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`;
+      }
+      function canSendGifts(quantity) {
+        const todayKey = getTodayKey();
+        let giftsSent = parseInt(localStorage.getItem(todayKey)) || 0;
+        if (giftsSent + quantity > 10) return false;
+        localStorage.setItem(todayKey, giftsSent + quantity);
+        return true;
+      }
+      function confirmGift() {
+  const quantity = parseInt(document.getElementById('gift-quantity').value);
+  if (!selectedGift) {
+    alert('Vui lòng chọn quà trước khi gửi.');
+    return;
+  }
+  if (isNaN(quantity) || quantity <= 0) {
+    alert('Vui lòng nhập số lượng hợp lệ (lớn hơn 0).');
+    return;
+  }
+  if (!canSendGifts(quantity)) {
+    alert('Bạn chỉ có thể gửi tối đa 10 quà mỗi ngày.');
+    return;
+  }
+  // Thêm delay 1 giây trước khi hiển thị thông báo gửi quà tặng
+  setTimeout(() => {
+    document.getElementById('success-gift-img').src = selectedGiftImage;
+    const successPopup = document.getElementById('gift-success-popup');
+    successPopup.style.display = 'block';
+    setTimeout(() => {
+      successPopup.style.display = 'none';
+      toggleGiftPopup();
+    }, 3000);
+  }, 1000);
+}
+
+
+      /* ---------- Nút Reload (Shuffle live cards) ---------- */
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+      document.getElementById("btn-reload").addEventListener("click", () => {
+        const allLiveRow = document
+          .getElementById("allLiveCards")
+          .querySelector(".live-row");
+        const cards = Array.from(allLiveRow.children);
+        shuffleArray(cards);
+        allLiveRow.innerHTML = "";
+        cards.forEach((card) => allLiveRow.appendChild(card));
+        // Lọc lại dựa theo tab đang active
+        const activeTab = document.querySelector("#liveTab .nav-link.active");
+        if (activeTab) {
+          const target = activeTab.getAttribute("data-bs-target");
+          if (target === "#all") filterCards("all");
+          else if (target === "#online") filterCards("online");
+          else if (target === "#offline") filterCards("offline");
+        }
+      });
+
+      /* ---------- Random Gift Notification ---------- */
+      const userIds = [
+        "UserID683439",
+        "UserID847291",
+        "UserID926473",
+        "UserID534829",
+        "UserID392761",
+        "UserID174829",
+        "UserID837462",
+        "UserID928374",
+        "UserID374829",
+        "UserID623849",
+      ];
+      const giftsArray = [
+        {
+          name: "Hoa hồng",
+          image:
+            "https://i.ibb.co/pWMRsmX/a3c056ea80ebf11b730d268b913ecaa0-1-d-a-removebg-preview-removebg-preview.png",
+        },
+        {
+          name: "Corgi",
+          image:
+            "https://i.ibb.co/5YwDLR2/a3c056ea80ebf11b730d268b913ecaa0-1-it-removebg-preview.png",
+        },
+        {
+          name: "Ngôi sao",
+          image:
+            "https://i.ibb.co/GTdjFWY/4a5975631db2863cc15722704d9470ad-removebg-preview.png",
+        },
+        // Có thể thêm các món quà khác
+      ];
+      function showGiftNotification(donorName, giftImage, giftName) {
+        const donateNotification = document.getElementById(
+          "donate-notification"
+        );
+        document.getElementById("donor-name").textContent = donorName;
+        document.getElementById("gift-name").textContent = giftName;
+        document.getElementById("donate-gift-img").src = giftImage;
+        donateNotification.style.display = "flex";
+        setTimeout(() => {
+          donateNotification.style.display = "none";
+        }, 4000);
+      }
+      function randomGift() {
+        const randomUser = userIds[Math.floor(Math.random() * userIds.length)];
+        const randomGift =
+          giftsArray[Math.floor(Math.random() * giftsArray.length)];
+        showGiftNotification(randomUser, randomGift.image, randomGift.name);
+      }
+      setInterval(() => {
+        randomGift();
+      }, Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000);
+
+      /* ---------- Cập nhật trạng thái streamer (ví dụ demo) ---------- */
+      function updateStreamerStatus() {
+        const liveCards = document.querySelectorAll(".live-card");
+        const now = new Date();
+        const currentHour = now.getHours();
+        liveCards.forEach((card) => {
+          const status = card.querySelector(".status");
+          if (currentHour >= 20 && currentHour < 22) {
+            status.classList.remove("offline");
+            status.classList.add("online");
+            status.textContent = "● Online";
+          } else {
+            status.classList.remove("online");
+            status.classList.add("offline");
+            status.textContent = "● Offline";
+          }
+        });
+      }
+      updateStreamerStatus();
+      setInterval(updateStreamerStatus, 60000);
+
+      /* ---------- Random Comments cho Live Chat ---------- */
+      const commentTemplates = [
+        "I really need to find a place to relax!",
+        "Meeting a gorgeous girl like you, I can't resist!",
+        "Any girls available tonight?",
+        "What are you doing? You worked all week, now it's time to take a day off!",
+        "I'm still working tomorrow, but tonight feels amazing, guys!",
+      ];
+      const countryFlags = [
+        { code: "vn", url: "https://flagcdn.com/w40/vn.png" },
+        { code: "au", url: "https://flagcdn.com/w40/au.png" },
+      ];
+      function generateRandomUserID() {
+        return "User" + Math.floor(100000 + Math.random() * 900000);
+      }
+      function addRandomComment() {
+        const comments = document.getElementById("comments");
+        if (!comments) return;
+        const randomUserID = generateRandomUserID();
+        const randomComment =
+          commentTemplates[Math.floor(Math.random() * commentTemplates.length)];
+        const randomFlag =
+          countryFlags[Math.floor(Math.random() * countryFlags.length)];
+        const commentElement = document.createElement("p");
+        commentElement.innerHTML = `<img src="${randomFlag.url}" alt="${randomFlag.code}" style="width: 20px; height: 14px; margin-right: 5px;"><strong>${randomUserID}:</strong> ${randomComment}`;
+        comments.appendChild(commentElement);
+        comments.scrollTop = comments.scrollHeight;
+      }
+      setInterval(addRandomComment, 5000);
+
+      /* ---------- Khi trang được load, đảm bảo tab "Tất cả" hiển thị đầy đủ ---------- */
+      document.addEventListener("DOMContentLoaded", () => {
+        filterCards("all");
+        // Khi nhấp vào live-card, đánh dấu "selected" (để thêm vào danh sách yêu thích nếu cần)
+        document.querySelectorAll(".live-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            document
+              .querySelectorAll(".live-card")
+              .forEach((c) => c.classList.remove("selected"));
+            card.classList.add("selected");
+          });
+        });
+      });
+    </script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

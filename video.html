@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Nổi Bật</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Global Styles */
+      body {
+        background-color: var(--bg-color);
+        font-family: var(--font-primary);
+        margin: 0;
+        padding: 0px;
+      }
+      .container {
+        padding-bottom: 80px;
+      }
+      /* Logo Top */
+      .logo-top {
+        width: 400px;
+        height: 120px;
+        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+          center/contain;
+        background-size: cover;
+        margin: 0 auto 5px;
+        padding: 5px;
+        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
+      }
+      .logo-top:hover {
+        transform: scale(1.05);
+      }
+
+      h1 {
+        font-family: var(--font-secondary);
+        text-align: center;
+        margin-bottom: -10px;
+        font-size: 2rem;
+        color: #000000;
+        font-weight: bold;
+        background: linear-gradient(90deg, #916a7f, rgba(198, 160, 149, 1));
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      /* Category Tabs */
+      .category-tabs {
+        background: linear-gradient(90deg, #916a7f, rgba(198, 160, 149, 1));
+        border-radius: 8px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 0; /* Loại bỏ khoảng cách giữa các tab */
+      }
+      .category-tabs .nav-link {
+        color: #ffffff;
+        padding: 10px 15px; /* Điều chỉnh padding cho đồng đều */
+        border-radius: 0; /* Loại bỏ bo tròn để sát nhau hơn */
+      }
+      .category-tabs .nav-link.active {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+      }
+      .category-tabs .nav-item {
+        margin: 0; /* Loại bỏ margin giữa các nav-item */
+      }
+      /* Video Cards */
+      .video-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px; /* Giảm khoảng cách giữa các card */
+        justify-content: center;
+      }
+      .video-card {
+        background-color: var(--card-bg);
+        flex: 1 1 calc(25% - 10px); /* Hiển thị 4 video trên 1 hàng */
+        border-radius: 10px;
+        overflow: hidden;
+        width: 100%;
+        margin-bottom: 0px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .video-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+      .video-card video {
+        width: 100%;
+        border-radius: 8px 8px 0 0;
+      }
+      .video-card iframe {
+        width: 100%;
+        height: 270px;
+        border: none;
+        display: block;
+      }
+      .video-title {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1rem;
+        text-align: center;
+        font-weight: bold;
+        z-index: 30;
+      }
+
+      @media (max-width: 768px) {
+        .header-section {
+          padding: 10px;
+        }
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
+      .video-description {
+        font-size: 0.9rem;
+        margin: 0 10px 10px;
+        color: #000000;
+        text-align: center;
+      }
+
+      .video-card {
+        flex: 1 1 calc(25% - 10px); /* Hiển thị 4 video trên 1 hàng */
+        width: 100%;
+        max-width: 100%;
+      }
+
+      * {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logo Top -->
+    <div class="logo-top"></div>
+
+    <div class="container py-3 content-section">
+      <h1>🎥 Video Nổi Bật</h1>
+      <ul
+        class="nav nav-tabs category-tabs justify-content-center mb-3"
+        id="myTab"
+      >
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#hot"
+            >Phim Hot</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#jav">JAV HD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#selected"
+            >Tuyển chọn</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#hotgirl">Hot girl</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#hottiktok"
+            >Hot Tiktok</a
+          >
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="hot">
+          <div class="row" id="hot-videos">
+            <!-- Video cards cho mục "Phim Hot" -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="jav">
+          <div class="row" id="jav-videos">
+            <!-- Video cards cho mục "JAV HD" -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="selected">
+          <div class="row" id="selected-videos">
+            <!-- Video cards cho mục "Tuyển chọn" -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="hotgirl">
+          <div class="row" id="hotgirl-videos">
+            <!-- Video cards cho mục "Hot girl" -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="khongche">
+          <div class="row" id="khongche-videos">
+            <!-- Video cards cho mục "Không Che" -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="hottiktok">
+          <div class="row" id="hottiktok-videos">
+            <!-- Video cards cho mục "Hot Tiktok" -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div id="navbar-placeholder"></div>
+
+<script src="menu.js"></script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+      // Danh sách videoIDs từ video 18+ (đã loại bỏ dấu nháy thừa nếu có)
+      const videoIds = [
+        "99bd2b33f49deb5ba071ac118b75b0c4",
+        "eae66f3b16ad5225b09a329f53a22114",
+        "7fda04eefa4b3318dcd589a08e11e018",
+        "3a95f1bb7f94782440564746f1c0f46a",
+        "73233e2d1ee2866d9a1bc47146e9a1b4",
+        "cb94874a32a3315426d31934c1f6dcc9",
+        "52e08b4f78a10334a5c5cbadcc95834c",
+        "0d2828e5106f492d993bab2048c5dbf4",
+        "43cb47d010367f4afdecd4adb9113da1",
+        "e7917240bf9f76540b67024512ba59c0",
+        "c7b1e0d32b6a04ac1b5febdb3c7ddaba",
+        "b121ce521de929a7e54ccd03aff69744",
+        "04789f038df004dea25d356402241711",
+        "6b93f9f3fa0a01ecf5eae001751259c8",
+        "adc8bd292603974d2aa9e0059f735b3d",
+        "02b11049560c026195e0cf2ccf27d44a",
+        "b59cb51d98b3f73015cb3c4cf49c77fb",
+        "eb9670db5f5f8e315b6cc05d1a5e09ce",
+        "c3feed12235dd55699ec074269281455",
+        "d7526dd1a2b032ddd3abde39a2335344",
+        "a2c88ab724a327e3fe45441d281c43f0",
+        "dc6b76395d7696f52a962146104004d7",
+        "20c619998a30fcabc556a0db0d02c0a6",
+        "94376599b7721f0b070bad4774b4d4d7",
+        "6999b15f30a57f600e3622606b11ecdb",
+        "55ec91aad4a3edce681e52e27d6678e9",
+        "fe279d2cc463be2de3987adef952781e",
+        "438b98e84e23b83dedc8d05aff4b98d6",
+        "55861af1a87a00bddc798710627b505e",
+        "459f4a498714c02991c26d2280100c4a",
+        "60f953ace8c6fc434efd2b15aa8fe11a",
+        "672e178059d91bd0bd7bb0b38d5bd16f",
+        "7f6bb92f2ba11fda4aa472d3f3fb4078",
+        "22e9568cef9d88f862284749895aa77c",
+        "7e82a223dd200fb99a2f424e2049806e",
+        "576f62e9a3f48e234c328b0b13559973",
+        "41d442d517af3a702e7f97d766e700fd",
+        "b208823807d596e159fe22c64148a4d7",
+        "621d9ebb7c2c64c00da2f2019e4dbaa9",
+        "89e082c9680d5b78c082eb4b82e220e2",
+        "6df45411db7bd216f57cf95a408233b3",
+        "e356eb573f5d2889663bb7ed1c268b68",
+        "82c66e46920553b389187a942d4ac408",
+        "a2ee6a2fb8ed6035dd143f3d658bb8c9",
+        "abd636c1c2cc8a9db4908a190aaac5a7",
+        "0abdcd1a88ecb790e4dcc703780dd137",
+        "1af8e249bba8a83fe24e63caa627116a",
+        "68d08b81cd0a169489af02745674e7a4",
+        "459f4a498714c02991c26d2280100c4a",
+        "c1d7dfd7a9b6507b15fa2025c576e22c",
+        "f10132648a8a9a08659740bd70f74f73",
+        "02043562e8c178afee5ece96bc9cc450",
+        "d34842d09310ee9d60fc4e76526cb858",
+        "b4a4c9c2298b6f3e6587dca885e72541",
+        "59528353e96bba27ff72cff5f6f4c574",
+        "4acabfe539c0669d5d96f97ff74d02e8",
+        "e4e7bf50a516fc8092ae21333bc4f6ea",
+        "1d438bce184636fd7e6306ea86691c1a",
+        "929cad3e0d805bf0dc49f4736b1a018f",
+        "4e96f14abd57c8bd2729e22c1f13a03c",
+        "95d7bb58386df656db5843ff57ed0e7e",
+        "21d86a3b6c73de767aa37e8520d0812c",
+        "b014db1f558af8d2fc29446578723203",
+        "253dc0757952ba8a334900dd23b30b51",
+        "0de3326c2b7ed5767789dd48f36d12ba",
+        "3323adf9cb0fe4bbfddfb9fe931dd2b0",
+        "a13e4de89aee48353810bca8057b078b",
+        "29d34fe4bd45b8ab08d1571f8c40f90e",
+        "a529fbbff29e4148078b4305618d7237",
+        "e6eb92eb9203fb89adb4e7ba26e8a3e2",
+        "3239f49f13fd1d54ef589e0a4caddb07",
+        "11df7eb0b597d0683a7a891c32aa2706",
+        "dbc80acbfd0fa522d2276c39c7348975",
+        "d2185249f4abdea3d5528f6530964ef7",
+        "63ca89d8b4cca7830b56af119be488ad",
+        "14f6cb805a7bb61634d215dc57dad530",
+        "31acb8adfb076c96525e1f5e2ea82178",
+        "bfaa58adcd847e0c568c6a30b1850b3c",
+        "900b61fab4e5f7e93c105a4957027c51",
+        "60d894a0b94a8ec230e88611da256fc7",
+      ];
+
+      // Tạo mảng video có đầy đủ nội dung (title & description) từ videoIds
+      const videos = videoIds.map((id, index) => ({
+        id: id,
+        title: `Video Hot ${index + 1}`,
+        description: `Bấm để xem 
+        : Nội dung nóng bỏng, kích thích và đầy quyến rũ.`,
+      }));
+
+      // Các mục (tabs) hiện có
+      const categories = ["hot", "jav", "selected", "hotgirl", "hottiktok"];
+      // Chia đều các video vào từng nhóm dựa trên số lượng mục
+      const groupSize = Math.ceil(videos.length / categories.length);
+      const groups = {};
+      categories.forEach((cat, index) => {
+        groups[cat] = videos.slice(index * groupSize, (index + 1) * groupSize);
+      });
+
+      // Hàm render video cho mỗi mục
+      function renderVideos() {
+        categories.forEach((category) => {
+          const container = document.getElementById(category + "-videos");
+          if (container) {
+            groups[category].forEach((video) => {
+              const col = document.createElement("div");
+              col.className = "col-6 mb-3";
+              col.innerHTML = `
+              <div class="video-card">
+                <iframe src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/${video.id}/iframe" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                <p class="video-title">${video.title}</p>
+                <p class="video-description">${video.description}</p>
+              </div>
+            `;
+              container.appendChild(col);
+            });
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", renderVideos);
+    </script>
+  </body>
+</html>

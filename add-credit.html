@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thanh Toán - Modern Payment Interface</title>
+    <!-- Font Awesome cho icon nếu cần -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts: Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset và cấu hình cơ bản */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        color: #333;
+        padding: 20px;
+        min-height: 100vh;
+        font-family: "Roboto", sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto 120px; /* Thêm khoảng cách dưới để không bị chồng lên thanh điều hướng */
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      h3 {
+        background: linear-gradient(90deg, #6a82fb, #fc5c7d);
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #ffffff;
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      /* Style cho từng card thanh toán */
+      .payment-option {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: #f9f9f9;
+      }
+      .payment-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .payment-option a {
+        display: block;
+        padding: 15px 20px;
+        background: #e9ecef;
+        color: #333;
+        text-decoration: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      .payment-option a:hover {
+        background: #dee2e6;
+      }
+      .payment-details {
+        padding: 15px 20px;
+        font-size: 1rem;
+        background: #fff;
+        display: none;
+        color: #333;
+      }
+      .payment-details p {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.95rem;
+      }
+      .payment-details button {
+        padding: 4px 8px;
+        background: #ff3535;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .payment-details button:hover {
+        background: #ff6666;
+      }
+      .payment-details input[type="number"],
+      .payment-details input[type="file"] {
+        width: 100%;
+        margin: 8px 0;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+      .submit-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        background: linear-gradient(135deg, #ffc107, #ffdd57);
+        border: none;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .submit-btn:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 12px rgba(255, 193, 7, 0.5);
+      }
+
+      /* Responsive: giảm kích thước font và padding trên điện thoại */
+      @media (max-width: 600px) {
+        h3 {
+          font-size: 1.5rem;
+        }
+        .payment-option a {
+          font-size: 1rem;
+          padding: 12px 15px;
+        }
+        .payment-details {
+          font-size: 0.9rem;
+          padding: 10px 15px;
+        }
+        .submit-btn {
+          font-size: 1rem;
+          padding: 10px;
+        }
+      }
+  
+      /* Logo Top */
+      .logo-top {
+        width: 400px;
+        height: 120px;
+        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+          center/contain;
+        background-size: cover;
+        margin: 0 auto 10px;
+        padding: 5px;
+        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
+      }
+      .logo-top:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-top"></div>
+
+    
+
+    <div class="container">
+      <h3>Chọn Hình Thức Thanh Toán</h3>
+
+      <!-- Option 1: Thanh toán qua Tài Khoản Việt -->
+      <div class="payment-option">
+        <a onclick="showPaymentForm('viet')">Thanh toán qua Tài Khoản Việt</a>
+        <div class="payment-details" id="vietDetails">
+          <p>
+            <strong>Tên tài khoản:</strong>
+            <span id="vietAccountName">Nguyễn Văn A</span>
+            <button onclick="copyToClipboard('vietAccountName')">Copy</button>
+          </p>
+          <p>
+            <strong>Số tài khoản:</strong>
+            <span id="vietAccountNumber">123456789</span>
+            <button onclick="copyToClipboard('vietAccountNumber')">Copy</button>
+          </p>
+          <p>
+            <strong>Ngân hàng:</strong>
+            <span id="vietBank">Vietcombank</span>
+            <button onclick="copyToClipboard('vietBank')">Copy</button>
+          </p>
+          <p>
+            <strong>Email:</strong>
+            <span id="vietEmail">example@gmail.com</span>
+            <button onclick="copyToClipboard('vietEmail')">Copy</button>
+          </p>
+          <p>
+            <strong>Số điện thoại:</strong>
+            <span id="vietPhone">0123456789</span>
+            <button onclick="copyToClipboard('vietPhone')">Copy</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- Option 2: Thanh toán qua Ngân hàng Úc (NAB) -->
+      <div class="payment-option">
+        <a onclick="showPaymentForm('auc')"
+          >Thanh toán qua Ngân hàng Úc (NAB)</a
+        >
+        <div class="payment-details" id="aucDetails">
+          <p>
+            <strong>Tên chủ tài khoản:</strong>
+            <span id="aucAccountName">Lemlem Aderajew</span>
+            <button onclick="copyToClipboard('aucAccountName')">Copy</button>
+          </p>
+          <p>
+            <strong>Số tài khoản:</strong>
+            <span id="aucAccountNumber">862883062</span>
+            <button onclick="copyToClipboard('aucAccountNumber')">Copy</button>
+          </p>
+          <p>
+            <strong>Ngân hàng:</strong>
+            <span id="aucBank">National Australia Bank</span>
+            <button onclick="copyToClipboard('aucBank')">Copy</button>
+          </p>
+          <p>
+            <strong>BSB:</strong>
+            <span id="aucBsb">083520</span>
+            <button onclick="copyToClipboard('aucBsb')">Copy</button>
+          </p>
+          <p>
+            <strong>PayID:</strong>
+            <span id="aucPayID">0415860268</span>
+            <button onclick="copyToClipboard('aucPayID')">Copy</button>
+          </p>
+          <p><strong>Số tiền cần chuyển:</strong> 39 AUD</p>
+        </div>
+      </div>
+
+      <!-- Option 3: Xác nhận thanh toán (Visa) -->
+      <div class="payment-option">
+        <a onclick="showPaymentForm('visa')">Xác nhận thanh toán</a>
+        <div class="payment-details" id="visaDetails">
+          <p><strong>Số tiền thanh toán:</strong></p>
+          <input
+            type="number"
+            id="amountPaid"
+            placeholder="Nhập số tiền bạn đã thanh toán"
+            required
+          />
+          <p>
+            <strong>Cách thức thanh toán:</strong> Gửi lên hóa đơn để xác nhận
+          </p>
+          <label for="invoiceUpload">Gửi Hóa Đơn:</label>
+          <input
+            type="file"
+            id="invoiceUpload"
+            accept=".pdf, .jpg, .jpeg, .png"
+          />
+          <button
+            class="submit-btn"
+            id="visaSubmit"
+            onclick="confirmPayment('visa')"
+          >
+            Xác Nhận Thanh Toán
+          </button>
+        </div>
+      </div>
+<div id="navbar-placeholder"></div>
+
+<script src="menu.js"></script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+      function showPaymentForm(method) {
+        // Ẩn tất cả chi tiết thanh toán
+        document.getElementById("vietDetails").style.display = "none";
+        document.getElementById("aucDetails").style.display = "none";
+        document.getElementById("visaDetails").style.display = "none";
+
+        // Hiển thị chi tiết của phương thức được chọn
+        if (method === "viet") {
+          document.getElementById("vietDetails").style.display = "block";
+        } else if (method === "auc") {
+          document.getElementById("aucDetails").style.display = "block";
+        } else if (method === "visa") {
+          document.getElementById("visaDetails").style.display = "block";
+        }
+      }
+
+      function copyToClipboard(id) {
+        var copyText = document.getElementById(id);
+        navigator.clipboard
+          .writeText(copyText.textContent || copyText.value)
+          .then(function () {
+            alert("Đã sao chép: " + (copyText.textContent || copyText.value));
+          })
+          .catch(function (err) {
+            alert("Không thể sao chép: " + err);
+          });
+      }
+
+      function confirmPayment(method) {
+        var amount = document.getElementById("amountPaid").value;
+        if (!amount || amount <= 0) {
+          alert("Vui lòng nhập số tiền thanh toán hợp lệ.");
+          return;
+        }
+        var invoice = document.getElementById("invoiceUpload").files[0];
+        if (!invoice) {
+          alert("Vui lòng tải lên hóa đơn.");
+          return;
+        }
+        alert("Thanh toán thành công! Số tiền thanh toán: " + amount);
+        // Sau khi xác nhận thanh toán, bạn có thể thực hiện các thao tác cập nhật giao diện hoặc reset form tại đây.
+      }
+    </script>
+  </body>
+</html>
