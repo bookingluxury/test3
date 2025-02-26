@@ -316,67 +316,7 @@
         font-size: 1.2rem;
         color: #00ffea;
       }
-      :root {
-        --nav-bg: #e9ecef;
-        --accent: #007bff;
-        --text-color: #333;
-        --hover-bg: #ced4da;
-      }
-      .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: var(--nav-bg);
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-     
-        z-index: 20;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-      }
-      .bottom-nav::-webkit-scrollbar {
-        display: none;
-      }
-      .nav-item {
-        text-decoration: none;
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
-        padding: 8px 12px;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-        font-weight: bold;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-width: 70px;
-        color: var(--text-color);
-      }
-      .nav-item:hover {
-        background-color: #eaeaea;
-        transform: scale(1.05);
-      }
-      .nav-item.active {
-        background-color: var(--hover-bg);
-      }
-      .nav-item i {
-        font-size: 24px;
-        margin-bottom: 4px;
-        transition: color 0.3s ease;
-        color: var(--text-color);
-      }
-      .nav-item span {
-        font-size: 12px;
-        font-weight: 500;
-        transition: color 0.3s ease;
-        color: var(--text-color);
-      }
-      .nav-item.active i,
-      .nav-item.active span {
-        color: var(--accent);
-        font-weight: 700;
-      }
+
       /* Hiệu ứng tung hoa */
       .flower {
         position: fixed;
