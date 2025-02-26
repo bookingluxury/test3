@@ -2736,8 +2736,8 @@
       #characterCards {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 6px;
+        gap: 10px;
+        padding: 2px;
       }
       @media (min-width: 640px) {
         #characterCards {
@@ -2758,7 +2758,7 @@
         position: relative;
         width: 100%;
         max-width: 220px;
-        background: linear-gradient(135deg, #ffffff, #000000);
+        background: linear-gradient(135deg, #000000, #000000);
         border-radius: 12px;
         overflow: hidden;
         transform-style: preserve-3d;
@@ -3066,11 +3066,13 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
       }
       .star-rating {
+        right: 0px;
         display: flex;
         gap: 2px;
         margin-bottom: 5px;
       }
       .star-rating i {
+        right: 10px;
         color: gold;
         font-size: 18px;
         transition: transform 0.2s ease;
@@ -3105,6 +3107,15 @@
       .social-icon:hover i {
         transform: scale(1.2);
         transition: 0.3s;
+      }
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        background: linear-gradient(90deg, #ff8c00, #ff2e63, #3a86ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       }
     </style>
   </head>
