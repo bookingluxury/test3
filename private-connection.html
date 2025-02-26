@@ -91,6 +91,46 @@
         margin: 0;
         padding: 0;
       }
+      body {
+        /* Màu nền gốc: xanh đen (navy/dark) */
+        background: #0b0f1a;
+
+        /* Gradient radial để tạo chiều sâu mờ ở trung tâm */
+        background: radial-gradient(
+          circle at center,
+          rgba(11, 15, 26, 0.7) 0%,
+          /* Màu hơi trong suốt ở tâm */ rgba(11, 15, 26, 1) 100%
+            /* Màu đậm hơn ở ngoài rìa */
+        );
+
+        /* Đặt chiều cao full màn hình */
+        min-height: 100vh;
+
+        /* Đảm bảo phần tử con được hiển thị phía trên */
+        position: relative;
+
+        color: #fff; /* Màu chữ mặc định (trắng) trên nền tối */
+      }
+
+      /* Lớp phủ sao (starfield) tạo thêm độ sâu */
+      body::before {
+        content: "";
+        position: absolute;
+        z-index: -1; /* Đẩy lớp phủ ra phía sau nội dung */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        /* Thay đường dẫn ảnh sao, hoặc bạn có thể dùng ảnh bokeh, particle... */
+        background: url("https://i.ibb.co/ycBpNQyM/pngtree-light-effect-background-halo-radial-image-2419979.jpg")
+          no-repeat center center;
+        background-size: cover;
+
+        /* Độ trong suốt để hòa trộn với nền phía dưới */
+        opacity: 0.2;
+        pointer-events: none;
+      }
       /* Để không bị che bởi Bottom Navigation, thêm padding dưới cho nội dung */
       .content {
         padding: 20px;
