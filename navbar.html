@@ -1,8 +1,8 @@
 <style>
   :root {
-    --nav-bg: #e9ecef;
+    --nav-bg: #ffffff;
     --accent: #007bff;
-    --text-color: #333;
+    --text-color: #ffffff;
     --hover-bg: #ced4da;
     --bg-color: #ffffff;
     --nav-item-size: 80px;
@@ -21,13 +21,13 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 40%, #b0b0b0 100%) !important;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(180deg, #0033cc 0%, #0044ff 40%, #0055ff 100%);
+    box-shadow: 0 -4px 15px rgba(0, 0, 255, 0.5); /* Hiệu ứng bóng */
+    border-top: 2px solid rgba(0, 0, 0, 0.8);
     display: flex;
     z-index: 20;
     overflow-x: auto;
     scroll-behavior: smooth;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
   }
 
   .bottom-nav::-webkit-scrollbar {
@@ -83,7 +83,7 @@
   /* Dark Mode với tông màu xanh bóng */
   body.dark-mode {
     --nav-bg: #1c1c2e;
-    --accent: #2196f3;
+    --accent: #000000;
     --text-color: #e0e0e0;
     --hover-bg: #2a2a40;
     --bg-color: #12121e;
@@ -93,11 +93,11 @@
     position: fixed;
     top: 10px;
     right: 10px;
-    background-color: var(--accent);
+    background-color: #12121e;
     color: white;
-    padding: 8px 12px;
+    padding: 4px 7px;
     border: none;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     z-index: 30;
@@ -105,6 +105,19 @@
 
   .dark-mode-toggle:hover {
     background-color: #1976d2;
+  }
+  body.dark-mode .bottom-nav {
+    background: linear-gradient(180deg, #001f4d 0%, #0033cc 50%, #004cff 100%);
+    box-shadow: 0 -4px 15px rgba(0, 0, 255, 0.5);
+    border-top: 2px solid rgba(0, 102, 255, 0.8);
+  }
+
+  body.dark-mode .nav-item {
+    color: var(--text-color) !important;
+  }
+
+  body.dark-mode .nav-item.active {
+    background-color: var(--hover-bg) !important;
   }
 </style>
 
@@ -185,6 +198,7 @@
     }
   }
 
+  // Cập nhật giao diện khi load trang
   window.addEventListener("load", () => {
     const darkMode = localStorage.getItem("darkMode") === "true";
     if (darkMode) {
