@@ -2,7 +2,7 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Bảng Giá Dịch Vụ - Phong Cách Australia</title>
+    <title>Bảng Giá Dịch Vụ - Phong Cách TaiWan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Google Font Roboto & Font Awesome -->
     <link
@@ -16,7 +16,7 @@
     <style>
       /* Tổng thể giao diện: nền gradient xanh bầu trời & màu cát, mang cảm giác bãi biển Australia */
       body {
-        background: linear-gradient(90deg, #87ceeb, #f4a460);
+        background: linear-gradient(90deg, #87ceeb, #000000);
         color: #333;
         margin: 0;
         padding: 20px;
@@ -90,30 +90,22 @@
         }
       }
 
-      /* Card Styles: nền trắng, bo tròn nhẹ, shadow mượt */
+      /* Card Styles: nền tối, chữ trắng nổi bật */
       .card {
-        background-color: #495057;
-        color: #333;
+        background-color: #1d1f21; /* Nền tối */
+        color: #ffffff; /* Chữ trắng */
         border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow mạnh hơn để nổi bật */
         padding: 20px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
+
       .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
-      /* Card chiếm 2 cột nếu cần */
-      .card.full-width {
-        grid-column: span 2;
-      }
-      @media (max-width: 600px) {
-        .card.full-width {
-          grid-column: span 1;
-        }
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
       }
 
-      /* Tiêu đề card với gradient xanh - vàng (gợi nhớ biển và ánh nắng Australia) */
+      /* Đảm bảo tiêu đề card sử dụng hiệu ứng gradient phù hợp với màu tối */
       .card h2 {
         margin: 0;
         font-size: 24px;
@@ -123,14 +115,15 @@
         -webkit-text-fill-color: transparent;
         margin-bottom: 10px;
       }
-      .card p {
+
+      /* Các phần tử chữ bên trong card */
+      .card p,
+      .card ul li {
         font-weight: 700;
         color: #ffffff;
-        font-size: 14px;
-        margin: 6px 0;
-        text-align: center;
       }
-      /* Giá hiển thị với màu vàng ấm áp */
+
+      /* Giá hiển thị có thể giữ màu vàng neon để tạo điểm nhấn */
       .card .price {
         font-size: 26px;
         font-weight: 700;
@@ -138,6 +131,7 @@
         text-align: center;
         margin: 10px 0;
       }
+
       .card ul {
         list-style: none;
         padding: 0;
@@ -149,6 +143,40 @@
         color: #ffffff;
         margin-bottom: 6px;
         text-align: left;
+      }
+      /* Khai báo keyframes cho hiệu ứng di chuyển của gradient */
+      @keyframes gradient-animation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Áp dụng hiệu ứng cho phông chữ */
+      .animated-text {
+        font-size: 28px; /* Kích thước chữ */
+        font-weight: 700; /* Độ đậm của chữ */
+        background: linear-gradient(
+          270deg,
+          #ff0000,
+          #ff9900,
+          #ffff00,
+          #00ff00,
+          #00ffff,
+          #0000ff,
+          #9900ff
+        );
+        background-size: 1400% 1400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /* Dòng dưới dùng cho một số trình duyệt không hỗ trợ -webkit- */
+        color: transparent;
+        animation: gradient-animation 10s ease infinite;
       }
 
       /* Nút chọn gói với gradient xanh – vàng, tạo cảm giác năng động & hiện đại */
@@ -210,7 +238,8 @@
   <body>
     <div class="logo-top"></div>
     <div id="navbar-placeholder"></div>
-    <h1>Bảng Giá Dịch Vụ</h1>
+    <h1 class="animated-text">Chào mừng đến với dịch vụ của chúng tôi!</h1>
+
     <!-- Vùng chứa nội dung chính -->
     <div id="content">
       <div class="card-container">
