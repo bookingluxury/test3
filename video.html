@@ -71,7 +71,7 @@
         opacity: 0.2;
         pointer-events: none;
       }
-          .logo-top {
+      .logo-top {
         width: 500px; /* Đặt kích thước lớn hơn */
         height: 120px; /* Đặt chiều cao phù hợp */
         background-size: contain !important; /* Đảm bảo logo không bị thu nhỏ */
@@ -94,17 +94,40 @@
         transform: scale(1.05);
       }
 
+      /* Hiệu ứng cho tiêu đề */
       h1 {
-        bottom: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         background: rgba(0, 0, 0, 0.6);
-        color: fff; /* Màu tiêu đề mới */
+        color: #fff; /* Đã thêm dấu # cho màu trắng */
         padding: 5px 10px;
-        font-size: 1rem;
+        font-size: 1.2rem;
         text-align: center;
         font-weight: bold;
         z-index: 30;
+        transition: transform 0.4s ease, text-shadow 0.4s ease;
+      }
+
+      h1:hover {
+        transform: scale(1.1);
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+      }
+
+      /* Hiệu ứng cho tiêu đề của video (video-title) */
+      .video-title {
+        position: relative;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1.1rem;
+        text-align: center;
+        font-weight: bold;
+        z-index: 30;
+        transition: transform 0.4s ease, text-shadow 0.4s ease;
+      }
+
+      .video-title:hover {
+        transform: scale(1.1);
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
       }
 
       /* Category Tabs */
@@ -116,27 +139,40 @@
         justify-content: center;
         gap: 0; /* Loại bỏ khoảng cách giữa các tab */
       }
+
+      .category-tabs .nav-item {
+        margin: 0; /* Loại bỏ margin giữa các nav-item */
+      }
+
       .category-tabs .nav-link {
-        color: #ffffff;
+        color: #fff;
         padding: 10px 15px; /* Điều chỉnh padding cho đồng đều */
         border-radius: 0; /* Loại bỏ bo tròn để sát nhau hơn */
+        transition: background-color 0.4s ease, transform 0.4s ease,
+          box-shadow 0.4s ease;
       }
+
+      .category-tabs .nav-link:hover {
+        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      }
+
       .category-tabs .nav-link.active {
         color: #fff;
         border-bottom: 2px solid #fff;
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 5px;
       }
-      .category-tabs .nav-item {
-        margin: 0; /* Loại bỏ margin giữa các nav-item */
-      }
-      /* Video Cards */
+
+      /* Video Cards (giữ nguyên hiệu ứng hiện tại) */
       .video-container {
         display: flex;
         flex-wrap: wrap;
         gap: 0px; /* Giảm khoảng cách giữa các card */
         justify-content: center;
       }
+
       .video-card {
         background-color: var(--card-bg);
         flex: 1 1 calc(25% - 10px); /* Hiển thị 4 video trên 1 hàng */
@@ -147,24 +183,26 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
+
       .video-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       }
+
       .video-card video {
         width: 100%;
         border-radius: 8px 8px 0 0;
       }
+
       .video-card iframe {
         width: 100%;
         height: 270px;
         border: none;
         display: block;
       }
+
       .video-title {
-        bottom: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         background: rgba(0, 0, 0, 0.6);
         color: #fff;
         padding: 5px 10px;
@@ -172,6 +210,12 @@
         text-align: center;
         font-weight: bold;
         z-index: 30;
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .video-title:hover {
+        transform: scale(1.05);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       }
 
       @media (max-width: 768px) {
@@ -185,7 +229,7 @@
       .video-description {
         font-size: 0.9rem;
         margin: 0 10px 10px;
-        color: #ff0000;
+        color: #ffffff;
         text-align: center;
       }
 
@@ -199,6 +243,53 @@
         padding-left: 3px !important;
         padding-right: 3px !important;
       }
+ /* Khung chứa cho phần bị khóa */
+.locked-content {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px; /* Đảm bảo có chiều cao để overlay hiển thị */
+}
+
+/* Nội dung video hiển thị mờ và không tương tác */
+.locked-content .row {
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Lớp phủ khóa luôn hiển thị */
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Độ đậm của overlay */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1000; /* Đảm bảo lớp phủ nằm trên cùng */
+}
+
+.lock-overlay i {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.video-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff5722; /* Màu nổi bật, bạn có thể thay đổi theo ý */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.video-card:hover .video-title {
+  color: #e64a19; /* Màu chuyển khi hover */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
     </style>
   </head>
   <body>
@@ -261,12 +352,16 @@
           </div>
         </div>
         <div class="tab-pane fade" id="hottiktok">
-          <div class="row" id="hottiktok-videos">
-            <!-- Video cards cho mục "Hot Tiktok" -->
+          <!-- Bọc toàn bộ nội dung trong một thẻ locked-content -->
+          <div class="locked-content">
+            <!-- Nội dung video vẫn hiển thị nhưng mờ -->
+            <div class="row" id="hottiktok-videos">
+              <div class="lock-overlay">
+                <i class="fa fa-lock"></i>
+                <span>Phần Hot Tiktok đang được khóa</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -364,45 +459,83 @@
         "60d894a0b94a8ec230e88611da256fc7",
       ];
 
-      // Tạo mảng video có đầy đủ nội dung (title & description) từ videoIds
-      const videos = videoIds.map((id, index) => ({
-        id: id,
-        title: `Video Hot ${index + 1}`,
-        description: `Bấm để xem 
-        : Nội dung nóng bỏng, kích thích và đầy quyến rũ.`,
-      }));
+// Tạo mảng cho Video Hot (không dùng số thứ tự)
+const videoHot = videoIds.map(id => ({
+  id: id,
+  title: `Video Hot`,
+  description: `Bấm để xem: Nội dung nóng bỏng`,
+}));
 
-      // Các mục (tabs) hiện có
-      const categories = ["hot", "jav", "selected", "hotgirl", "hottiktok"];
-      // Chia đều các video vào từng nhóm dựa trên số lượng mục
-      const groupSize = Math.ceil(videos.length / categories.length);
-      const groups = {};
-      categories.forEach((cat, index) => {
-        groups[cat] = videos.slice(index * groupSize, (index + 1) * groupSize);
+// Tạo mảng cho Video New
+const videoNew = videoIds.map(id => ({
+  id: id,
+  title: `Video New`,
+  description: `Bấm để xem: Nội dung mới cập nhật`,
+}));
+
+// Tạo mảng cho Xem Nhiều Nhất
+const videoMostViewed = videoIds.map(id => ({
+  id: id,
+  title: `Xem Nhiều Nhất`,
+  description: `Bấm để xem: Nội dung được yêu thích nhất`,
+}));
+
+// Kết hợp các mảng thành 1 mảng videos
+let videos = [...videoHot, ...videoNew, ...videoMostViewed];
+
+// Hàm trộn mảng (Fisher-Yates Shuffle)
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Trộn mảng videos để hiển thị theo thứ tự ngẫu nhiên
+videos = shuffle(videos);
+
+// Các mục (tabs) hiện có
+const categories = ["hot", "jav", "selected", "hotgirl", "hottiktok"];
+
+// Chia đều các video vào từng nhóm dựa trên số lượng mục
+const groupSize = Math.ceil(videos.length / categories.length);
+const groups = {};
+categories.forEach((cat, index) => {
+  groups[cat] = videos.slice(index * groupSize, (index + 1) * groupSize);
+});
+
+// Danh sách các màu nổi bật cho tiêu đề
+const titleColors = ['#ff5722', '#4caf50', '#2196f3', '#9c27b0', '#f44336', '#ff9800', '#00bcd4'];
+
+// Hàm render video cho mỗi mục
+function renderVideos() {
+  let globalIndex = 0; // Đếm toàn cục để mỗi tiêu đề có màu khác nhau
+  categories.forEach((category) => {
+    const container = document.getElementById(category + "-videos");
+    if (container) {
+      groups[category].forEach((video, index) => {
+        const col = document.createElement("div");
+        col.className = "col-6 mb-3";
+        col.innerHTML = `
+          <div class="video-card">
+            <iframe src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/${video.id}/iframe" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            <p class="video-title">${video.title}</p>
+            <p class="video-description">${video.description}</p>
+          </div>
+        `;
+        // Gán màu cho tiêu đề, sử dụng chỉ số globalIndex
+        const color = titleColors[globalIndex % titleColors.length];
+        col.querySelector('.video-title').style.color = color;
+        globalIndex++;
+        container.appendChild(col);
       });
+    }
+  });
+}
 
-      // Hàm render video cho mỗi mục
-      function renderVideos() {
-        categories.forEach((category) => {
-          const container = document.getElementById(category + "-videos");
-          if (container) {
-            groups[category].forEach((video) => {
-              const col = document.createElement("div");
-              col.className = "col-6 mb-3";
-              col.innerHTML = `
-              <div class="video-card">
-                <iframe src="https://customer-vd2dw6zchzsa06w6.cloudflarestream.com/${video.id}/iframe" frameborder="0" allowfullscreen loading="lazy"></iframe>
-                <p class="video-title">${video.title}</p>
-                <p class="video-description">${video.description}</p>
-              </div>
-            `;
-              container.appendChild(col);
-            });
-          }
-        });
-      }
+document.addEventListener("DOMContentLoaded", renderVideos);
 
-      document.addEventListener("DOMContentLoaded", renderVideos);
     </script>
   </body>
 </html>
