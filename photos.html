@@ -23,8 +23,6 @@
     <style>
       /* Global Styles */
       body {
-        background-color: #f8f9fa;
-        font-family: "Roboto", sans-serif;
         margin: 0;
         padding: 0;
       }
@@ -133,27 +131,28 @@
           transform: translateY(0);
         }
       }
-      /* Category Tabs */
       .category-tabs {
-        background: #495057;
-        border-radius: 8px;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-      }
-      .category-tabs .nav-link {
-        color: #fff;
-        padding: 10px 15px;
-      }
-      .category-tabs .nav-link.active {
-        color: #fff;
-        border-bottom: 2px solid #fff;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
-      }
-      .category-tabs .nav-item {
-        margin: 0;
-      }
+  background: #495057;
+  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* Ngăn phần tử con tràn ra ngoài */
+}
+
+.category-tabs .nav-item {
+  flex: 1;
+  
+  border: none;
+  outline: none;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+
+
+
       /* Photo Gallery Styles */
       .photo-container {
         display: flex;
@@ -228,8 +227,8 @@
       /* 3. Ảnh sexy: phóng to, thêm viền đỏ và bóng mờ đỏ */
       #anhSexy-photos .photo-card:hover {
         transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(255, 0, 0, 0.6);
-        border: 2px solid #ff0000;
+        box-shadow: 0 10px 20px rgba(0, 255, 149, 0.6);
+        border: 2px solid #00fff2;
       }
       /* 4. Ảnh nóng: phóng to + xoay nhẹ (ngược), tăng độ sáng, bóng mờ đỏ cam */
       #anhNong-photos .photo-card:hover {
@@ -273,47 +272,58 @@
         class="nav nav-tabs category-tabs justify-content-center mb-3"
         id="myTab"
       >
-        <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" href="#anhGaiXinh"
-            >Ảnh gái xinh</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#hotTiktok"
-            >Hot Tiktok</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#anhSexy">Ảnh sexy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#anhNong">Ảnh nóng</a>
-        </li>
-      </ul>
-      <div class="tab-content">
-        <!-- Mỗi tab chứa một row với thư viện ảnh -->
-        <div class="tab-pane fade show active" id="anhGaiXinh">
-          <div class="row g-0 photo-container" id="anhGaiXinh-photos">
-            <!-- Các ảnh cho "Ảnh gái xinh" sẽ được render tại đây -->
-          </div>
-        </div>
-        <div class="tab-pane fade" id="hotTiktok">
-          <div class="row g-0 photo-container" id="hotTiktok-photos">
-            <!-- Các ảnh cho "Hot Tiktok" -->
-          </div>
-        </div>
-        <div class="tab-pane fade" id="anhSexy">
-          <div class="row g-0 photo-container" id="anhSexy-photos">
-            <!-- Các ảnh cho "Ảnh sexy" -->
-          </div>
-        </div>
-        <div class="tab-pane fade" id="anhNong">
-          <div class="row g-0 photo-container" id="anhNong-photos">
-            <!-- Các ảnh cho "Ảnh nóng" -->
-          </div>
-        </div>
-      </div>
+       <!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-bs-toggle="tab" href="#anhGaiXinh">Gái xinh</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" href="#hotTiktok">Hot Tiktok</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" href="#anhSexy">Ảnh sexy</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" href="#anhNong">Ảnh nóng</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="tab" href="#noitieng">Nổi Tiếng</a>
+  </li>
+</ul>
+
+<!-- Tab contents -->
+<div class="tab-content">
+  <!-- Tab: Ảnh gái xinh -->
+  <div class="tab-pane fade show active" id="anhGaiXinh">
+    <div class="row g-0 photo-container" id="anhGaiXinh-photos">
+      <!-- Các ảnh cho "Ảnh gái xinh" sẽ được render tại đây -->
     </div>
+  </div>
+  <!-- Tab: Hot Tiktok -->
+  <div class="tab-pane fade" id="hotTiktok">
+    <div class="row g-0 photo-container" id="hotTiktok-photos">
+      <!-- Các ảnh cho "Hot Tiktok" -->
+    </div>
+  </div>
+  <!-- Tab: Ảnh sexy -->
+  <div class="tab-pane fade" id="anhSexy">
+    <div class="row g-0 photo-container" id="anhSexy-photos">
+      <!-- Các ảnh cho "Ảnh sexy" -->
+    </div>
+  </div>
+  <!-- Tab: Ảnh nóng -->
+  <div class="tab-pane fade" id="anhNong">
+    <div class="row g-0 photo-container" id="anhNong-photos">
+      <!-- Các ảnh cho "Ảnh nóng" -->
+    </div>
+  </div>
+  <!-- Tab: Người Nổi Tiếng -->
+  <div class="tab-pane fade" id="noitieng">
+    <div class="row g-0 photo-container" id="noitieng-photos">
+      <!-- Thêm các ảnh khác nếu cần -->
+    </div>
+  </div>
+</div>
 
     <!-- Modal hiển thị ảnh lớn kèm nút Prev & Next -->
     <div
@@ -367,6 +377,16 @@
     <script src="menu.js"></script>
 
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+  const noiTiengLink = document.querySelector('a[href="#noitieng"]');
+  if (noiTiengLink) {
+    noiTiengLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      alert("Bạn chưa được truy cập chức năng này");
+    });
+  }
+});
+
       fetch("navbar.html")
         .then((response) => response.text())
         .then((data) => {
