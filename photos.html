@@ -28,23 +28,60 @@
         margin: 0;
         padding: 0;
       }
+            body {
+        /* Màu nền gốc: xanh đen (navy/dark) */
+        background: #0b0f1a;
+
+        /* Gradient radial để tạo chiều sâu mờ ở trung tâm */
+        background: radial-gradient(
+          circle at center,
+          rgba(11, 15, 26, 0.7) 0%,
+          /* Màu hơi trong suốt ở tâm */ rgba(11, 15, 26, 1) 100%
+            /* Màu đậm hơn ở ngoài rìa */
+        );
+
+        /* Đặt chiều cao full màn hình */
+        min-height: 100vh;
+
+        /* Đảm bảo phần tử con được hiển thị phía trên */
+        position: relative;
+
+        color: #fff; /* Màu chữ mặc định (trắng) trên nền tối */
+      }
+
+      /* Lớp phủ sao (starfield) tạo thêm độ sâu */
+      body::before {
+        content: "";
+        position: absolute;
+        z-index: -1; /* Đẩy lớp phủ ra phía sau nội dung */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        /* Thay đường dẫn ảnh sao, hoặc bạn có thể dùng ảnh bokeh, particle... */
+        background: url("https://i.ibb.co/ycBpNQyM/pngtree-light-effect-background-halo-radial-image-2419979.jpg")
+          no-repeat center center;
+        background-size: cover;
+
+        /* Độ trong suốt để hòa trộn với nền phía dưới */
+        opacity: 0.2;
+        pointer-events: none;
+      }
       .container {
         padding-bottom: 80px;
       }
-      /* Logo Top */
       .logo-top {
-        width: 400px;
-        height: 120px;
-        background: url("https://i.ibb.co/DgYWjtjM/logo-490c306a.png") no-repeat
+        width: auto;
+        height: 110px;
+        background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png") no-repeat
           center/contain;
         background-size: cover;
-        margin: 0 auto 10px;
-        padding: 5px;
-        backdrop-filter: blur(5px);
+        z-index: 1001;
         transition: transform 0.3s ease;
-      }
-      .logo-top:hover {
-        transform: scale(1.05);
+        padding: 5px;
+        margin-bottom: 10px;
+        backdrop-filter: blur(5px);
       }
       /* Tiêu đề chính với hiệu ứng chuyển động */
       h1 {
