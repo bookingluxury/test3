@@ -363,6 +363,11 @@
   </head>
   <body>
     <div class="logo-top"></div>
+    <!-- Bootstrap Bundle JS -->
+
+  <div id="navbar-placeholder"></div>
+
+<script src="menu.js"></script>
 
       <!-- Step 1: Booking Details -->
       <div class="card step active" id="step1">
@@ -498,52 +503,13 @@
         </div>
       </div>
     </main>
-    <div class="bottom-nav">
-      <a class="nav-item active" href="index.html">
-        <i class="fa fa-home"></i>
-        <span>Trang Chủ</span>
-      </a>
-      <a class="nav-item" href="review.html">
-        <i class="fa fa-star"></i>
-        <span>Đánh Giá</span>
-      </a>
-      <a class="nav-item" href="video.html">
-        <i class="fa fa-film"></i>
-        <span>Video Nổi Bật</span>
-      </a>
-      <a class="nav-item" href="profile.html">
-        <i class="fa fa-user"></i>
-        <span>Hồ Sơ</span>
-      </a>
-      <a class="nav-item" href="services.html">
-        <i class="fa fa-briefcase"></i>
-        <span>Dịch Vụ</span>
-      </a>
-      <a class="nav-item" href="booking.html">
-        <i class="fa fa-calendar-check"></i>
-        <span>Đặt Lịch</span>
-      </a>
-      <a class="nav-item" href="photos.html">
-        <i class="fa fa-camera"></i>
-        <span>Thư Viện Ảnh</span>
-      </a>
-      <a class="nav-item" href="private-connection.html">
-        <i class="fa fa-lock"></i>
-        <span>Kết Nối Riêng Tư</span>
-      </a>
-      <a class="nav-item" href="add-credit.html">
-        <i class="fa fa-credit-card"></i>
-        <span>Thêm Tín Dụng</span>
-      </a>
-      <a class="nav-item" href="logout.html">
-        <i class="fa fa-sign-out"></i>
-        <span>Đăng Xuất</span>
-      </a>
-    </div>
-    
-    </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
       // Khi trang tải xong, nạp danh sách đối tác và thêm sự kiện onchange cho dropdown
       document.addEventListener("DOMContentLoaded", function () {
         populatePartnerList();
