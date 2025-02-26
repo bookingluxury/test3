@@ -27,7 +27,7 @@
         text-align: center;
         margin-bottom: 30px;
         font-size: 28px;
-        color: #0d3b66;
+        color: #2093ff;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       }
       body {
@@ -92,7 +92,7 @@
 
       /* Card Styles: nền trắng, bo tròn nhẹ, shadow mượt */
       .card {
-        background-color: #fff;
+        background-color: #495057;
         color: #333;
         border-radius: 12px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -118,12 +118,14 @@
         margin: 0;
         font-size: 24px;
         text-align: center;
-        background: linear-gradient(90deg, #0d3b66, #f4d35e);
+        background: linear-gradient(90deg, #0d3b66, #00ff00);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 10px;
       }
       .card p {
+        font-weight: 700;
+        color: #ffffff;
         font-size: 14px;
         margin: 6px 0;
         text-align: center;
@@ -132,7 +134,7 @@
       .card .price {
         font-size: 26px;
         font-weight: 700;
-        color: #f4d35e;
+        color: #00ffea;
         text-align: center;
         margin: 10px 0;
       }
@@ -143,16 +145,19 @@
         font-size: 13px;
       }
       .card ul li {
+        font-weight: 500;
+        color: #ffffff;
         margin-bottom: 6px;
         text-align: left;
       }
 
       /* Nút chọn gói với gradient xanh – vàng, tạo cảm giác năng động & hiện đại */
       .card .btn {
+        font-weight: 500;
         display: block;
         text-align: center;
-        background: linear-gradient(135deg, #0d3b66, #f4d35e);
-        color: #fff;
+        background: linear-gradient(135deg, #0066ff, #ffffff);
+        color: #000000;
         padding: 10px 0;
         text-decoration: none;
         border-radius: 5px;
@@ -161,7 +166,7 @@
         transition: background 0.3s ease, transform 0.2s ease;
       }
       .card .btn:hover {
-        background: linear-gradient(135deg, #0a2d4e, #d8b45d);
+        background: linear-gradient(135deg, #ffffff, #0084ff);
         transform: translateY(-3px);
       }
 
@@ -182,16 +187,23 @@
       }
 
       .logo-top {
-        width: auto;
-        height: 100px;
+        width: 500px; /* Đặt kích thước lớn hơn */
+        height: 120px; /* Đặt chiều cao phù hợp */
+        background-size: contain !important; /* Đảm bảo logo không bị thu nhỏ */
         background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png")
           no-repeat center/contain;
-        background-size: cover;
+        background-size: contain; /* Đảm bảo logo không bị cắt */
         z-index: 1001;
         transition: transform 0.3s ease;
         padding: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         backdrop-filter: blur(5px);
+      }
+      @media (max-width: 600px) {
+        .logo-top {
+          max-width: 100%;
+          height: 130px;
+        }
       }
     </style>
   </head>
