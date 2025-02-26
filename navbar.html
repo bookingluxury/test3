@@ -15,18 +15,18 @@
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
   }
-
   .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--nav-bg);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 40%, #b0b0b0 100%);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng cho cảm giác nổi */
     display: flex;
     z-index: 20;
     overflow-x: auto;
     scroll-behavior: smooth;
+    border-top: 1px solid rgba(255, 255, 255, 0.5); /* Đường viền sáng nhẹ */
   }
 
   .bottom-nav::-webkit-scrollbar {
@@ -107,24 +107,41 @@
   }
 </style>
 
-<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">
+  🌙 Dark Mode
+</button>
 
 <div class="bottom-nav">
-  <a class="nav-item" href="index.html"><i class="fa fa-home"></i><span>Trang Chủ</span></a>
-  <a class="nav-item" href="services.html"><i class="fa fa-briefcase"></i><span>Dịch Vụ</span></a>
-  <a class="nav-item" href="booking.html"><i class="fa fa-calendar-check"></i><span>Booking</span></a>
-  <a class="nav-item" href="photos.html"><i class="fa fa-camera"></i><span>Thư Viện Ảnh</span></a>
-    <a class="nav-item" href="video.html"><i class="fa fa-film"></i><span>Video Nổi Bật</span></a>
-  <a class="nav-item" href="private-connection.html"><i class="fa fa-lock"></i><span>Kết Nối 18+</span></a>
-  <a class="nav-item" href="add-credit.html"><i class="fa fa-credit-card"></i><span>Thêm Tín Dụng</span></a>
+  <a class="nav-item" href="index.html"
+    ><i class="fa fa-home"></i><span>Trang Chủ</span></a
+  >
+  <a class="nav-item" href="services.html"
+    ><i class="fa fa-briefcase"></i><span>Dịch Vụ</span></a
+  >
+  <a class="nav-item" href="booking.html"
+    ><i class="fa fa-calendar-check"></i><span>Booking</span></a
+  >
+  <a class="nav-item" href="photos.html"
+    ><i class="fa fa-camera"></i><span>Thư Viện Ảnh</span></a
+  >
+  <a class="nav-item" href="video.html"
+    ><i class="fa fa-film"></i><span>Video Nổi Bật</span></a
+  >
+  <a class="nav-item" href="private-connection.html"
+    ><i class="fa fa-lock"></i><span>Kết Nối 18+</span></a
+  >
+  <a class="nav-item" href="add-credit.html"
+    ><i class="fa fa-credit-card"></i><span>Thêm Tín Dụng</span></a
+  >
 </div>
 
 <script>
   function setActiveTab() {
-    const currentPath = window.location.pathname.split("/").pop() || "index.html";
+    const currentPath =
+      window.location.pathname.split("/").pop() || "index.html";
     const navItems = document.querySelectorAll(".nav-item");
 
-    navItems.forEach(item => {
+    navItems.forEach((item) => {
       if (item.getAttribute("href") === currentPath) {
         item.classList.add("active");
       } else {
@@ -137,22 +154,24 @@
     document.body.classList.toggle("dark-mode");
     const isDarkMode = document.body.classList.contains("dark-mode");
     localStorage.setItem("darkMode", isDarkMode);
-    document.querySelector(".dark-mode-toggle").textContent = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+    document.querySelector(".dark-mode-toggle").textContent = isDarkMode
+      ? "☀️ Light Mode"
+      : "🌙 Dark Mode";
     applyDarkMode(isDarkMode);
   }
 
   function applyDarkMode(isDark) {
     const root = document.documentElement;
     if (isDark) {
-      root.style.setProperty('--nav-bg', '#2c2c2c');
-      root.style.setProperty('--text-color', '#f0f0f0');
-      root.style.setProperty('--hover-bg', '#3d3d3d');
-      root.style.setProperty('--bg-color', '#121212');
+      root.style.setProperty("--nav-bg", "#2c2c2c");
+      root.style.setProperty("--text-color", "#f0f0f0");
+      root.style.setProperty("--hover-bg", "#3d3d3d");
+      root.style.setProperty("--bg-color", "#121212");
     } else {
-      root.style.setProperty('--nav-bg', '#e9ecef');
-      root.style.setProperty('--text-color', '#333');
-      root.style.setProperty('--hover-bg', '#ced4da');
-      root.style.setProperty('--bg-color', '#ffffff');
+      root.style.setProperty("--nav-bg", "#e9ecef");
+      root.style.setProperty("--text-color", "#333");
+      root.style.setProperty("--hover-bg", "#ced4da");
+      root.style.setProperty("--bg-color", "#ffffff");
     }
   }
 
@@ -166,9 +185,11 @@
     setActiveTab();
   });
 
-  document.querySelectorAll(".nav-item").forEach(item => {
+  document.querySelectorAll(".nav-item").forEach((item) => {
     item.addEventListener("click", function () {
-      document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+      document
+        .querySelectorAll(".nav-item")
+        .forEach((nav) => nav.classList.remove("active"));
       this.classList.add("active");
     });
   });
