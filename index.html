@@ -3470,23 +3470,17 @@ const characterDetails={Lyly:{name:"Lyly",age:24,status:"Hoạt Động",height:
         generateCards();
 
         /********************** OFFCANVAS **********************/
-        window.openOffCanvas = function (key) {
-          const char = characterDetails[key];
-          document.getElementById("offCanvasTitle").innerText = char.name;
-          document.getElementById(
-            "offCanvasTagline"
-          ).innerHTML = `<span>${char.personality}</span>`;
-          document.getElementById(
-            "offCanvasAge"
-          ).innerHTML = `<i class="fas fa-birthday-cake"></i> Tuổi: <strong>${char.age}</strong>`;
-          document.getElementById(
-            "offCanvasSize"
-          ).innerHTML = `<i class="fas fa-ruler"></i> Số đo: <strong>${char.measurements}</strong>`;
-          document.getElementById("offCanvasImage").src = char.images[0];
-          document.getElementById("offCanvasLink").href =
-            char.telegramLink || "#";
-          const ratingText = char.rating ? `Đánh giá: ${char.rating}` : "";
-          document.getElementById("offCanvasExtra").innerText = ratingText;
+     window.openOffCanvas = function (key) {
+  const char = characterDetails[key];
+  document.getElementById("offCanvasTitle").innerText = char.name;
+  // Đã loại bỏ hiển thị personality
+  // document.getElementById("offCanvasTagline").innerHTML = `<span>${char.personality}</span>`;
+  document.getElementById("offCanvasAge").innerHTML = `<i class="fas fa-birthday-cake"></i> Tuổi: <strong>${char.age}</strong>`;
+  document.getElementById("offCanvasSize").innerHTML = `<i class="fas fa-ruler"></i> Số đo: <strong>${char.measurements}</strong>`;
+  document.getElementById("offCanvasImage").src = char.images[0];
+  document.getElementById("offCanvasLink").href = char.telegramLink || "#";
+  const ratingText = char.rating ? `Đánh giá: ${char.rating}` : "";
+  document.getElementById("offCanvasExtra").innerText = ratingText;
 
           // Gallery
           // Gallery
