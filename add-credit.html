@@ -4,118 +4,186 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Thanh Toán - Modern Payment Interface</title>
-    <!-- Font Awesome cho icon nếu cần -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
+    <!-- Ionicons: Thư viện icon hiện đại -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
     <!-- Google Fonts: Roboto -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <style>
-      /* Reset và cấu hình cơ bản */
+      /* Reset & cơ bản */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
       body {
-        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-        color: #333;
-        padding: 20px;
-        min-height: 100vh;
         font-family: "Roboto", sans-serif;
-      }
-      .container {
-        max-width: 800px;
-        margin: 0 auto 120px; /* Thêm khoảng cách dưới để không bị chồng lên thanh điều hướng */
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
-      h3 {
-        background: linear-gradient(90deg, #6a82fb, #fc5c7d);
-        text-align: center;
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        color: #ffffff;
-        border-radius: 8px;
-        padding: 10px;
-      }
-      body {
-        /* Màu nền gốc: xanh đen (navy/dark) */
         background: #0b0f1a;
-
-        /* Gradient radial để tạo chiều sâu mờ ở trung tâm */
         background: radial-gradient(
           circle at center,
-          rgba(11, 15, 26, 0.7) 0%,
-          /* Màu hơi trong suốt ở tâm */ rgba(11, 15, 26, 1) 100%
-            /* Màu đậm hơn ở ngoài rìa */
+          rgba(11, 15, 26, 0.8) 0%,
+          rgba(11, 15, 26, 1) 100%
         );
-
-        /* Đặt chiều cao full màn hình */
         min-height: 100vh;
-
-        /* Đảm bảo phần tử con được hiển thị phía trên */
+        color: #fff;
+        padding: 20px;
         position: relative;
-
-        color: #fff; /* Màu chữ mặc định (trắng) trên nền tối */
       }
-
-      /* Lớp phủ sao (starfield) tạo thêm độ sâu */
       body::before {
         content: "";
         position: absolute;
-        z-index: -1; /* Đẩy lớp phủ ra phía sau nội dung */
+        z-index: -1;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-
-        /* Thay đường dẫn ảnh sao, hoặc bạn có thể dùng ảnh bokeh, particle... */
         background: url("https://i.ibb.co/ycBpNQyM/pngtree-light-effect-background-halo-radial-image-2419979.jpg")
           no-repeat center center;
         background-size: cover;
-
-        /* Độ trong suốt để hòa trộn với nền phía dưới */
         opacity: 0.2;
         pointer-events: none;
       }
-      /* Style cho từng card thanh toán */
-      .payment-option {
-        border: 1px solid #ddd;
-        border-radius: 8px;
+      .container {
+        max-width: 800px;
+        margin: 0 auto 120px;
+        padding: 20px;
+        background: #1a1a1a;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      }
+      h3 {
+        position: relative;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px;
         margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: linear-gradient(90deg, #6a82fb, #fc5c7d);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s ease infinite;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% center;
+        }
+        50% {
+          background-position: 100% center;
+        }
+        100% {
+          background-position: 0% center;
+        }
+      }
+      /* Hiệu ứng chữ chạy (marquee) theo chiều dọc */
+      .scrolling-text {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        background: #111;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        padding: 10px;
+      }
+      .scrolling-content {
+        position: absolute;
+        width: 100%;
+        animation: scrollUp 20s linear infinite;
+      }
+      @keyframes scrollUp {
+        0% {
+          top: 100%;
+        }
+        100% {
+          top: -100%;
+        }
+      }
+      /* Payment note style */
+      .payment-note {
+        margin: 20px 0;
+        padding: 15px;
+        background: #222;
+        border-left: 4px solid #fc5c7d;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #fff;
+      }
+      .payment-note p {
+        margin-bottom: 10px;
+      }
+      .payment-note ul {
+        list-style: none;
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+      .payment-note li {
+        margin-bottom: 5px;
+      }
+      /* Payment option (card) style */
+      .payment-option {
+        position: relative;
+        margin: 10px 0; /* Giảm khoảng cách giữa các mục */
+        padding: 10px; /* Giảm padding bên trong */
+        border-radius: 12px; /* Bo viền mềm mại */
+        background: linear-gradient(145deg, #000, #1a1a1a);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
         overflow: hidden;
         transition: transform 0.3s, box-shadow 0.3s;
-        background: #f9f9f9;
       }
       .payment-option:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(252, 92, 125, 0.8); /* Hiệu ứng nổi bật */
+        border: 1px solid #fc5c7d; /* Bo viền nổi bật khi hover */
+      }
+      .payment-option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: rgba(255, 255, 255, 0.1);
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        pointer-events: none;
       }
       .payment-option a {
         display: block;
         padding: 15px 20px;
-        background: #e9ecef;
-        color: #333;
+        background: linear-gradient(90deg, #1f1f1f, #121212);
+        color: #fff;
         text-decoration: none;
         font-size: 1.2rem;
         cursor: pointer;
+        position: relative;
+        z-index: 1;
+        transition: background 0.3s;
       }
       .payment-option a:hover {
-        background: #dee2e6;
+        background: linear-gradient(90deg, #2a2a2a, #1a1a1a);
       }
       .payment-details {
         padding: 15px 20px;
         font-size: 1rem;
-        background: #fff;
+        background: #121212;
         display: none;
-        color: #333;
+        color: #fff;
+        border-top: 1px solid #333;
       }
       .payment-details p {
         margin-bottom: 10px;
@@ -143,8 +211,10 @@
         margin: 8px 0;
         padding: 8px;
         border-radius: 4px;
-        border: 1px solid #ccc;
+        border: 1px solid #444;
         font-size: 1rem;
+        background: #000;
+        color: #fff;
       }
       .submit-btn {
         display: block;
@@ -165,8 +235,6 @@
         transform: scale(1.03);
         box-shadow: 0 6px 12px rgba(255, 193, 7, 0.5);
       }
-
-      /* Responsive: giảm kích thước font và padding trên điện thoại */
       @media (max-width: 600px) {
         h3 {
           font-size: 1.5rem;
@@ -185,16 +253,15 @@
         }
       }
       .logo-top {
-        width: 500px; /* Đặt kích thước lớn hơn */
-        height: 120px; /* Đặt chiều cao phù hợp */
-        background-size: contain !important; /* Đảm bảo logo không bị thu nhỏ */
+        width: 500px;
+        height: 120px;
         background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png")
           no-repeat center/contain;
-        background-size: contain; /* Đảm bảo logo không bị cắt */
+        background-size: contain;
         z-index: 1001;
         transition: transform 0.3s ease;
         padding: 5px;
-        margin-bottom: 0px;
+        margin-bottom: 20px;
         backdrop-filter: blur(5px);
       }
       @media (max-width: 600px) {
@@ -206,17 +273,91 @@
       .logo-top:hover {
         transform: scale(1.05);
       }
+
+      .content-footer {
+        background: #222;
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+
+      .footer-container p {
+        margin: 0.5rem;
+      }
+
+      .footer-container a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-container a:hover {
+        color: #ffdd57;
+      }
     </style>
   </head>
   <body>
     <div class="logo-top"></div>
-
-    
-
     <div class="container">
       <h3>Chọn Hình Thức Thanh Toán</h3>
 
-      <!-- Option 1: Thanh toán qua Tài Khoản Việt -->
+      <!-- Marquee chạy nội dung thông báo thanh toán -->
+      <div class="scrolling-text">
+        <div class="scrolling-content">
+          💡 Vì Sao Quý Khách Cần Thanh Toán? 為什麼需要付款？<br />
+          ✅ Xác thực khách hàng có nhu cầu thật (驗證真實客戶) – Tránh tài
+          khoản ảo hoặc truy cập không hợp lệ.<br />
+          ✅ Kích hoạt quyền truy cập dịch vụ đặc biệt (開通特別服務) – Chỉ
+          khách hàng đã thanh toán mới có thể sử dụng.<br />
+          ✅ Bảo vệ quyền lợi khách hàng (保障您的權益) – Hạn chế rủi ro và đảm
+          bảo chất lượng.<br />
+          ✅ Hỗ trợ từ CSKH (專業客服指導) – Nhận hướng dẫn chi tiết sau thanh
+          toán.<br />
+          ✅ Quyền lợi ưu tiên (優先享受更多優惠) – Ưu tiên hỗ trợ và tiếp cận
+          ưu đãi.<br />
+          💡 Lưu ý 提醒:<br />
+          Thanh toán một lần (一次性付款) để duy trì quyền truy cập.<br />
+          Hệ thống tự động xử lý giao dịch (系統自動確認付款) để cấp quyền
+          nhanh.<br />
+          Liên hệ CSKH (如有疑問請聯繫客服) nếu cần hỗ trợ.<br />
+          🎯 Hãy thanh toán ngay để tận hưởng dịch vụ đặc biệt dành cho bạn!
+          立即付款，即可享受專屬特別服務！
+        </div>
+      </div>
+
+      <!-- Note thanh toán & chi tiết -->
+      <div class="payment-note">
+        <p>
+          📌
+          <strong
+            >THÔNG BÁO THANH TOÁN & QUYỀN TRUY CẬP DỊCH VỤ ĐẶC BIỆT</strong
+          >
+        </p>
+        <p>💳 <strong>Hướng Dẫn Thanh Toán</strong></p>
+        <p>Quý khách có thể thanh toán qua các phương thức sau:</p>
+        <ul>
+          <li>🔹 Tài khoản ngân hàng Việt Nam – Chuyển khoản nội địa.</li>
+          <li>
+            🔹 Tài khoản ngân hàng Đài Loan – Phù hợp cho khách hàng tại Đài
+            Loan.
+          </li>
+          <li>
+            🔹 Ví điện tử & phương thức quốc tế (nếu có) – Liên hệ để được hướng
+            dẫn.
+          </li>
+        </ul>
+        <p>
+          Sau khi thanh toán, hệ thống tự động xác nhận giao dịch và cấp quyền
+          truy cập dịch vụ. Nếu cần hỗ trợ, hãy liên hệ CSKH.
+        </p>
+      </div>
+
+      <!-- Các tùy chọn thanh toán -->
+      <!-- Option 1: Tài Khoản Việt -->
       <div class="payment-option">
         <a onclick="showPaymentForm('viet')">Thanh toán qua Tài Khoản Việt</a>
         <div class="payment-details" id="vietDetails">
@@ -248,38 +389,36 @@
         </div>
       </div>
 
-      <!-- Option 2: Thanh toán qua Ngân hàng Úc (NAB) -->
+      <!-- Option 2: Ngân hàng Đài Loan -->
       <div class="payment-option">
-        <a onclick="showPaymentForm('auc')"
-          >Thanh toán qua Ngân hàng Úc (NAB)</a
-        >
-        <div class="payment-details" id="aucDetails">
+        <a onclick="showPaymentForm('tw')">Thanh toán qua Ngân hàng Đài Loan</a>
+        <div class="payment-details" id="twDetails">
           <p>
             <strong>Tên chủ tài khoản:</strong>
-            <span id="aucAccountName">Lemlem Aderajew</span>
-            <button onclick="copyToClipboard('aucAccountName')">Copy</button>
+            <span id="twAccountName">Chen Wei</span>
+            <button onclick="copyToClipboard('twAccountName')">Copy</button>
           </p>
           <p>
             <strong>Số tài khoản:</strong>
-            <span id="aucAccountNumber">862883062</span>
-            <button onclick="copyToClipboard('aucAccountNumber')">Copy</button>
+            <span id="twAccountNumber">1234567890</span>
+            <button onclick="copyToClipboard('twAccountNumber')">Copy</button>
           </p>
           <p>
             <strong>Ngân hàng:</strong>
-            <span id="aucBank">National Australia Bank</span>
-            <button onclick="copyToClipboard('aucBank')">Copy</button>
+            <span id="twBank">Taiwan Cooperative Bank (台灣合作銀行)</span>
+            <button onclick="copyToClipboard('twBank')">Copy</button>
           </p>
           <p>
-            <strong>BSB:</strong>
-            <span id="aucBsb">083520</span>
-            <button onclick="copyToClipboard('aucBsb')">Copy</button>
+            <strong>Mã ngân hàng:</strong>
+            <span id="twCode">005</span>
+            <button onclick="copyToClipboard('twCode')">Copy</button>
           </p>
           <p>
-            <strong>PayID:</strong>
-            <span id="aucPayID">0415860268</span>
-            <button onclick="copyToClipboard('aucPayID')">Copy</button>
+            <strong>Chi nhánh:</strong>
+            <span id="twBranch">Taipei Main Branch</span>
+            <button onclick="copyToClipboard('twBranch')">Copy</button>
           </p>
-          <p><strong>Số tiền cần chuyển:</strong> 39 AUD</p>
+          <p><strong>Số tiền cần chuyển:</strong> 1,200 TWD</p>
         </div>
       </div>
 
@@ -312,27 +451,71 @@
           </button>
         </div>
       </div>
-<div id="navbar-placeholder"></div>
 
-<script src="menu.js"></script>
+      <!-- Footer với các icon mạng xã hội sử dụng Ionicons -->
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 1rem;
+        "
+      >
+        <a href="#" style="color: #3b5998; text-decoration: none">
+          <ion-icon name="logo-facebook" style="font-size: 2rem"></ion-icon>
+        </a>
+        <a href="#" style="color: #25d366; text-decoration: none">
+          <ion-icon name="logo-whatsapp" style="font-size: 2rem"></ion-icon>
+        </a>
+        <a href="#" style="color: #e1306c; text-decoration: none">
+          <ion-icon name="logo-instagram" style="font-size: 2rem"></ion-icon>
+        </a>
+        <a href="#" style="color: #000; text-decoration: none">
+          <ion-icon name="logo-tiktok" style="font-size: 2rem"></ion-icon>
+        </a>
+        <a href="#" style="color: #0077b5; text-decoration: none">
+          <ion-icon name="logo-linkedin" style="font-size: 2rem"></ion-icon>
+        </a>
+      </div>
 
-<script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
+      <!-- Footer với nền đậm -->
+      <footer class="content-footer">
+        <div class="footer-container">
+          <p>
+            &copy; 2023 <strong>Dangcapgaigoi</strong>. All rights reserved.
+          </p>
+          <p>
+            Designed by
+            <a href="https://dangcapgaigoi.com" target="_blank"
+              >Dangcapgaigoi Team</a
+            >
+          </p>
+        </div>
+      </footer>
+
+      <div id="navbar-placeholder"></div>
+    </div>
+
+    <!-- Script JS -->
+    <script>
+      fetch("navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+
       function showPaymentForm(method) {
-        // Ẩn tất cả chi tiết thanh toán
         document.getElementById("vietDetails").style.display = "none";
-        document.getElementById("aucDetails").style.display = "none";
+        document.getElementById("aucDetails") &&
+          (document.getElementById("aucDetails").style.display = "none");
+        document.getElementById("twDetails").style.display = "none";
         document.getElementById("visaDetails").style.display = "none";
-
-        // Hiển thị chi tiết của phương thức được chọn
         if (method === "viet") {
           document.getElementById("vietDetails").style.display = "block";
         } else if (method === "auc") {
           document.getElementById("aucDetails").style.display = "block";
+        } else if (method === "tw") {
+          document.getElementById("twDetails").style.display = "block";
         } else if (method === "visa") {
           document.getElementById("visaDetails").style.display = "block";
         }
@@ -362,8 +545,16 @@
           return;
         }
         alert("Thanh toán thành công! Số tiền thanh toán: " + amount);
-        // Sau khi xác nhận thanh toán, bạn có thể thực hiện các thao tác cập nhật giao diện hoặc reset form tại đây.
       }
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      // Không cần các hàm quà tặng hay live stream
     </script>
   </body>
 </html>
