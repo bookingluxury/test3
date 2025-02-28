@@ -23,18 +23,19 @@
   bottom: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 60px !important;
+ height: 65px !important; /* Đảm bảo không bị nhỏ quá */
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important; /* Quan trọng: Cho phép các mục nằm ngang */
   background: linear-gradient(180deg, #333 0%, #000 100%) !important;
   box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2) !important;
   z-index: 99999 !important;
+    scroll-snap-type: x mandatory;
   overflow-x: auto !important; /* Cho phép cuộn ngang */
   overflow-y: hidden !important; /* Ẩn cuộn dọc */
   white-space: nowrap !important; /* Giữ các mục trên cùng một hàng */
   scroll-behavior: smooth !important; /* Cuộn mượt */
-  padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ iPhone notch */
+  padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ notch trên iPhone */
 }
 
 .bottom-nav::-webkit-scrollbar {
@@ -55,6 +56,7 @@
   align-items: center !important;
   justify-content: center !important;
   color: white !important;
+    scroll-snap-align: start;
   font-size: 12px !important;
   white-space: nowrap !important;
   z-index: 99999 !important;
@@ -211,6 +213,51 @@
       root.style.setProperty("--accent", "#007bff");
     }
   }
+document.addEventListener("DOMContentLoaded", function () {
+  const navBar = document.querySelector(".bottom-nav");
+  let isDragging = false;
+  let startX, scrollLeft;
+
+  navBar.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.pageX - navBar.offsetLeft;
+    scrollLeft = navBar.scrollLeft;
+  });
+
+  navBar.addEventListener("mouseleave", () => {
+    isDragging = false;
+  });
+
+  navBar.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  navBar.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - navBar.offsetLeft;
+    const walk = (x - startX) * 2; // Tăng tốc độ cuộn
+    navBar.scrollLeft = scrollLeft - walk;
+  });
+
+  // Hỗ trợ vuốt trên Mobile (Touch)
+  navBar.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - navBar.offsetLeft;
+    scrollLeft = navBar.scrollLeft;
+  });
+
+  navBar.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+
+  navBar.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - navBar.offsetLeft;
+    const walk = (x - startX) * 2;
+    navBar.scrollLeft = scrollLeft - walk;
+  });
+});
 
   // Cập nhật giao diện khi load trang
   window.addEventListener("load", () => {
