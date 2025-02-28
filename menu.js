@@ -24,8 +24,8 @@ fetch("navbar.html")
 
     function updateIndicator(element) {
       requestAnimationFrame(() => {
-        navIndicator.style.width = `${element.offsetWidth}px`;
-        navIndicator.style.left = `${element.offsetLeft}px`;
+        navIndicator.style.width = ${element.offsetWidth}px;
+        navIndicator.style.left = ${element.offsetLeft}px;
       });
     }
 
