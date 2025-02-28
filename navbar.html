@@ -12,50 +12,54 @@
   }
 
   body {
-     padding-bottom: 40px; /* Đảm bảo nội dung không bị thanh điều hướng che */
+     padding-bottom: 40px !important; /* Đảm bảo nội dung không bị thanh điều hướng che */
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
   }
 
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(180deg, #333 0%, #000 100%);
-  box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2);
-  z-index: 1000;
-  overflow-x: auto; /* Cho phép kéo ngang */
-  white-space: nowrap; /* Ngăn chặn chữ bị xuống dòng */
-  padding-bottom: env(safe-area-inset-bottom); /* Hỗ trợ notch trên điện thoại */
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  background: linear-gradient(180deg, #333 0%, #000 100%) !important;
+  box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2) !important;
+  z-index: 99999 !important; /* Đảm bảo luôn ở trên cùng */
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ iPhone notch */
 }
 
 .bottom-nav::-webkit-scrollbar {
-  display: none; /* Ẩn thanh cuộn trên trình duyệt Webkit */
+  display: none !important;
 }
+
 
 
 .nav-item {
-  flex: 1;
-  min-width: 80px; /* Đảm bảo các mục không quá nhỏ */
-  text-align: center;
-  cursor: pointer;
-  padding: 10px 5px; /* Điều chỉnh padding để chữ không bị chồng lên nhau */
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  font-weight: bold;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 12px; /* Điều chỉnh kích thước chữ nếu cần */
-  white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+  flex: 1 !important;
+  min-width: 80px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  padding: 10px 5px !important;
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  z-index: 99999 !important;
 }
+
 
 
   .nav-item:hover {
