@@ -26,24 +26,24 @@
   height: 60px !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-around !important;
+  justify-content: flex-start !important; /* Quan trọng: Cho phép các mục nằm ngang */
   background: linear-gradient(180deg, #333 0%, #000 100%) !important;
   box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2) !important;
-  z-index: 99999 !important; /* Đảm bảo luôn ở trên cùng */
-  overflow-x: auto !important;
-  white-space: nowrap !important;
+  z-index: 99999 !important;
+  overflow-x: auto !important; /* Cho phép cuộn ngang */
+  overflow-y: hidden !important; /* Ẩn cuộn dọc */
+  white-space: nowrap !important; /* Giữ các mục trên cùng một hàng */
+  scroll-behavior: smooth !important; /* Cuộn mượt */
   padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ iPhone notch */
 }
 
 .bottom-nav::-webkit-scrollbar {
-  display: none !important;
+  display: none !important; /* Ẩn thanh cuộn trên Chrome, Safari */
 }
 
-
-
 .nav-item {
-  flex: 1 !important;
-  min-width: 80px !important;
+  flex: 0 0 auto !important; /* Ngăn các mục bị kéo giãn */
+  min-width: 90px !important; /* Đảm bảo kích thước ổn định */
   text-align: center !important;
   cursor: pointer !important;
   padding: 10px 5px !important;
@@ -59,6 +59,7 @@
   white-space: nowrap !important;
   z-index: 99999 !important;
 }
+
 
 
 
