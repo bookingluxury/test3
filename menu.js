@@ -24,39 +24,62 @@ fetch("navbar.html")
 
     function updateIndicator(element) {
       requestAnimationFrame(() => {
-        navIndicator.style.width = `${element.offsetWidth}px`;
-        navIndicator.style.left = `${element.offsetLeft}px`;
+        if (element) {
+          navIndicator.style.width = `${element.offsetWidth}px`;
+          navIndicator.style.left = `${element.offsetLeft}px`;
+        }
       });
+    }
+
+    // ✅ Xác định trang hiện tại
+    function setActiveTab() {
+      const currentPath = window.location.pathname.split("/").pop() || "index.html";
+
+      let foundActive = false;
+      navItems.forEach(item => {
+        const itemPath = item.getAttribute("href").split("/").pop();
+        if (itemPath === currentPath) {
+          item.classList.add("active");
+          updateIndicator(item);
+          foundActive = true;
+        } else {
+          item.classList.remove("active");
+        }
+      });
+
+      // Nếu không tìm thấy trang, đặt mặc định là trang chủ
+      if (!foundActive) {
+        const homeItem = document.querySelector('.nav-item[href="index.html"]');
+        if (homeItem) {
+          homeItem.classList.add("active");
+          updateIndicator(homeItem);
+        }
+      }
     }
 
     // ✅ Xử lý trạng thái active khi click
     navItems.forEach(item => {
       item.addEventListener("click", function (e) {
-        e.preventDefault(); // Ngăn reload trang khi bấm vào link
-
+        // Xóa class active khỏi tất cả các mục
         navItems.forEach(nav => nav.classList.remove("active"));
         this.classList.add("active");
         updateIndicator(this);
 
         // ✅ Lưu trạng thái active vào localStorage
         localStorage.setItem("activeNavItem", this.getAttribute("href"));
-
-        // ✅ Chuyển hướng đúng trang (giữ nguyên trạng thái)
-        setTimeout(() => {
-          window.location.href = this.getAttribute("href");
-        }, 100);
       });
     });
 
     // ✅ Giữ trạng thái active khi reload trang
     const savedActiveItem = localStorage.getItem("activeNavItem");
     if (savedActiveItem) {
-      navItems.forEach(item => {
-        if (item.getAttribute("href") === savedActiveItem) {
-          item.classList.add("active");
-          updateIndicator(item);
-        }
-      });
+      const matchingItem = [...navItems].find(item => item.getAttribute("href") === savedActiveItem);
+      if (matchingItem) {
+        matchingItem.classList.add("active");
+        updateIndicator(matchingItem);
+      }
+    } else {
+      setActiveTab();
     }
 
     // ✅ Kéo thanh điều hướng trên mobile & desktop
