@@ -1,137 +1,130 @@
- <style>
-:root {
-        /* Biến giao diện chính */
-        --nav-bg: #000000;
-        --accent: #ffffff;
-        --text-color: #ffffff;
-        --hover-bg: #444444;
-        --bg-color: #ffffff;
-        --nav-item-size: 80px;
-        --icon-size: 24px;
-        --font-size: 13px;
-      }
+<style>
+  :root {
+    --nav-bg: #e9ecef;
+    --accent: #007bff;
+    --text-color: #333;
+    --hover-bg: #ced4da;
+    --bg-color: #ffffff;
+    --nav-item-size: 80px;
+    --icon-size: 24px;
+    --font-size: 13px;
+  }
 
-      html,
-      body {
-        overflow-x: hidden !important;
-        padding-bottom: 80px !important;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        transition: background-color 0.3s, color 0.3s;
-        margin: 0;
-        height: 100%;
-      }
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-   .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 65px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background: linear-gradient(180deg, #333 0%, #000 100%);
-  box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2);
-  z-index: 99999;
-  overflow-x: auto;
-  white-space: nowrap;
-  scroll-behavior: smooth;
-  padding-bottom: env(safe-area-inset-bottom);
-}
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--nav-bg);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    z-index: 20;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
 
-.bottom-nav::-webkit-scrollbar {
-  display: none;
-}
+  .bottom-nav::-webkit-scrollbar {
+    display: none;
+  }
 
-.nav-item {
-  flex: 1;
-  text-align: center;
-  cursor: pointer;
-  padding: 10px;
-  transition: all 0.2s ease;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 12px;
-}
+  .nav-item {
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 0;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    font-weight: bold;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--nav-item-size);
+    color: var(--text-color);
+  }
 
-.nav-item i {
-  font-size: 18px;
-  margin-bottom: 4px;
-  color: white;
-}
+  .nav-item:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.05);
+  }
 
-.nav-item span {
-  font-size: 13px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
+  .nav-item.active {
+    background-color: var(--hover-bg);
+  }
 
-.nav-item:hover {
-  transform: scale(1.05);
-}
+  .nav-item i {
+    font-size: var(--icon-size);
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
+    color: var(--text-color);
+  }
 
-.nav-item.active {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
+  .nav-item span {
+    font-size: var(--font-size);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    color: var(--text-color);
+  }
 
-.nav-item.active i,
-.nav-item.active span {
-  color: #ffcc00; /* Màu nhấn */
-}
+  .nav-item.active i,
+  .nav-item.active span {
+    color: var(--accent);
+    font-weight: 700;
+  }
 
-    </style>
-  </head>
-  <body>
-    <!-- Toggle Dark Mode -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
-      🌙 Dark Mode
-    </button>
+  /* Dark Mode */
+  body.dark-mode {
+    --nav-bg: #2c2c2c;
+    --accent: #1e90ff;
+    --text-color: #f0f0f0;
+    --hover-bg: #3d3d3d;
+    --bg-color: #121212;
+  }
 
-  <div class="bottom-nav">
-  <a class="nav-item" href="index.html" data-name="Trang Chủ">
-    <i class="fa fa-home"></i>
-    <span>Trang Chủ</span>
-  </a>
-  <a class="nav-item" href="services.html" data-name="Dịch Vụ">
-    <i class="fa fa-briefcase"></i>
-    <span>Dịch Vụ</span>
-  </a>
-  <a class="nav-item" href="booking.html" data-name="Booking">
-    <i class="fa fa-calendar-check"></i>
-    <span>Booking</span>
-  </a>
-  <a class="nav-item" href="photos.html" data-name="Thư Viện Ảnh">
-    <i class="fa fa-camera"></i>
-    <span>Thư Viện Ảnh</span>
-  </a>
-  <a class="nav-item" href="video.html" data-name="Video Nổi Bật">
-    <i class="fa fa-film"></i>
-    <span>Video Nổi Bật</span>
-  </a>
-  <a class="nav-item" href="private-connection.html" data-name="Kết Nối 18+">
-    <i class="fa fa-lock"></i>
-    <span>Kết Nối 18+</span>
-  </a>
-  <a class="nav-item" href="add-credit.html" data-name="Tín Dụng">
-    <i class="fa fa-credit-card"></i>
-    <span>Tín Dụng</span>
-  </a>
+  .dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: var(--accent);
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 30;
+  }
+
+  .dark-mode-toggle:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<div class="bottom-nav">
+  <a class="nav-item" href="index.html"><i class="fa fa-home"></i><span>Trang Chủ</span></a>
+  <a class="nav-item" href="services.html"><i class="fa fa-briefcase"></i><span>Dịch Vụ</span></a>
+  <a class="nav-item" href="booking.html"><i class="fa fa-calendar-check"></i><span>Booking</span></a>
+  <a class="nav-item" href="photos.html"><i class="fa fa-camera"></i><span>Thư Viện Ảnh</span></a>
+ <a class="nav-item" href="video.html"><i class="fa fa-film"></i><span>Video Nổi Bật</span></a>
+  <a class="nav-item" href="private-connection.html"><i class="fa fa-lock"></i><span>Kết Nối 18+</span></a>
+  <a class="nav-item" href="add-credit.html"><i class="fa fa-credit-card"></i><span>Thêm Tín Dụng</span></a>
 </div>
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
   function setActiveTab() {
     const currentPath = window.location.pathname.split("/").pop() || "index.html";
     const navItems = document.querySelectorAll(".nav-item");
 
-    navItems.forEach((item) => {
+    navItems.forEach(item => {
       if (item.getAttribute("href") === currentPath) {
         item.classList.add("active");
       } else {
@@ -140,26 +133,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Khi click vào mục navbar, lưu trạng thái active vào LocalStorage
-  document.querySelectorAll(".nav-item").forEach((item) => {
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDarkMode);
+    document.querySelector(".dark-mode-toggle").textContent = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+    applyDarkMode(isDarkMode);
+  }
+
+  function applyDarkMode(isDark) {
+    const root = document.documentElement;
+    if (isDark) {
+      root.style.setProperty('--nav-bg', '#2c2c2c');
+      root.style.setProperty('--text-color', '#f0f0f0');
+      root.style.setProperty('--hover-bg', '#3d3d3d');
+      root.style.setProperty('--bg-color', '#121212');
+    } else {
+      root.style.setProperty('--nav-bg', '#e9ecef');
+      root.style.setProperty('--text-color', '#333');
+      root.style.setProperty('--hover-bg', '#ced4da');
+      root.style.setProperty('--bg-color', '#ffffff');
+    }
+  }
+
+  window.addEventListener("load", () => {
+    const darkMode = localStorage.getItem("darkMode") === "true";
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+      document.querySelector(".dark-mode-toggle").textContent = "☀️ Light Mode";
+      applyDarkMode(true);
+    }
+    setActiveTab();
+  });
+
+  document.querySelectorAll(".nav-item").forEach(item => {
     item.addEventListener("click", function () {
-      localStorage.setItem("activeNavItem", this.getAttribute("href"));
+      document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+      this.classList.add("active");
     });
   });
-
-  // Khi tải lại trang, giữ trạng thái active
-  window.addEventListener("load", () => {
-    const savedActiveItem = localStorage.getItem("activeNavItem");
-    if (savedActiveItem) {
-      document.querySelectorAll(".nav-item").forEach((item) => {
-        if (item.getAttribute("href") === savedActiveItem) {
-          item.classList.add("active");
-        }
-      });
-    }
-  });
-
-  setActiveTab();
-});
-
 </script>
