@@ -140,23 +140,67 @@
         }
       }
       .category-tabs {
-  background: #000000;
-  border-radius: 8px;
-  padding: 0;
-  display: flex;
-  border: none;
-  justify-content: center;
-  overflow: hidden; /* Ngăn phần tử con tràn ra ngoài */
+    display: flex;
+    justify-content: center; /* Căn giữa các mục */
+    flex-wrap: wrap; /* Đảm bảo không bị tràn dòng */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    padding: 10px 0;
+    gap: 15px; /* Thêm khoảng cách giữa các tab */
 }
 
+
 .category-tabs .nav-item {
-  flex: 1;
-  
-  border: none;
-  outline: none;
-  font-weight: 500;
-  text-align: center;
-  margin: 0;
+    flex: 1;
+    text-align: center;
+    min-width: 120px; /* Đảm bảo không quá nhỏ */
+    max-width: 180px; /* Giới hạn kích thước tối đa */
+}
+
+
+
+.category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.category-tabs .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 120px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff5e00, #efefef, #7a00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 12px 18px;
+    transition: background-color 0.4s ease, transform 0.4s ease;
+}
+
+/* Bỏ viền khi hover */
+.category-tabs .nav-link:hover {
+    transform: scale(1.1);
+    background-color: transparent !important; /* Không có hiệu ứng nền */
+    box-shadow: none !important; /* Không có viền hoặc shadow */
+    border: none !important; /* Bỏ luôn border nếu có */
+}
+
+/* Bỏ viền khi tab được chọn */
+.category-tabs .nav-link.active {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    outline: none; /* Chặn trình duyệt tự động thêm viền */
+}
+
+/* Bỏ viền khi focus */
+.category-tabs .nav-link:focus {
+    outline: none !important; /* Chặn viền trắng khi click vào */
+    box-shadow: none !important;
+    border: none !important;
 }
 
 .nav-link {
