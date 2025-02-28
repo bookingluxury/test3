@@ -66,15 +66,24 @@
       }
       /* Tiêu đề chính */
       h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 32px;
-        text-align: center;
-        background: linear-gradient(90deg, #ff8c00, #73ff00, #000918);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+ 
+        background: linear-gradient(90deg, #000000, #000000, #0eff45, #007bff);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: textAnimation 3slinear infinite;
+  text-align: center;
+  padding: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng nổi */
       }
+
+      @keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
       /* Marquee */
       .scrolling-text {
         position: relative;
