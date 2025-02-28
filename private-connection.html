@@ -9,7 +9,14 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Font Awesome -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -53,7 +60,15 @@
         padding: 15px 0;
         flex-wrap: wrap;
       }
-
+      .nav-link {
+        font-size: 18px;
+        background: linear-gradient(90deg, #b93e05, #ffffff, #922efd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        font-weight: 550;
+      }
       .action-item {
         display: flex;
         align-items: center;
@@ -146,6 +161,11 @@
         padding-bottom: 120px;
       }
       .action-buttons {
+        background: linear-gradient(90deg, #b99e05, #efefef, #00ffc8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -156,23 +176,20 @@
         padding: 5px 10px;
         border: none;
         border-radius: 5px;
-        background: linear-gradient(45deg, #6a0dad, #ff9a9e);
+        background: linear-gradient(90deg, #b99e05, #efefef, #00ffc8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         color: #fff;
         cursor: pointer;
         transition: transform 0.3s, box-shadow 0.3s;
       }
       .action-buttons button:hover {
         transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      
       }
-      .controls button {
-        background: #ff4444;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        cursor: pointer;
-      }
+
 
       .icon-btn {
         background: linear-gradient(135deg, #ff9a9e, #fad0c4);
@@ -866,7 +883,11 @@
       }
 
       .new-btn {
-        background: linear-gradient(to bottom, #7b3ff2, #5a1ebd);
+        background: linear-gradient(90deg, #b93e05, #00d4ff, #922efd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -879,7 +900,7 @@
         justify-content: center;
         gap: 5px;
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(90, 30, 189, 0.6);
+       
         position: relative;
         transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
       }
@@ -898,9 +919,11 @@
       }
 
       .new-btn:hover {
-        background: linear-gradient(to bottom, #8e4af5, #6a2cd3);
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         transform: scale(1.05);
-        box-shadow: 0 6px 15px rgba(90, 30, 189, 0.8);
+     
       }
 
       .new-btn:active {
@@ -1479,8 +1502,11 @@
       }
 
       .controls button {
-        background: linear-gradient(to bottom, #7b3ff2, #5a1ebd);
-        color: white;
+        background: linear-gradient(90deg, #b99e05, #efefef, #00ffc8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         padding: 12px 24px;
         border: none;
         border-radius: 12px;
@@ -1492,7 +1518,7 @@
         justify-content: center;
         gap: 8px;
         cursor: pointer;
-        box-shadow: 0 6px 15px rgba(90, 30, 189, 0.5);
+     
         position: relative;
         transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
       }
@@ -1510,14 +1536,17 @@
       }
 
       .controls button:hover {
-        background: linear-gradient(to bottom, #8e4af5, #6a2cd3);
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(90, 30, 189, 0.7);
+        background: linear-gradient(90deg, #b99e05, #efefef, #00ffc8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+
       }
 
       .controls button:active {
         transform: translateY(2px);
-        box-shadow: 0 3px 8px rgba(90, 30, 189, 0.4);
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       }
 
       .controls button i {
@@ -1616,6 +1645,42 @@
         text-align: center;
         margin-bottom: 10px;
       }
+      .content-footer {
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+      .footer-container p {
+        margin: 0.5rem;
+      }
+      .footer-container a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-container a:hover {
+        color: #ffdd57;
+      }
+      @keyframes rotateIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-dynamic {
+  display: inline-block;
+  animation: rotateIcon 4s linear infinite;
+}
     </style>
   </head>
   <body>
@@ -2572,7 +2637,67 @@
         <!-- Đang trực tiếp (Online) -->
       
     <div id="comments"></div>
+     <!-- Icon mạng xã hội (hiệu ứng quay) -->
+     <div
+     style="
+       display: flex;
+       justify-content: center;
+       gap: 1rem;
+       margin-top: 1rem;
+     "
+   >
+     <a href="#" style="color: #4267b2; text-decoration: none">
+       <ion-icon
+         class="icon-dynamic"
+         name="logo-facebook"
+         style="font-size: 2rem"
+       ></ion-icon>
+     </a>
+     <a href="#" style="color: #25d366; text-decoration: none">
+       <ion-icon
+         class="icon-dynamic"
+         name="logo-whatsapp"
+         style="font-size: 2rem"
+       ></ion-icon>
+     </a>
+     <a href="#" style="color: #e1306c; text-decoration: none">
+       <ion-icon
+         class="icon-dynamic"
+         name="logo-instagram"
+         style="font-size: 2rem"
+       ></ion-icon>
+     </a>
+     <a href="#" style="color: #69c9d0; text-decoration: none">
+       <ion-icon
+         class="icon-dynamic"
+         name="logo-tiktok"
+         style="font-size: 2rem"
+       ></ion-icon>
+     </a>
+     <a href="#" style="color: #0077b5; text-decoration: none">
+       <ion-icon
+         class="icon-dynamic"
+         name="logo-linkedin"
+         style="font-size: 2rem"
+       ></ion-icon>
+     </a>
+   </div>
 
+   <!-- Footer -->
+   <footer class="content-footer">
+     <div class="footer-container">
+       <p>
+         &copy; 2023 <strong>Dangcapgaigoi</strong>. All rights reserved.
+       </p>
+       <p>
+         Designed by
+         <a href="https://dangcapgaigoi.com" target="_blank"
+           >Dangcapgaigoi Team</a
+         >
+       </p>
+     </div>
+   </footer>
+ </div>
     <script>
       fetch("navbar.html")
         .then((response) => response.text())
