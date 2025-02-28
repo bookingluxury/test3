@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -14,6 +15,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -97,8 +107,12 @@
       /* Hiệu ứng cho tiêu đề */
       h1 {
         position: relative;
-        background: rgba(0, 0, 0, 0.6);
-        color: #fff; /* Đã thêm dấu # cho màu trắng */
+        font-weight: 600;
+        background: linear-gradient(90deg, #0544b9, #efefef, #ff0000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         padding: 5px 10px;
         font-size: 1.2rem;
         text-align: center;
@@ -129,7 +143,12 @@
       }
 
       .category-tabs .nav-link {
-        color: #fff;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff5e00, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
         padding: 10px 15px; /* Điều chỉnh padding cho đồng đều */
         border-radius: 0; /* Loại bỏ bo tròn để sát nhau hơn */
         transition: background-color 0.4s ease, transform 0.4s ease,
@@ -272,17 +291,63 @@
   color: #e64a19; /* Màu chuyển khi hover */
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
+.content-footer {
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+      .footer-container p {
+        margin: 0.5rem;
+      }
+      .footer-container a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-container a:hover {
+        color: #ffdd57;
+      }
+      @keyframes rotateIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
+.icon-dynamic {
+  display: inline-block;
+  animation: rotateIcon 4s linear infinite;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem; /* Giảm khoảng cách giữa các icon */
+  margin-top: 0.5rem; /* Giảm khoảng cách phía trên */
+}
+
+.social-icons a {
+  text-decoration: none;
+}
+
+.social-icons ion-icon {
+  font-size: 1.8rem; /* Giảm kích thước icon nếu cần */
+}
 
     </style>
   </head>
   <body>
     <!-- Logo Top -->
     <div class="logo-top"></div>
-
-    <div id="navbar-placeholder"></div>
-
-    <script src="menu.js"></script>
 
     <div class="container py-3 content-section">
       <h1>🎥 Video Nổi Bật</h1>
@@ -351,12 +416,76 @@
             </div>
           </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+
+          <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+          "
+        >
+          <a href="#" style="color: #4267b2; text-decoration: none">
+            <ion-icon
+              class="icon-dynamic"
+              name="logo-facebook"
+              style="font-size: 2rem"
+            ></ion-icon>
+          </a>
+          <a href="#" style="color: #25d366; text-decoration: none">
+            <ion-icon
+              class="icon-dynamic"
+              name="logo-whatsapp"
+              style="font-size: 2rem"
+            ></ion-icon>
+          </a>
+          <a href="#" style="color: #e1306c; text-decoration: none">
+            <ion-icon
+              class="icon-dynamic"
+              name="logo-instagram"
+              style="font-size: 2rem"
+            ></ion-icon>
+          </a>
+          <a href="#" style="color: #69c9d0; text-decoration: none">
+            <ion-icon
+              class="icon-dynamic"
+              name="logo-tiktok"
+              style="font-size: 2rem"
+            ></ion-icon>
+          </a>
+          <a href="#" style="color: #0077b5; text-decoration: none">
+            <ion-icon
+              class="icon-dynamic"
+              name="logo-linkedin"
+              style="font-size: 2rem"
+            ></ion-icon>
+          </a>
+        </div>
+  
+        <!-- Footer -->
+        <footer class="content-footer">
+          <div class="footer-container">
+            <p>
+              &copy; 2023 <strong>Dangcapgaigoi</strong>. All rights reserved.
+            </p>
+            <p>
+              Designed by
+              <a href="https://dangcapgaigoi.com" target="_blank"
+                >Dangcapgaigoi Team</a
+              >
+            </p>
+          </div>
+        </footer>
+      </div>
+
+
+
+          
     <div id="navbar-placeholder"></div>
 
     <script src="menu.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       fetch("navbar.html")
         .then((response) => response.text())
