@@ -1,69 +1,69 @@
 <style>
   :root {
-    /* Các biến giao diện chính */
-    --nav-bg: #000000; /* Nền của thanh điều hướng */
-    --accent: #ffffff; /* Màu nhấn (accent) */
-    --text-color: #ffffff; /* Màu chữ */
-    --hover-bg: #444444; /* Nền khi hover */
-    --bg-color: #ffffff; /* Màu nền chung cho body */
+    /* Biến giao diện chính */
+    --nav-bg: #000000;
+    --accent: #ffffff;
+    --text-color: #ffffff;
+    --hover-bg: #444444;
+    --bg-color: #ffffff;
     --nav-item-size: 80px;
     --icon-size: 24px;
     --font-size: 13px;
   }
 
-  body {
-     padding-bottom: 40px !important; /* Đảm bảo nội dung không bị thanh điều hướng che */
+  html, body {
+    overflow-x: hidden !important;
+    padding-bottom: 80px !important; /* Đảm bảo nội dung không bị navbar che khuất */
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
   }
 
-.bottom-nav {
-  position: fixed !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
- height: 65px !important; /* Đảm bảo không bị nhỏ quá */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important; /* Quan trọng: Cho phép các mục nằm ngang */
-  background: linear-gradient(180deg, #333 0%, #000 100%) !important;
-  box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2) !important;
-  z-index: 99999 !important;
+  /* Thanh điều hướng */
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 65px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    background: linear-gradient(180deg, #333 0%, #000 100%) !important;
+    box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2) !important;
+    z-index: 100002 !important;
     scroll-snap-type: x mandatory;
-  overflow-x: auto !important; /* Cho phép cuộn ngang */
-  overflow-y: hidden !important; /* Ẩn cuộn dọc */
-  white-space: nowrap !important; /* Giữ các mục trên cùng một hàng */
-  scroll-behavior: smooth !important; /* Cuộn mượt */
-  padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ notch trên iPhone */
-}
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scroll-behavior: smooth !important;
+    padding-bottom: env(safe-area-inset-bottom) !important; /* Hỗ trợ notch iPhone */
+  }
 
-.bottom-nav::-webkit-scrollbar {
-  display: none !important; /* Ẩn thanh cuộn trên Chrome, Safari */
-}
+  .bottom-nav::-webkit-scrollbar {
+    display: none !important;
+  }
 
-.nav-item {
-  flex: 0 0 auto !important; /* Ngăn các mục bị kéo giãn */
-  min-width: 90px !important; /* Đảm bảo kích thước ổn định */
-  text-align: center !important;
-  cursor: pointer !important;
-  padding: 10px 5px !important;
-  transition: transform 0.2s ease, background-color 0.2s ease !important;
-  font-weight: bold !important;
-  border-radius: 10px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: white !important;
+  /* Các mục menu */
+  .nav-item {
+    flex: 0 0 auto !important;
+    min-width: 90px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    padding: 10px 5px !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+    font-weight: bold !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
     scroll-snap-align: start;
-  font-size: 12px !important;
-  white-space: nowrap !important;
-  z-index: 99999 !important;
-}
-
-
-
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    z-index: 100002 !important;
+  }
 
   .nav-item:hover {
     background-color: var(--hover-bg);
@@ -75,10 +75,10 @@
   }
 
   .nav-item i {
-    font-size: var(--icon-size);
+    font-size: 18px;
     margin-bottom: 4px;
-    transition: color 0.3s ease;
-    color: var(--text-color);
+    color: white !important;
+    display: block;
   }
 
   .nav-item span {
@@ -94,7 +94,7 @@
     font-weight: 700;
   }
 
-  /* Nếu vẫn cần chế độ Dark Mode, có thể giữ hoặc thay đổi theo ý */
+  /* Chế độ Dark Mode */
   body.dark-mode {
     --nav-bg: #000000;
     --accent: #ffffff;
@@ -114,16 +114,15 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    z-index: 30;
+    z-index: 100003;
   }
 
   .dark-mode-toggle:hover {
     background-color: #1976d2;
   }
 
-  /* Khi bật Dark Mode, cập nhật giao diện cho thanh điều hướng */
   body.dark-mode .bottom-nav {
-    background: linear-gradient(180deg, #333333 0%, #000000 100%);
+    background: #000000 !important;
     box-shadow: 0 -4px 15px rgba(255, 255, 255, 0.2);
     border-top: 2px solid rgba(255, 255, 255, 0.8);
   }
@@ -137,53 +136,25 @@
   }
 </style>
 
-<button class="dark-mode-toggle" onclick="toggleDarkMode()">
-  🌙 Dark Mode
-</button>
+<!-- Toggle Dark Mode -->
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
+<!-- Thanh điều hướng -->
 <div class="bottom-nav">
-  <a class="nav-item" href="index.html">
-    <i class="fa fa-home"></i>
-    <span>Trang Chủ</span>
-  </a>
-  <a class="nav-item" href="services.html">
-    <i class="fa fa-briefcase"></i>
-    <span>Dịch Vụ</span>
-  </a>
-  <a class="nav-item" href="booking.html">
-    <i class="fa fa-calendar-check"></i>
-    <span>Booking</span>
-  </a>
-  <a class="nav-item" href="photos.html">
-    <i class="fa fa-camera"></i>
-    <span>Thư Viện Ảnh</span>
-  </a>
-  <a class="nav-item" href="video.html">
-    <i class="fa fa-film"></i>
-    <span>Video Nổi Bật</span>
-  </a>
-  <a class="nav-item" href="private-connection.html">
-    <i class="fa fa-lock"></i>
-    <span>Kết Nối 18+</span>
-  </a>
-  <a class="nav-item" href="add-credit.html">
-    <i class="fa fa-credit-card"></i>
-    <span>Thêm Tín Dụng</span>
-  </a>
+  <a class="nav-item" href="index.html"><i class="fa fa-home"></i><span>Trang Chủ</span></a>
+  <a class="nav-item" href="services.html"><i class="fa fa-briefcase"></i><span>Dịch Vụ</span></a>
+  <a class="nav-item" href="booking.html"><i class="fa fa-calendar-check"></i><span>Booking</span></a>
+  <a class="nav-item" href="photos.html"><i class="fa fa-camera"></i><span>Thư Viện Ảnh</span></a>
+  <a class="nav-item" href="video.html"><i class="fa fa-film"></i><span>Video Nổi Bật</span></a>
+  <a class="nav-item" href="private-connection.html"><i class="fa fa-lock"></i><span>Kết Nối 18+</span></a>
+  <a class="nav-item" href="add-credit.html"><i class="fa fa-credit-card"></i><span>Tín Dụng</span></a>
 </div>
 
 <script>
   function setActiveTab() {
-    const currentPath =
-      window.location.pathname.split("/").pop() || "index.html";
-    const navItems = document.querySelectorAll(".nav-item");
-
-    navItems.forEach((item) => {
-      if (item.getAttribute("href") === currentPath) {
-        item.classList.add("active");
-      } else {
-        item.classList.remove("active");
-      }
+    const currentPath = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.getAttribute("href") === currentPath ? item.classList.add("active") : item.classList.remove("active");
     });
   }
 
@@ -191,91 +162,44 @@
     document.body.classList.toggle("dark-mode");
     const isDarkMode = document.body.classList.contains("dark-mode");
     localStorage.setItem("darkMode", isDarkMode);
-    document.querySelector(".dark-mode-toggle").textContent = isDarkMode
-      ? "☀️ Light Mode"
-      : "🌙 Dark Mode";
-    applyDarkMode(isDarkMode);
+    document.querySelector(".dark-mode-toggle").textContent = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
   }
 
-  function applyDarkMode(isDark) {
-    const root = document.documentElement;
-    if (isDark) {
-      root.style.setProperty("--nav-bg", "#1c1c2e");
-      root.style.setProperty("--text-color", "#e0e0e0");
-      root.style.setProperty("--hover-bg", "#2a2a40");
-      root.style.setProperty("--bg-color", "#12121e");
-      root.style.setProperty("--accent", "#2196F3");
-    } else {
-      root.style.setProperty("--nav-bg", "#e9ecef");
-      root.style.setProperty("--text-color", "#333");
-      root.style.setProperty("--hover-bg", "#ced4da");
-      root.style.setProperty("--bg-color", "#ffffff");
-      root.style.setProperty("--accent", "#007bff");
-    }
-  }
-document.addEventListener("DOMContentLoaded", function () {
-  const navBar = document.querySelector(".bottom-nav");
-  let isDragging = false;
-  let startX, scrollLeft;
+  document.addEventListener("DOMContentLoaded", function () {
+    const navBar = document.querySelector(".bottom-nav");
+    let isDragging = false, startX, scrollLeft;
 
-  navBar.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    startX = e.pageX - navBar.offsetLeft;
-    scrollLeft = navBar.scrollLeft;
-  });
+    navBar.addEventListener("mousedown", e => {
+      isDragging = true; startX = e.pageX - navBar.offsetLeft; scrollLeft = navBar.scrollLeft;
+    });
 
-  navBar.addEventListener("mouseleave", () => {
-    isDragging = false;
-  });
+    navBar.addEventListener("mouseleave", () => isDragging = false);
+    navBar.addEventListener("mouseup", () => isDragging = false);
 
-  navBar.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+    navBar.addEventListener("mousemove", e => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - navBar.offsetLeft;
+      navBar.scrollLeft = scrollLeft - (x - startX) * 2;
+    });
 
-  navBar.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - navBar.offsetLeft;
-    const walk = (x - startX) * 2; // Tăng tốc độ cuộn
-    navBar.scrollLeft = scrollLeft - walk;
-  });
+    navBar.addEventListener("touchstart", e => {
+      isDragging = true; startX = e.touches[0].pageX - navBar.offsetLeft; scrollLeft = navBar.scrollLeft;
+    });
 
-  // Hỗ trợ vuốt trên Mobile (Touch)
-  navBar.addEventListener("touchstart", (e) => {
-    isDragging = true;
-    startX = e.touches[0].pageX - navBar.offsetLeft;
-    scrollLeft = navBar.scrollLeft;
-  });
+    navBar.addEventListener("touchend", () => isDragging = false);
 
-  navBar.addEventListener("touchend", () => {
-    isDragging = false;
-  });
+    navBar.addEventListener("touchmove", e => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - navBar.offsetLeft;
+      navBar.scrollLeft = scrollLeft - (x - startX) * 2;
+    });
 
-  navBar.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    const x = e.touches[0].pageX - navBar.offsetLeft;
-    const walk = (x - startX) * 2;
-    navBar.scrollLeft = scrollLeft - walk;
-  });
-});
-
-  // Cập nhật giao diện khi load trang
-  window.addEventListener("load", () => {
-    const darkMode = localStorage.getItem("darkMode") === "true";
-    if (darkMode) {
-      document.body.classList.add("dark-mode");
-      document.querySelector(".dark-mode-toggle").textContent = "☀️ Light Mode";
-      applyDarkMode(true);
-    }
     setActiveTab();
   });
 
-  document.querySelectorAll(".nav-item").forEach((item) => {
-    item.addEventListener("click", function () {
-      document
-        .querySelectorAll(".nav-item")
-        .forEach((nav) => nav.classList.remove("active"));
-      this.classList.add("active");
-    });
+  window.addEventListener("load", () => {
+    if (localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
+    setActiveTab();
   });
 </script>
