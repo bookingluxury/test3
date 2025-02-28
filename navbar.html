@@ -22,39 +22,41 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%; /* Đảm bảo kéo dài hết màn hình */
-  height: 60px; /* Chiều cao cố định */
+  width: 100%;
+  height: 60px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  z-index: 1000; /* Đảm bảo nằm trên nội dung khác */
   background: linear-gradient(180deg, #333 0%, #000 100%);
   box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+  overflow-x: auto; /* Cho phép kéo ngang */
+  white-space: nowrap; /* Ngăn chặn chữ bị xuống dòng */
+  padding-bottom: env(safe-area-inset-bottom); /* Hỗ trợ notch trên điện thoại */
+}
+
+.bottom-nav::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn trên trình duyệt Webkit */
 }
 
 
-  .bottom-nav::-webkit-scrollbar {
-    display: none;
-  }
+.nav-item {
+  flex: 1;
+  min-width: 80px; /* Đảm bảo các mục không quá nhỏ */
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 5px; /* Điều chỉnh padding để chữ không bị chồng lên nhau */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  font-weight: bold;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px; /* Điều chỉnh kích thước chữ nếu cần */
+  white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+}
 
-  .nav-item {
-    background: linear-gradient(180deg, #333333 0%, #000000 100%);
-    z-index: 20000000;
-    text-decoration: none;
-    flex: 1;
-    text-align: center;
-    cursor: pointer;
-    padding: 10px 0;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    font-weight: bold;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: var(--nav-item-size);
-    color: var(--text-color);
-  }
 
   .nav-item:hover {
     background-color: var(--hover-bg);
