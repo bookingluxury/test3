@@ -18,19 +18,20 @@
     transition: background-color 0.3s, color 0.3s;
   }
 
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    z-index: 20;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    /* Sử dụng gradient để tạo hiệu ứng bóng cho thanh điều hướng */
-    background: linear-gradient(180deg, #333333 0%, #000000 100%);
-    box-shadow: 0 -4px 15px rgba(255, 255, 255, 0.2);
-  }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Đảm bảo kéo dài hết màn hình */
+  height: 60px; /* Chiều cao cố định */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000; /* Đảm bảo nằm trên nội dung khác */
+  background: linear-gradient(180deg, #333 0%, #000 100%);
+  box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2);
+}
+
 
   .bottom-nav::-webkit-scrollbar {
     display: none;
