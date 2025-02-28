@@ -14,7 +14,7 @@ fetch("navbar.html")
 
     if (!bottomNav || navItems.length === 0) return;
 
-    // Tạo nav indicator nếu chưa có
+    // ✅ Tạo nav indicator nếu chưa có
     let navIndicator = document.querySelector(".nav-indicator");
     if (!navIndicator) {
       navIndicator = document.createElement("div");
@@ -24,12 +24,12 @@ fetch("navbar.html")
 
     function updateIndicator(element) {
       requestAnimationFrame(() => {
-        navIndicator.style.width = ${element.offsetWidth}px;
-        navIndicator.style.left = ${element.offsetLeft}px;
+        navIndicator.style.width = `${element.offsetWidth}px`;
+        navIndicator.style.left = `${element.offsetLeft}px`;
       });
     }
 
-    // 🚀 Xử lý trạng thái active khi click
+    // ✅ Xử lý trạng thái active khi click
     navItems.forEach(item => {
       item.addEventListener("click", function (e) {
         e.preventDefault(); // Ngăn reload trang khi bấm vào link
@@ -59,7 +59,7 @@ fetch("navbar.html")
       });
     }
 
-    // 🚀 **Fix lỗi: Kéo thanh điều hướng trên mobile & desktop**
+    // ✅ Kéo thanh điều hướng trên mobile & desktop
     let isDragging = false, startX, scrollLeft;
 
     function startDrag(e) {
