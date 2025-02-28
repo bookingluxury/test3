@@ -9,7 +9,15 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Font Awesome -->
+    <script
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -132,10 +140,11 @@
         }
       }
       .category-tabs {
-  background: #495057;
+  background: #000000;
   border-radius: 8px;
   padding: 0;
   display: flex;
+  border: none;
   justify-content: center;
   overflow: hidden; /* Ngăn phần tử con tràn ra ngoài */
 }
@@ -150,9 +159,13 @@
   margin: 0;
 }
 
-
-
-
+.nav-link {
+  border: none;
+   background: linear-gradient(90deg, #0544b9, #efefef, #ff0000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
       /* Photo Gallery Styles */
       .photo-container {
         display: flex;
@@ -256,17 +269,77 @@
           max-width: calc(50% - 2px);
         }
       }
-      /* Modal image style: bo tròn ảnh lớn */
+      .nav-link.active {
+      background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        border: none;
+
+       }
       #modalImage {
         border-radius: 12px;
       }
+      .content-footer {
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+      .footer-container p {
+        margin: 0.5rem;
+      }
+      .footer-container a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-container a:hover {
+        color: #ffdd57;
+      }
+      @keyframes rotateIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-dynamic {
+  display: inline-block;
+  animation: rotateIcon 4s linear infinite;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem; /* Giảm khoảng cách giữa các icon */
+  margin-top: 0.3rem; /* Giảm khoảng cách phía trên */
+  margin-bottom: 0rem; /* Giảm khoảng cách phía dưới */
+}
+
+.content-footer {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; /* Giảm khoảng cách giữa icon và footer */
+}
+
     </style>
   </head>
   <body>
+    
     <!-- Logo Top -->
     <div class="logo-top"></div>
+
     <div class="container py-3">
       <h1>📸 Thư viện ảnh</h1>
+      
       <!-- Các Tab (Categories) -->
       <ul
         class="nav nav-tabs category-tabs justify-content-center mb-3"
@@ -369,12 +442,72 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <div id="navbar-placeholder"></div>
 
     <script src="menu.js"></script>
+    <div
+    style="
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    "
+  >
+    <a href="#" style="color: #4267b2; text-decoration: none">
+      <ion-icon
+        class="icon-dynamic"
+        name="logo-facebook"
+        style="font-size: 2rem"
+      ></ion-icon>
+    </a>
+    <a href="#" style="color: #25d366; text-decoration: none">
+      <ion-icon
+        class="icon-dynamic"
+        name="logo-whatsapp"
+        style="font-size: 2rem"
+      ></ion-icon>
+    </a>
+    <a href="#" style="color: #e1306c; text-decoration: none">
+      <ion-icon
+        class="icon-dynamic"
+        name="logo-instagram"
+        style="font-size: 2rem"
+      ></ion-icon>
+    </a>
+    <a href="#" style="color: #69c9d0; text-decoration: none">
+      <ion-icon
+        class="icon-dynamic"
+        name="logo-tiktok"
+        style="font-size: 2rem"
+      ></ion-icon>
+    </a>
+    <a href="#" style="color: #0077b5; text-decoration: none">
+      <ion-icon
+        class="icon-dynamic"
+        name="logo-linkedin"
+        style="font-size: 2rem"
+      ></ion-icon>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="content-footer">
+    <div class="footer-container">
+      <p>
+        &copy; 2023 <strong>Dangcapgaigoi</strong>. All rights reserved.
+      </p>
+      <p>
+        Designed by
+        <a href="https://dangcapgaigoi.com" target="_blank"
+          >Dangcapgaigoi Team</a
+        >
+      </p>
+    </div>
+  </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
