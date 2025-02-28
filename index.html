@@ -23,7 +23,10 @@
       <div class="snowflake">❄</div>
       <div class="snowflake">❄</div>
     </div>
-
+<audio id="backgroundMusic" controls>
+  <source src="https://docs.google.com/uc?export=download&id=1icJisqGWZsfZcNnLQIR3iiaOcI3xkVM4" type="audio/mpeg">
+  Trình duyệt không hỗ trợ phát nhạc.
+</audio>
     <style>
       /* Reset mặc định */
       * {
@@ -131,6 +134,7 @@
     <div class="snowflakes"></div>
 
     <script>
+      
       document.addEventListener("DOMContentLoaded", function () {
         var messageBox = document.querySelector(".lc-message-box");
         if (messageBox) {
@@ -192,7 +196,37 @@
         >LiveChat</a
       ></noscript
     >
+ document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("backgroundMusic");
+    const playedBefore = localStorage.getItem("audioPlayed");
+    const savedTime = localStorage.getItem("audioTime") || 0;
+    const audioFinished = localStorage.getItem("audioFinished");
 
+    // Nếu đã nghe hết, không cho phát lại
+    if (audioFinished === "true") {
+      audio.remove();
+      return;
+    }
+
+    // Nếu chưa nghe hoặc chưa nghe hết, tiếp tục phát từ thời điểm lưu
+    if (!playedBefore) {
+      audio.currentTime = savedTime;
+      audio.play();
+      localStorage.setItem("audioPlayed", "true");
+    }
+
+    // Lưu lại thời gian phát khi tắt trình duyệt
+    audio.addEventListener("timeupdate", function () {
+      localStorage.setItem("audioTime", audio.currentTime);
+    });
+
+    // Khi nghe hết bài, đánh dấu là đã hoàn thành và không được phát lại nữa
+    audio.addEventListener("ended", function () {
+      localStorage.setItem("audioFinished", "true");
+      localStorage.removeItem("audioPlayed");
+      localStorage.removeItem("audioTime");
+    });
+  });
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const snowContainer = document.querySelector(".snowflakes");
