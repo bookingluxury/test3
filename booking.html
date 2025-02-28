@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Đặt Lịch Hẹn</title>
+    <title>Đặt Lịch Hẹn – Giao Diện Sáng Tạo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Font Google Roboto & Font Awesome -->
     <link
@@ -14,13 +13,30 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-        * {
+      * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       html,
       body {
         overflow-x: hidden;
@@ -34,180 +50,136 @@
         max-width: 100vw;
         overflow: hidden;
       }
-      /* Nền chính của body */
+      /* Nền chính */
       body {
-        /* Màu nền gốc: xanh đen (navy/dark) */
         background: #0b0f1a;
-
-        /* Gradient radial để tạo chiều sâu mờ ở trung tâm */
         background: radial-gradient(
           circle at center,
           rgba(11, 15, 26, 0.7) 0%,
-          /* Màu hơi trong suốt ở tâm */ rgba(11, 15, 26, 1) 100%
-            /* Màu đậm hơn ở ngoài rìa */
+          rgba(11, 15, 26, 1) 100%
         );
-
-        /* Đặt chiều cao full màn hình */
         min-height: 100vh;
-
-        /* Đảm bảo phần tử con được hiển thị phía trên */
         position: relative;
-
-        color: #fff; /* Màu chữ mặc định (trắng) trên nền tối */
+        color: #fff;
       }
-
-      /* Lớp phủ sao (starfield) tạo thêm độ sâu */
+      /* Lớp phủ sao */
       body::before {
         content: "";
         position: absolute;
-        z-index: -1; /* Đẩy lớp phủ ra phía sau nội dung */
+        z-index: -1;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-
-        /* Thay đường dẫn ảnh sao, hoặc bạn có thể dùng ảnh bokeh, particle... */
         background: url("https://i.ibb.co/ycBpNQyM/pngtree-light-effect-background-halo-radial-image-2419979.jpg")
           no-repeat center center;
         background-size: cover;
-
-        /* Độ trong suốt để hòa trộn với nền phía dưới */
         opacity: 0.2;
         pointer-events: none;
       }
-      /* Header với Background Image (không có tiêu đề) */
-      header {
-        background: url("https://source.unsplash.com/1600x400/?office,meeting")
-          no-repeat center/cover;
-        height: 300px;
-        position: relative;
+      /* Logo & Navigation */
+      .logo-top {
+        width: 500px;
+        height: 120px;
+        background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png")
+          no-repeat center/contain;
+        background-size: contain !important;
+        margin: 20px auto 10px auto;
+        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
       }
-      header::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+      .logo-top:hover {
+        transform: scale(1.05);
       }
-      /* Main Content */
-      main {
-        max-width: 800px;
-        margin: -80px auto 50px;
-        padding: 20px;
-      }
-      .card {
-  background: #1a1a1a; /* Màu nền tối */
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 50px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow sâu hơn */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 255, 234, 0.3); /* Viền phát sáng nhẹ */
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 255, 234, 0.5); /* Hiệu ứng glow khi hover */
-}
-
-      /* Tiêu đề động với hiệu ứng gradient chuyển động */
-      .step-title {
-        font-size: 2rem;
+      #navbar-placeholder {
         text-align: center;
-        margin-bottom: 30px;
-        font-weight: 700;
-        background: linear-gradient(270deg, #6a82fb, #fc5c7d, #ff9a9e);
-        background-size: 600% 600%;
+        margin-bottom: 1rem;
+      }
+      /* Container chia 2 cột */
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        min-height: calc(100vh - 200px);
+        padding: 0 20px;
+      }
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* Phần bên trái: Hình nghệ thuật với overlay */
+      .left {
+        position: relative;
+        background: url("https://source.unsplash.com/collection/190727/800x1200")
+          no-repeat center center/cover;
+      }
+
+      /* Phần bên phải: Multi-step Form */
+
+      .card.step {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 400px;
+      }
+      .step-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-align: center;
+        background: linear-gradient(45deg, #6a82fb, #fc5c7d);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: gradientAnimation 5s ease infinite;
       }
-      @keyframes gradientAnimation {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-      /* Form Styles */
       .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
       .form-group label {
         display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #ffffff;
+        text-align: center;
+        font-weight: 600;
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        margin-bottom: 5px;
+        font-size: 0.9rem;
       }
       .form-group input,
       .form-group select {
         width: 100%;
-        padding: 14px;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #000000;
         font-size: 1rem;
-        border: 1px solid #cbd5e0;
-        border-radius: 5px;
-        outline: none;
-        transition: border 0.3s ease, box-shadow 0.3s ease;
       }
       .form-group input:focus,
       .form-group select:focus {
-        border-color: #6a82fb;
-        box-shadow: 0 0 8px rgba(106, 130, 251, 0.3);
+        outline: none;
+        box-shadow: 0 0 5px rgba(106, 130, 251, 0.7);
       }
-      .form-row {
-        display: flex;
-        gap: 15px;
-      }
-      .form-row > div {
-        flex: 1;
-      }
-      /* Nút bấm hiện đại với hiệu ứng ripple */
-      .btn-submit {
-        background: linear-gradient(45deg, #36d1dc, #5b86e5);
-        border: none;
-        color: #fff;
-        padding: 10px 15px;
-        font-size: 1.1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      .btn {
         width: 100%;
-        font-weight: bold;
-        position: relative;
-        overflow: hidden;
+        padding: 12px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        background: linear-gradient(45deg, #2c2c2c, #4a4a4a);
+        color: #fff;
+        transition: transform 0.3s, box-shadow 0.3s;
       }
-      .btn-submit:hover {
+      .btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 20px rgba(255, 65, 108, 0.4);
+        box-shadow: 0 8px 16px rgba(43, 255, 0, 0.8);
       }
-      .btn-submit:active {
-        transform: scale(0.98);
-      }
-      .btn-submit::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: rgba(255, 255, 255, 0.4);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-      }
-      .btn-submit:active::after {
-        width: 300%;
-        height: 300%;
-        opacity: 0;
-        transition: 0s;
-      }
+
       .btn-location {
         padding: 10px 14px;
         border: none;
@@ -219,6 +191,7 @@
         transition: transform 0.3s ease;
       }
       .btn-location:hover {
+        color: #2bff00;
         transform: scale(1.1);
       }
       .help-text {
@@ -241,75 +214,117 @@
         margin: 0 auto 20px;
         width: 140px;
       }
-      /* Step Content */
+      /* Ẩn các bước không hoạt động */
       .step {
         display: none;
       }
       .step.active {
         display: block;
       }
-      /* Model Info Container - hiển thị giữa màn hình */
+      /* Model Info Container */
       #modelInfoContainer {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: #000000;
-        border-radius: 10px;
+        background: rgba(20, 20, 20, 0.95); /* Nền tối với độ trong suốt nhẹ */
+        border-radius: 15px;
         padding: 30px 40px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7); /* Hiệu ứng bóng mạnh mẽ */
         max-width: 400px;
+        width: 90%;
         z-index: 1000;
+        animation: fadeIn 0.5s ease-out;
         display: none;
       }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -45%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      /* Các tiêu đề và nội dung bên trong */
       #modelInfoContainer h2 {
         text-align: center;
         font-size: 1.8rem;
         margin-bottom: 20px;
-        color: #ffffff;
+        color: #fff;
+        letter-spacing: 1px;
       }
-      /* Model Header: Avatar kèm tên */
+
       .model-header {
         text-align: center;
         margin-bottom: 20px;
       }
+
       .model-avatar {
         width: 100px;
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
-        margin-bottom: 10px;
-        border: 3px solid #ffd900;
+        margin: 0 auto 10px auto;
+        border: 4px solid #444;
       }
+
       .model-name {
         font-size: 1.5rem;
         font-weight: 700;
+        color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
       }
+
       .model-name .toggle-btn {
+        margin-left: 8px;
+        cursor: pointer;
         background: none;
         border: none;
-        cursor: pointer;
-        margin-left: 8px;
+        color: #00ffea;
         font-size: 1.2rem;
-        color: #ffffff;
       }
-      /* Thông tin các dòng */
+
       .info-row {
         display: flex;
         align-items: center;
         margin-bottom: 15px;
+        word-wrap: break-word;
       }
+
       .info-label {
-        width: 100px;
+        flex: 0 0 90px;
         font-weight: 600;
+        color: #ccc;
       }
+
       .info-value {
         flex: 1;
         font-size: 1rem;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
+        color: #fff;
+      }
+
+      /* Hiệu ứng hover cho nút đóng */
+      #modelInfoContainer .btn {
+        background: linear-gradient(45deg, #2c2c2c, #4a4a4a);
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-top: 20px;
+      }
+
+      #modelInfoContainer .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
       }
       .toggle-btn {
         background: none;
@@ -318,7 +333,6 @@
         font-size: 1.2rem;
         color: #00ffea;
       }
-
       /* Hiệu ứng tung hoa */
       .flower {
         position: fixed;
@@ -336,7 +350,59 @@
           opacity: 0;
         }
       }
-  
+      /* Social Icons */
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      .social-icons a {
+        text-decoration: none;
+      }
+      .social-icons ion-icon {
+        font-size: 2rem;
+        transition: transform 0.3s;
+      }
+      .social-icons ion-icon:hover {
+        transform: rotate(360deg);
+      }
+      /* Footer */
+      .content-footer {
+        background: linear-gradient(90deg, #10b905, #efefef, #7a00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+      .footer-container p {
+        margin: 0.5rem;
+      }
+      .footer-container a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-container a:hover {
+        color: #ccc;
+      }
+      .toast-container {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1100;
+      }
+      .right {
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+      }
       .logo-top {
         width: 500px; /* Đặt kích thước lớn hơn */
         height: 120px; /* Đặt chiều cao phù hợp */
@@ -353,171 +419,330 @@
       @media (max-width: 600px) {
         .logo-top {
           max-width: 100%;
-          height: 130px;
+          height: 110px;
         }
+      }
+      .logo-top:hover {
+        transform: scale(1.05);
       }
     </style>
   </head>
   <body>
+    <!-- Logo & Navigation -->
     <div class="logo-top"></div>
-    <!-- Bootstrap Bundle JS -->
+    <div id="navbar-placeholder"></div>
+    <script src="menu.js"></script>
 
-  <div id="navbar-placeholder"></div>
+    <!-- Container chia 2 cột: bên trái hình nghệ thuật, bên phải form multi‑step -->
+    <div class="container">
+      <!-- Phần bên trái: Hình nghệ thuật -->
+      <div class="left"></div>
+      <!-- Phần bên phải: Multi‑step Form -->
+      <div class="right">
+        <!-- Step 1: Nhập thông tin đặt lịch -->
+        <div class="card step active" id="step1">
+          <div class="step-title">Nhập Thông Tin Đặt Lịch Hẹn</div>
 
-<script src="menu.js"></script>
-
-      <!-- Step 1: Booking Details -->
-      <div class="card step active" id="step1">
-        <div class="step-title">Nhập Thông Tin Đặt Lịch</div>
-        <div class="form-group">
-          <label for="partnerSelect">Chọn đối tác</label>
-          <select id="partnerSelect" required>
-            <option value="">-- Chọn đối tác --</option>
-          </select>
-        </div>
-        <!-- (Phần preview đối tác đã bị loại bỏ theo yêu cầu) -->
-        <div class="form-group">
-          <label for="timeInput">Thời gian</label>
-          <input type="datetime-local" id="timeInput" required />
-        </div>
-        <div class="form-group">
-          <label for="locationInput">Địa điểm</label>
-          <div class="form-row">
-            <div>
-              <input
-                type="text"
-                id="locationInput"
-                placeholder="Nhập địa điểm"
-                required
-              />
-            </div>
-            <div style="flex: 0 0 auto">
-              <button
-                type="button"
-                class="btn-location"
-                onclick="getCurrentLocation()"
-              >
-                📍
-              </button>
-            </div>
+          <div class="form-group">
+            <label for="name">Họ và Tên</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Nhập họ và tên"
+              required
+            />
           </div>
-          <p
-            id="locationError"
-            style="color: red; font-size: 0.85rem; display: none"
-          ></p>
-        </div>
-        <div class="form-group">
-          <label for="servicePackage">Gói dịch vụ</label>
-          <select id="servicePackage" required>
-            <option value="basic">Basic Service</option>
-            <option value="vip">Special Service</option>
-            <option value="luxury">Diamond Service</option>
-            <option value="vip-tour">Platinum Service</option>
-          </select>
-        </div>
-        <div class="center">
-          <button class="btn btn-submit" onclick="goToStep2()">Tiếp tục</button>
-        </div>
-      </div>
-      <!-- Step 2: Membership Code -->
-      <div class="card step" id="step2">
-        <div class="step-title">Xác Nhận Mã Thành Viên</div>
-        <div class="center">
-          <img
-            src="https://i.ibb.co/7GmDHKL/H-n-2.png"
-            alt="Membership Card"
-            class="booking-code-img"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            type="text"
-            id="bookingCodeInput"
-            placeholder="Nhập mã thẻ thành viên"
-            required
-          />
-        </div>
-        <div class="center">
-          <button class="btn btn-submit" onclick="submitBookingCode()">
-            Xác nhận
-          </button>
-        </div>
-        <p class="help-text">
-          Chưa có Membership Card?
-          <a href="https://t.me/HUYENTRAN19900" target="_blank">Bấm vào đây</a>
-        </p>
-      </div>
-      <!-- Model Info Container: hiển thị ở giữa màn hình -->
-      <div id="modelInfoContainer">
-        <h2>Thông Tin Đối Tác</h2>
-        <div class="model-header">
-          <img
-            class="model-avatar"
-            src="https://i.ibb.co/CVsgcbB/photo-311-23-06-2024-17-58-00.jpg"
-            alt="Model Avatar"
-          />
-          <div class="model-name">
-            <span class="info-value" data-value="Khánh Huyền">••••••••</span>
-            <button class="toggle-btn" onclick="toggleInfo(this)">
-              <i class="fa fa-eye"></i>
+          <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="Nhập số điện thoại"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="date">Chọn ngày</label>
+            <input type="date" id="date" required />
+          </div>
+          <div class="form-group">
+            <label for="time">Chọn giờ</label>
+            <input type="time" id="time" required />
+          </div>
+          <div class="form-group">
+            <label for="servicePackage">Gói dịch vụ</label>
+            <select id="servicePackage" required>
+              <option value="basic">Basic Service</option>
+              <option value="vip">Special Service</option>
+              <option value="luxury">Diamond Service</option>
+              <option value="vip-tour">Platinum Service</option>
+            </select>
+          </div>
+          <div class="center">
+            <button type="button" class="btn btn-submit" onclick="goToStep2()">
+              Tiếp tục
             </button>
           </div>
         </div>
-        <div class="info-row">
-          <div class="info-label"><strong>SĐT:</strong></div>
-          <div class="info-value" data-value="+61 412 345 678">••••••••••</div>
-          <button class="toggle-btn" onclick="toggleInfo(this)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </div>
-        <div class="info-row">
-          <div class="info-label"><strong>Địa chỉ:</strong></div>
-          <div class="info-value" data-value="Sydney, New South Wales, Úc">
-            ••••••••••••••••
+        <!-- Step 2: Xác nhận mã thành viên -->
+        <div class="card step" id="step2">
+          <div class="step-title">Xác Nhận Mã Thành Viên</div>
+          <div class="center">
+            <img
+              src="https://i.ibb.co/7GmDHKL/H-n-2.png"
+              alt="Membership Card"
+              class="booking-code-img"
+            />
           </div>
-          <button class="toggle-btn" onclick="toggleInfo(this)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </div>
-        <div class="info-row">
-          <div class="info-label"><strong>Zalo:</strong></div>
-          <div class="info-value" data-value="+84987654321">••••••••••</div>
-          <button class="toggle-btn" onclick="toggleInfo(this)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </div>
-        <div class="info-row">
-          <div class="info-label"><strong>Email:</strong></div>
-          <div class="info-value" data-value="ngocanh.vietnam@gmail.com">
-            •••••••••••••
+          <div class="form-group">
+            <input
+              type="text"
+              id="bookingCodeInput"
+              placeholder="Nhập mã thẻ thành viên"
+              required
+            />
           </div>
-          <button class="toggle-btn" onclick="toggleInfo(this)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </div>
-        <div style="text-align: center; margin-top: 20px">
-          <button class="btn btn-submit" onclick="hideModelInfo()">Đóng</button>
+          <div class="center">
+            <button
+              type="button"
+              class="btn btn-submit"
+              onclick="submitBookingCode()"
+            >
+              Xác nhận
+            </button>
+          </div>
+          <p class="help-text">
+            Chưa có Membership Card?
+            <a href="https://t.me/HUYENTRAN19900" target="_blank"
+              >Bấm vào đây</a
+            >
+          </p>
         </div>
       </div>
-    </main>
+    </div>
+
+    <!-- Model Info Container: hiển thị khi mã thành viên đúng -->
+    <div id="modelInfoContainer">
+      <h2>Thông Tin Đối Tác</h2>
+      <div class="model-header">
+        <img
+          class="model-avatar"
+          src="https://i.ibb.co/CVsgcbB/photo-311-23-06-2024-17-58-00.jpg"
+          alt="Model Avatar"
+        />
+        <div class="model-name">
+          <span class="info-value" data-value="Khánh Huyền">••••••••</span>
+          <button class="toggle-btn" onclick="toggleInfo(this)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><strong>SĐT:</strong></div>
+        <div class="info-value" data-value="+61 412 345 678">••••••••••</div>
+        <button class="toggle-btn" onclick="toggleInfo(this)">
+          <i class="fa fa-eye"></i>
+        </button>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><strong>Địa chỉ:</strong></div>
+        <div class="info-value" data-value="Sydney, New South Wales, Úc">
+          ••••••••••••••••
+        </div>
+        <button class="toggle-btn" onclick="toggleInfo(this)">
+          <i class="fa fa-eye"></i>
+        </button>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><strong>Zalo:</strong></div>
+        <div class="info-value" data-value="+84987654321">••••••••••</div>
+        <button class="toggle-btn" onclick="toggleInfo(this)">
+          <i class="fa fa-eye"></i>
+        </button>
+      </div>
+      <div class="info-row">
+        <div class="info-label"><strong>Email:</strong></div>
+        <div class="info-value" data-value="ngocanh.vietnam@gmail.com">
+          •••••••••••••
+        </div>
+        <button class="toggle-btn" onclick="toggleInfo(this)">
+          <i class="fa fa-eye"></i>
+        </button>
+      </div>
+      <div class="center" style="margin-top: 20px">
+        <button class="btn btn-submit" onclick="hideModelInfo()">Đóng</button>
+      </div>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+      <a href="#" style="color: #4267b2">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </a>
+      <a href="#" style="color: #25d366">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </a>
+      <a href="#" style="color: #e1306c">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </a>
+      <a href="#" style="color: #69c9d0">
+        <ion-icon name="logo-tiktok"></ion-icon>
+      </a>
+      <a href="#" style="color: #0077b5">
+        <ion-icon name="logo-linkedin"></ion-icon>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="content-footer">
+      <div class="footer-container">
+        <p>&copy; 2023 <strong>Dangcapgaigoi</strong>. All rights reserved.</p>
+        <p>
+          Designed by
+          <a href="https://dangcapgaigoi.com" target="_blank"
+            >Dangcapgaigoi Team</a
+          >
+        </p>
+      </div>
+    </footer>
+    <!-- Toast Notification (Bootstrap) -->
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div
+        id="successToast"
+        class="toast align-items-center text-bg-success border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">
+            ✅ <strong>Đặt lịch thành công!</strong> <br />
+            Quý khách đã đặt lịch thành công với dịch vụ cao cấp.
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      // Nạp file thanh điều hướng từ "navbar.html"
       fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-      // Khi trang tải xong, nạp danh sách đối tác và thêm sự kiện onchange cho dropdown
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+
+      function goToStep2() {
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const date = document.getElementById("date").value;
+        const time = document.getElementById("time").value;
+        const servicePackage = document.getElementById("servicePackage").value;
+        if (name && phone && date && time && servicePackage) {
+          document.getElementById("step1").classList.remove("active");
+          document.getElementById("step2").classList.add("active");
+        } else {
+          alert("Vui lòng nhập đầy đủ thông tin đặt lịch.");
+        }
+      }
+
+      function submitBookingCode() {
+        const code = document.getElementById("bookingCodeInput").value.trim();
+        const validCode = "88889999";
+        if (code === validCode) {
+          // Hiệu ứng hoa bay
+          startFlowerEffect();
+          // Sau 3 giây hiển thị thông báo thành công cao cấp và hiển thị Model Info
+          setTimeout(() => {
+            alert("Đặt lịch thành công cao cấp!");
+            showModelInfo();
+          }, 3000);
+        } else {
+          alert("Mã thẻ không hợp lệ.");
+        }
+      }
+      function showSuccessToast() {
+        const toastEl = document.getElementById("successToast");
+        const toast = new bootstrap.Toast(toastEl, {
+          delay: 3000,
+        });
+        toast.show();
+      }
+      function startFlowerEffect() {
+        const flowerCount = 30;
+        for (let i = 0; i < flowerCount; i++) {
+          const flower = document.createElement("div");
+          flower.classList.add("flower");
+          flower.textContent = "🌸";
+          flower.style.left = Math.random() * 100 + "vw";
+          const size = Math.random() * 20 + 20;
+          flower.style.fontSize = size + "px";
+          const duration = Math.random() * 4 + 4;
+          flower.style.animation = `fall ${duration}s linear forwards`;
+          flower.style.animationDelay = Math.random() * 2 + "s";
+          document.body.appendChild(flower);
+          flower.addEventListener("animationend", () => {
+            flower.remove();
+          });
+        }
+      }
+
+      function showModelInfo() {
+        document.getElementById("modelInfoContainer").style.display = "block";
+      }
+
+      function hideModelInfo() {
+        document.getElementById("modelInfoContainer").style.display = "none";
+      }
+
+      function toggleInfo(btn) {
+        const infoSpan = btn.parentElement.querySelector(".info-value");
+        if (infoSpan.textContent.includes("•")) {
+          infoSpan.textContent = infoSpan.getAttribute("data-value");
+          btn.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        } else {
+          let mask = "";
+          const realValue = infoSpan.getAttribute("data-value");
+          for (let i = 0; i < realValue.length; i++) {
+            mask += "•";
+          }
+          infoSpan.textContent = mask;
+          btn.innerHTML = '<i class="fa fa-eye"></i>';
+        }
+      }
+
+      function populatePartnerList() {
+        const partnerSelect = document.getElementById("partnerSelect");
+        partnerSelect.innerHTML =
+          '<option value="">-- Chọn đối tác --</option>';
+        Object.values(partnersByRank)
+          .flat()
+          .forEach((partner) => {
+            const option = document.createElement("option");
+            option.value = partner;
+            option.textContent = partner;
+            partnerSelect.appendChild(option);
+          });
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         populatePartnerList();
         document
           .getElementById("partnerSelect")
-          .addEventListener("change", function () {
+          ?.addEventListener("change", function () {
             const selected = this.value;
-            // Lấy avatar theo đối tác từ mapping
             const avatarURL =
               partnerAvatars[selected] || "https://i.pravatar.cc/100?img=65";
-            // Cập nhật khung Model Info
             document.querySelector(".model-avatar").src = avatarURL;
             document
               .querySelector(".model-name .info-value")
@@ -531,7 +756,6 @@
           });
       });
 
-      // Danh sách đối tác mẫu
       const partnersByRank = {
         S: [
           "✸ Vân Nhi ✸",
@@ -634,152 +858,9 @@
         ],
       };
 
-      function populatePartnerList() {
-        const partnerSelect = document.getElementById("partnerSelect");
-        partnerSelect.innerHTML =
-          '<option value="">-- Chọn đối tác --</option>';
-        Object.values(partnersByRank)
-          .flat()
-          .forEach((partner) => {
-            const option = document.createElement("option");
-            option.value = partner;
-            option.textContent = partner;
-            partnerSelect.appendChild(option);
-          });
-      }
-
-
-      function getCurrentLocation() {
-        const btn = document.querySelector(".btn-location");
-        const locationInput = document.getElementById("locationInput");
-        const locationError = document.getElementById("locationError");
-        const defaultLocation = { latitude: -33.8688, longitude: 151.2093 };
-        btn.disabled = true;
-        btn.textContent = "...";
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
-                4
-              )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
-              btn.textContent = "📍";
-              btn.disabled = false;
-              locationError.style.display = "none";
-            },
-            (error) => {
-              locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
-                4
-              )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
-              btn.textContent = "📍";
-              btn.disabled = false;
-              locationError.textContent =
-                "Không thể lấy vị trí, sử dụng vị trí mặc định.";
-              locationError.style.display = "block";
-            }
-          );
-        } else {
-          locationInput.value = `Lat: ${defaultLocation.latitude.toFixed(
-            4
-          )}, Lng: ${defaultLocation.longitude.toFixed(4)}`;
-          btn.textContent = "📍";
-          btn.disabled = false;
-          locationError.textContent = "Trình duyệt không hỗ trợ geolocation.";
-          locationError.style.display = "block";
-        }
-      }
-
-      function goToStep2() {
-        const partner = document.getElementById("partnerSelect").value;
-        const time = document.getElementById("timeInput").value;
-        const location = document.getElementById("locationInput").value;
-        const servicePackage = document.getElementById("servicePackage").value;
-        if (partner && time && location && servicePackage) {
-          document.getElementById("step1").classList.remove("active");
-          document.getElementById("step2").classList.add("active");
-        } else {
-          alert("Vui lòng nhập đầy đủ thông tin đặt lịch.");
-        }
-      }
-
-      function startFlowerEffect() {
-        const flowerCount = 30;
-        for (let i = 0; i < flowerCount; i++) {
-          const flower = document.createElement("div");
-          flower.classList.add("flower");
-          flower.textContent = "🌸";
-          flower.style.left = Math.random() * 100 + "vw";
-          const size = Math.random() * 20 + 20;
-          flower.style.fontSize = size + "px";
-          const duration = Math.random() * 4 + 4;
-          flower.style.animation = `fall ${duration}s linear forwards`;
-          flower.style.animationDelay = Math.random() * 2 + "s";
-          document.body.appendChild(flower);
-          flower.addEventListener("animationend", () => {
-            flower.remove();
-          });
-        }
-      }
-
-      function submitBookingCode() {
-        const code = document.getElementById("bookingCodeInput").value.trim();
-        const validCode = "88889999";
-        if (code === validCode) {
-          startFlowerEffect();
-          setTimeout(() => {
-            showModelInfo();
-          }, 3000);
-        } else {
-          alert("Mã thẻ không hợp lệ.");
-        }
-      }
-
-      function showModelInfo() {
-        document.getElementById("modelInfoContainer").style.display = "block";
-      }
-
-      function hideModelInfo() {
-        document.getElementById("modelInfoContainer").style.display = "none";
-      }
-
-      // Hàm toggle thông tin (ẩn/hiện giá trị)
-      function toggleInfo(btn) {
-        const infoSpan = btn.parentElement.querySelector(".info-value");
-        if (infoSpan.textContent.includes("•")) {
-          infoSpan.textContent = infoSpan.getAttribute("data-value");
-          btn.innerHTML = '<i class="fa fa-eye-slash"></i>';
-        } else {
-          let mask = "";
-          const realValue = infoSpan.getAttribute("data-value");
-          for (let i = 0; i < realValue.length; i++) {
-            mask += "•";
-          }
-          infoSpan.textContent = mask;
-          btn.innerHTML = '<i class="fa fa-eye"></i>';
-        }
-      }
-
-      // Khi trang tải xong, nạp danh sách đối tác và cập nhật avatar, tên preview khi chọn đối tác
-      document.addEventListener("DOMContentLoaded", function () {
-        populatePartnerList();
-        document
-          .getElementById("partnerSelect")
-          .addEventListener("change", function () {
-            const selected = this.value;
-            const avatarURL =
-              partnerAvatars[selected] || "https://i.pravatar.cc/100?img=65";
-            // Cập nhật khung Model Info
-            document.querySelector(".model-avatar").src = avatarURL;
-            document
-              .querySelector(".model-name .info-value")
-              .setAttribute("data-value", selected);
-            let mask = "";
-            for (let i = 0; i < selected.length; i++) {
-              mask += "•";
-            }
-            document.querySelector(".model-name .info-value").textContent =
-              mask;
-          });
-      });
+      const partnerAvatars = {};
     </script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
