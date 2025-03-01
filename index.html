@@ -476,13 +476,14 @@ document.addEventListener("DOMContentLoaded", function () {
         border-radius: 12px;
         display: flex;
         gap: 12px;
-        font-weight: 600;
+
         align-items: center;
-        background: linear-gradient(90deg, #fff, #efefef, #cb00bc);
+        background: linear-gradient(90deg, #ff5e00, #efefef, #7a00ff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-       
+        text-align: center;
+        font-weight: 600;
       }
 
       .stat-item i {
@@ -536,82 +537,34 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="statistics-widget">
       <div class="stat-item">
         <i class="fas fa-user-circle"></i>
-        <span>在线 在线</span>
+        <span>Online</span>
         <strong id="online">--</strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-check-circle"></i>
-        <span>使用过该服务</span>
+        <span>Used the service</span>
         <strong id="vipMembers">--</strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-chart-line"></i>
-        <span>总访问量</span>
+        <span>Total visits</span>
         <strong id="visitCount">--</strong>
       </div>
       <div class="stat-item">
         <i class="fas fa-clock"></i>
-        <span>时间</span>
-        <strong id="TaiwanTime">--:--:--</strong>
+        <span>Time</span>
+        <strong id="australiaTime">--:--:--</strong>
       </div>
     </div>
+  
     <script>
-      let online = parseInt(localStorage.getItem("online")) || 204;
-      let vipMembers = parseInt(localStorage.getItem("vipMembers")) || 4197;
-      let visitCount = parseInt(localStorage.getItem("visitCount")) || 218483;
+let online=parseInt(localStorage.getItem("online"))||204;let vipMembers=parseInt(localStorage.getItem("vipMembers"))||4197;let visitCount=parseInt(localStorage.getItem("visitCount"))||218483;function updateSydneyTime(){const now=new Date();const sydneyTime=new Date(now.toLocaleString("en-US",{timeZone:"Australia/Sydney"}));const hours=sydneyTime.getHours().toString().padStart(2,"0");const minutes=sydneyTime.getMinutes().toString().padStart(2,"0");const seconds=sydneyTime.getSeconds().toString().padStart(2,"0");const timeDifference=((sydneyTime-now)/(1000*60*60)).toFixed(1);document.getElementById("australiaTime").innerText=`${hours}:${minutes}:${seconds}`;document.getElementById("timeDifference").innerText=`${timeDifference}giờ`;}
+function updateOnline(){const change=Math.floor(Math.random()*11)+10;const increaseOrDecrease=Math.random()<0.5?-1:1;online=Math.max(100,Math.min(250,online+change*increaseOrDecrease));document.getElementById("online").innerText=online.toLocaleString();localStorage.setItem("online",online);}
+function updateVipMembers(){vipMembers++;document.getElementById("vipMembers").innerText=vipMembers.toLocaleString();localStorage.setItem("vipMembers",vipMembers);}
+function updateVisitCount(){const increment=Math.floor(Math.random()*50)+1;visitCount+=increment;document.getElementById("visitCount").innerText=visitCount.toLocaleString();localStorage.setItem("visitCount",visitCount);}
+document.addEventListener("DOMContentLoaded",()=>{document.getElementById("online").innerText=online.toLocaleString();document.getElementById("vipMembers").innerText=vipMembers.toLocaleString();document.getElementById("visitCount").innerText=visitCount.toLocaleString();setInterval(updateSydneyTime,1000);setInterval(updateOnline,5000);setInterval(updateVipMembers,600000);setInterval(updateVisitCount,10000);});
 
-      function updateTaiwanTime() {
-        const now = new Date();
-        // Lấy thời gian theo múi giờ Đài Loan: Asia/Taipei
-        const taiwanTime = new Date(
-          now.toLocaleString("en-US", { timeZone: "Asia/Taipei" })
-        );
-        const hours = taiwanTime.getHours().toString().padStart(2, "0");
-        const minutes = taiwanTime.getMinutes().toString().padStart(2, "0");
-        const seconds = taiwanTime.getSeconds().toString().padStart(2, "0");
-        document.getElementById(
-          "TaiwanTime"
-        ).innerText = `${hours}:${minutes}:${seconds}`;
-      }
-
-      function updateOnline() {
-        const change = Math.floor(Math.random() * 11) + 10;
-        const increaseOrDecrease = Math.random() < 0.5 ? -1 : 1;
-        online = Math.max(
-          100,
-          Math.min(250, online + change * increaseOrDecrease)
-        );
-        document.getElementById("online").innerText = online.toLocaleString();
-        localStorage.setItem("online", online);
-      }
-
-      function updateVipMembers() {
-        vipMembers++;
-        document.getElementById("vipMembers").innerText =
-          vipMembers.toLocaleString();
-        localStorage.setItem("vipMembers", vipMembers);
-      }
-
-      function updateVisitCount() {
-        const increment = Math.floor(Math.random() * 50) + 1;
-        visitCount += increment;
-        document.getElementById("visitCount").innerText =
-          visitCount.toLocaleString();
-        localStorage.setItem("visitCount", visitCount);
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("online").innerText = online.toLocaleString();
-        document.getElementById("vipMembers").innerText =
-          vipMembers.toLocaleString();
-        document.getElementById("visitCount").innerText =
-          visitCount.toLocaleString();
-        // Cập nhật thời gian theo múi giờ Đài Loan mỗi giây
-        setInterval(updateTaiwanTime, 1000);
-        setInterval(updateOnline, 5000);
-        setInterval(updateVipMembers, 600000);
-        setInterval(updateVisitCount, 10000);
-      });
+    </script>
     </script>
   </body>
 </html>
@@ -1370,6 +1323,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       .text-blue-500 {
+        margin-bottom: 50px;
       font-weight: bold;
         text-align: center;
         background: linear-gradient(90deg, #ff8c00, #ff2e63, #3a86ff);
@@ -1421,23 +1375,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <!-- Danh sách card (phần chính) -->
     <div id="characterCards" class="main-section"></div>
-    <div class="report-item">
-      <!-- Tên tác giả -->
-      <div class="author">Thành viên ẩn danh</div>
-    
-      <!-- Khối sao đánh giá -->
-      <div class="star-rating">
-        <i class="fas fa-star"></i> ... 
-      </div>
-    
-      <!-- Thời gian -->
-      <div class="time">
-        <i class="fas fa-clock"></i> 04/02/2025 03:16
-      </div>
-    
-      <!-- Ảnh đính kèm -->
-      <img class="report-image" src="..." alt="Ảnh đính kèm" />
-    </div>
     
     <!-- OffCanvas -->
     <div id="offCanvas" class="offcanvas main-section">
@@ -1457,16 +1394,7 @@ document.addEventListener("DOMContentLoaded", function () {
       />
       <!-- Gallery ảnh -->
       <div id="galleryGrid"></div>
-            </div>
-      <!-- Link liên hệ -->
-      <a
-        id="offCanvasLink"
-        href="#"
-        target="_blank"
-        class="text-blue-500 underline block mt-4"
-        >Liên hệ để đặt lịch</a
-      >
-    </div>
+      
       <div class="lock-text"></div>
       
       <div id="reportSlider" class="report-slider"></div>
@@ -1484,7 +1412,16 @@ document.addEventListener("DOMContentLoaded", function () {
         <a href="#" class="social-icon tiktok-icon"
           ><i class="fab fa-tiktok"></i
         ></a>
-
+      </div>
+      <!-- Link liên hệ -->
+      <a
+        id="offCanvasLink"
+        href="#"
+        target="_blank"
+        class="text-blue-500 underline block mt-4"
+        >Liên hệ để đặt lịch</a
+      >
+    </div>
 
     <!-- Modal Ảnh Lớn 3D -->
     <div id="imageModal" class="modal">
