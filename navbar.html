@@ -95,50 +95,8 @@
     font-weight: 700;
   }
 
-  /* Chế độ Dark Mode */
-  body.dark-mode {
-    --nav-bg: #000000;
-    --accent: #ffffff;
-    --text-color: #ffffff;
-    --hover-bg: #444444;
-    --bg-color: #12121e;
-  }
-
-  .dark-mode-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #12121e;
-    color: white;
-    padding: 4px 7px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 100003;
-  }
-
-  .dark-mode-toggle:hover {
-    background-color: #1976d2;
-  }
-
-  body.dark-mode .bottom-nav {
-    background: #000000 !important;
-    box-shadow: 0 -4px 15px rgba(255, 255, 255, 0.2);
-    border-top: 2px solid rgba(255, 255, 255, 0.8);
-  }
-
-  body.dark-mode .nav-item {
-    color: var(--text-color) !important;
-  }
-
-  body.dark-mode .nav-item.active {
-    background-color: var(--hover-bg) !important;
-  }
+ 
 </style>
-
-<!-- Toggle Dark Mode -->
-<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
 <!-- Thanh điều hướng -->
 <div class="bottom-nav">
