@@ -2233,6 +2233,17 @@ socialIcons.forEach((icon) => {
           item.scrollIntoView({ behavior: "smooth", inline: "center" });
         });
       });
+       // Vô hiệu hóa chuột phải
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Vô hiệu hóa phím F12 và các tổ hợp phím kiểm tra
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+      e.preventDefault();
+    }
+  });
     </script>
   </body>
 </html>
