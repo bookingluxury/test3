@@ -46,7 +46,7 @@
         );
         min-height: 100vh;
         color: #fff;
-        padding: 20px;
+
         position: relative;
       }
       body::before {
@@ -66,7 +66,7 @@
       .container {
         max-width: 800px;
         margin: 0 auto 120px;
-        padding: 20px;
+        padding: 0px;
         background: #1a1a1a;
         border-radius: 12px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -271,6 +271,14 @@
       .payment-table td {
         border: 1px solid #333;
         padding: 8px;
+      }
+      .payment-table th:nth-child(2),
+      .payment-table td:nth-child(2) {
+        width: 50%; /* Giảm kích thước cột "Nội Dung" */
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .payment-table th {
         background: #2a2a2a;
