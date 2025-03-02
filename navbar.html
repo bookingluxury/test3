@@ -105,12 +105,11 @@
         transform: scale(1.2);
         color: #ffe066;
       }
+      /* Đánh dấu mục đã chọn (active) */
       .nav-btn.active i {
         color: #ffe066;
         animation: glow 1.2s infinite alternate;
       }
-      /* Xóa gạch chân active: không sử dụng pseudo-element ::after */
-      /* @keyframes glow định nghĩa hiệu ứng glow */
       @keyframes glow {
         0% {
           text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
@@ -154,7 +153,7 @@
     </div>
 
     <script>
-      // Khi click vào một mục, thêm lớp active, đảm bảo mục đó luôn hiển thị ở giữa (hoặc trong tầm nhìn)
+      // Khi click vào một mục, đánh dấu active và lưu vào localStorage
       document.querySelectorAll(".nav-btn").forEach(function (btn) {
         btn.addEventListener("click", function (e) {
           e.preventDefault();
@@ -164,10 +163,32 @@
           });
           // Thêm active cho nút vừa click
           this.classList.add("active");
-          // Cuộn để nút active luôn nằm trong tầm nhìn (có thể điều chỉnh với option inline: 'center')
-          this.scrollIntoView({ inline: "center", behavior: "smooth" });
-          // Nếu cần chuyển hướng sau khi đã active, có thể sử dụng window.location.href = this.getAttribute('href');
+          // Lưu href của nút active vào localStorage
+          localStorage.setItem("activeNav", this.getAttribute("href"));
         });
+      });
+
+      // Lưu vị trí cuộn của thanh bottom nav khi người dùng cuộn
+      const bottomNav = document.querySelector(".bottom-nav");
+      bottomNav.addEventListener("scroll", function () {
+        localStorage.setItem("bottomNavScroll", bottomNav.scrollLeft);
+      });
+
+      // Khi trang load, khôi phục nút active và vị trí cuộn
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedActiveNav = localStorage.getItem("activeNav");
+        if (savedActiveNav) {
+          const activeElement = document.querySelector(
+            '.nav-btn[href="' + savedActiveNav + '"]'
+          );
+          if (activeElement) {
+            activeElement.classList.add("active");
+          }
+        }
+        const savedScroll = localStorage.getItem("bottomNavScroll");
+        if (savedScroll) {
+          bottomNav.scrollLeft = savedScroll;
+        }
       });
     </script>
   </body>
