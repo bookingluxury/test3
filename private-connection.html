@@ -28,30 +28,7 @@
       rel="stylesheet"
     />
     <style>
-      /* ---------- Logo Top ---------- */
-      .logo-top {
-        width: 500px; /* Đặt kích thước lớn hơn */
-        height: 120px; /* Đặt chiều cao phù hợp */
-        background-size: contain !important; /* Đảm bảo logo không bị thu nhỏ */
-        background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png")
-          no-repeat center/contain;
-        background-size: contain; /* Đảm bảo logo không bị cắt */
-        z-index: 1001;
-        transition: transform 0.3s ease;
-        padding: 5px;
-        margin-bottom: 0px;
-        backdrop-filter: blur(5px);
-      }
-      @media (max-width: 600px) {
-        .logo-top {
-          max-width: 100%;
-          height: 130px;
-        }
-      }
-      .logo-top:hover {
-        transform: scale(1.05);
-      }
-
+    
       .live-actions {
         display: flex;
         justify-content: center;
@@ -1685,8 +1662,7 @@
     </style>
   </head>
   <body>
-    <!-- Logo Top & Navbar -->
-    <div class="logo-top"></div>
+
     <div id="navbar-placeholder"></div>
     <script src="menu.js"></script>
 
