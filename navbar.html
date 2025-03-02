@@ -37,31 +37,42 @@
         font-family: "Montserrat", sans-serif;
       }
 
-      /* ========== BOTTOM NAV ========== */
+      /* ===== BOTTOM NAV ===== */
       .bottom-nav {
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 75px;
         background: #222;
+        height: 95px !important;
         display: flex;
-        justify-content: space-around;
+        font-weight: 700;
         align-items: center;
-        gap: 30px;
-        z-index: 100002 !important;
         padding: 0.75rem 10px;
         border-top: 2px solid #444;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+        /* Hiệu ứng glow cho thanh điều hướng */
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2),
+          0 0 10px 2px rgba(255, 255, 255, 0.3);
+        gap: 30px;
         scroll-snap-type: x mandatory;
-        overflow-x: auto;
-        white-space: nowrap;
-        scroll-behavior: smooth;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        white-space: nowrap !important;
+        scroll-behavior: smooth !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
+        /* Thêm thuộc tính cho cuộn mượt */
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
       }
 
-      /* Nút điều hướng */
+      /* Điều chỉnh kích thước logo cho các nút điều hướng */
+      .bottom-nav .nav-btn img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
       .nav-btn {
-        z-index: 100002 !important;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -69,38 +80,34 @@
         padding: 0.75rem 0;
         font-size: 0.85rem;
         font-weight: 600;
-        color: #aaa;
+        /* Đồng bộ màu chữ: sử dụng màu trắng */
+        color: #fff;
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
       }
-
-      /* Icon 3D */
+      .nav-btn i.icon-3d {
+        font-size: 1.9rem;
+        color: #ff5fa5;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
       .nav-btn i {
         font-size: 1.7rem;
         color: #ff5fa5;
         transition: transform 0.3s ease, color 0.3s ease;
       }
-
-      /* Hiệu ứng hover */
+      /* Hiệu ứng hover cho nút điều hướng */
       .nav-btn:hover {
-        color: #ff69b4;
+        color: #ffe066;
       }
       .nav-btn:hover i {
         transform: scale(1.2);
-        color: #ff1493;
-      }
-
-      /* Hiệu ứng Active */
-      .nav-btn.active {
-        color: #ff69b4;
+        color: #ffe066;
       }
       .nav-btn.active i {
-        color: #ff1493;
+        color: #ffe066;
         animation: glow 1.2s infinite alternate;
       }
-
-      /* Hiệu ứng phát sáng */
       @keyframes glow {
         0% {
           text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
@@ -109,45 +116,44 @@
           text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4;
         }
       }
-
-      /* Cải thiện khả năng cuộn ngang */
-      .bottom-nav::-webkit-scrollbar {
-        display: none;
-      }
     </style>
   </head>
   <body>
     <!-- Thanh điều hướng -->
     <div class="bottom-nav">
-      <a href="index.html" class="nav-btn active">
-        <i class="bi bi-house"></i>
+      <a href="index.html" class="nav-btn">
+        <img src="https://i.ibb.co/7JMBcSLM/5684646.png" alt="Trang chủ" />
         <span>Trang chủ</span>
       </a>
+
       <a href="services.html" class="nav-btn">
-        <i class="bi bi-briefcase-fill"></i>
+        <img src="https://i.ibb.co/WRcbXqY/6091783.png" alt="Dịch Vụ" />
         <span>Dịch Vụ</span>
       </a>
-      <a href="#" class="nav-btn active">
-        <i class="bi bi-heart-fill icon-3d"></i>
-        <span>❤</span>
-      </a>
       <a href="booking.html" class="nav-btn">
-        <i class="bi bi-calendar-check"></i>
+        <img src="https://i.ibb.co/209QjsY8/5695442.png" alt="Booking" />
         <span>Booking</span>
       </a>
       <a href="photos.html" class="nav-btn">
-        <i class="bi bi-images"></i>
+        <img
+          src="https://i.ibb.co/s9Qw02cv/3668503-calendar-clock-schedule-icon.png"
+          alt="Thư Viện Ảnh"
+        />
         <span>Thư Viện Ảnh</span>
       </a>
       <a href="video.html" class="nav-btn">
-        <i class="bi bi-camera-video"></i>
+        <img
+          src="https://i.ibb.co/XkVNCPPQ/7793060-flowchart-video-gallery-movies-icon.png"
+          alt="Video Nổi Bật"
+        />
         <span>Video Nổi Bật</span>
       </a>
       <a href="private-connection.html" class="nav-btn">
-        <i class="bi bi-lock-fill"></i>
+        <img src="https://i.ibb.co/3yyX9n08/5337863.png" alt="Kết Nối 18+" />
         <span>Kết Nối 18+</span>
       </a>
     </div>
+
     <script>
       function setActiveTab() {
         const currentPath =
@@ -178,7 +184,7 @@
           if (!isDragging) return;
           e.preventDefault();
           const x = e.pageX - navBar.offsetLeft;
-          navBar.scrollLeft = scrollLeft - (x - startX) * 2;
+          navBar.scrollLeft = scrollLeft - (x - startX) * 1.5;
         });
 
         navBar.addEventListener("touchstart", (e) => {
@@ -192,7 +198,7 @@
         navBar.addEventListener("touchmove", (e) => {
           if (!isDragging) return;
           const x = e.touches[0].pageX - navBar.offsetLeft;
-          navBar.scrollLeft = scrollLeft - (x - startX) * 2;
+          navBar.scrollLeft = scrollLeft - (x - startX) * 1.5;
         });
 
         setActiveTab();
