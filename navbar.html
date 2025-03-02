@@ -39,28 +39,29 @@
 
       /* ===== BOTTOM NAV ===== */
       .bottom-nav {
-      position: fixed !important;
-  bottom: 0 !important;
-           z-index: 100002 !important;
-  left: 0 !important;
-  width: 100% !important;
-  background: #222 !important;
-  height: 95px !important;
-  display: flex !important;
-  font-weight: 700 !important;
-  align-items: center !important;
-  padding: 0.75rem 10px !important;
-  border-top: 2px solid #444 !important;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2), 0 0 10px 2px rgba(255, 255, 255, 0.3) !important;
-  gap: 30px !important;
-  scroll-snap-type: x mandatory !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  white-space: nowrap !important;
-  scroll-behavior: smooth !important;
-  padding-bottom: env(safe-area-inset-bottom) !important;
-  -webkit-overflow-scrolling: touch !important;
-  touch-action: pan-x !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: #222 !important;
+        height: 95px !important;
+        display: flex !important;
+        font-weight: 700 !important;
+        align-items: center !important;
+        padding: 0.75rem 10px !important;
+        border-top: 2px solid #444 !important;
+        z-index: 100002 !important;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2),
+          0 0 10px 2px rgba(255, 255, 255, 0.3) !important;
+        gap: 30px !important;
+        scroll-snap-type: x mandatory !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        white-space: nowrap !important;
+        scroll-behavior: smooth !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-x !important;
       }
 
       /* Điều chỉnh kích thước logo cho các nút điều hướng */
@@ -70,20 +71,21 @@
         object-fit: contain;
       }
 
+      /* Style cho các nút điều hướng */
       .nav-btn {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 5px;
+        z-index: 100002 !important;
         padding: 0.75rem 0;
         font-size: 0.85rem;
-           z-index: 100002 !important;
         font-weight: 600;
-        /* Đồng bộ màu chữ: sử dụng màu trắng */
-        color: #fff;
+        color: #fff; /* Màu chữ đồng bộ */
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
+        text-decoration: none; /* Loại bỏ gạch chân */
       }
       .nav-btn i.icon-3d {
         font-size: 1.9rem;
@@ -97,7 +99,7 @@
       }
       /* Hiệu ứng hover cho nút điều hướng */
       .nav-btn:hover {
-        color: #ffe066;
+        color: #8400ff;
       }
       .nav-btn:hover i {
         transform: scale(1.2);
@@ -107,6 +109,8 @@
         color: #ffe066;
         animation: glow 1.2s infinite alternate;
       }
+      /* Xóa gạch chân active: không sử dụng pseudo-element ::after */
+      /* @keyframes glow định nghĩa hiệu ứng glow */
       @keyframes glow {
         0% {
           text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
@@ -124,7 +128,6 @@
         <img src="https://i.ibb.co/7JMBcSLM/5684646.png" alt="Trang chủ" />
         <span>Trang chủ</span>
       </a>
-
       <a href="services.html" class="nav-btn">
         <img src="https://i.ibb.co/WRcbXqY/6091783.png" alt="Dịch Vụ" />
         <span>Dịch Vụ</span>
@@ -134,10 +137,7 @@
         <span>Booking</span>
       </a>
       <a href="photos.html" class="nav-btn">
-        <img
-          src="https://i.ibb.co/d4bTk40m/8341973.png"
-          alt="Thư Viện Ảnh"
-        />
+        <img src="https://i.ibb.co/d4bTk40m/8341973.png" alt="Thư Viện Ảnh" />
         <span>Thư Viện Ảnh</span>
       </a>
       <a href="video.html" class="nav-btn">
@@ -154,53 +154,20 @@
     </div>
 
     <script>
-      function setActiveTab() {
-        const currentPath =
-          window.location.pathname.split("/").pop() || "index.html";
-        document.querySelectorAll(".nav-item").forEach((item) => {
-          item.getAttribute("href") === currentPath
-            ? item.classList.add("active")
-            : item.classList.remove("active");
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const navBar = document.querySelector(".bottom-nav");
-        let isDragging = false,
-          startX,
-          scrollLeft;
-
-        navBar.addEventListener("mousedown", (e) => {
-          isDragging = true;
-          startX = e.pageX - navBar.offsetLeft;
-          scrollLeft = navBar.scrollLeft;
-        });
-
-        navBar.addEventListener("mouseleave", () => (isDragging = false));
-        navBar.addEventListener("mouseup", () => (isDragging = false));
-
-        navBar.addEventListener("mousemove", (e) => {
-          if (!isDragging) return;
+      // Khi click vào một mục, thêm lớp active, đảm bảo mục đó luôn hiển thị ở giữa (hoặc trong tầm nhìn)
+      document.querySelectorAll(".nav-btn").forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
           e.preventDefault();
-          const x = e.pageX - navBar.offsetLeft;
-          navBar.scrollLeft = scrollLeft - (x - startX) * 1.5;
+          // Xóa lớp active ở tất cả các nút
+          document.querySelectorAll(".nav-btn").forEach(function (item) {
+            item.classList.remove("active");
+          });
+          // Thêm active cho nút vừa click
+          this.classList.add("active");
+          // Cuộn để nút active luôn nằm trong tầm nhìn (có thể điều chỉnh với option inline: 'center')
+          this.scrollIntoView({ inline: "center", behavior: "smooth" });
+          // Nếu cần chuyển hướng sau khi đã active, có thể sử dụng window.location.href = this.getAttribute('href');
         });
-
-        navBar.addEventListener("touchstart", (e) => {
-          isDragging = true;
-          startX = e.touches[0].pageX - navBar.offsetLeft;
-          scrollLeft = navBar.scrollLeft;
-        });
-
-        navBar.addEventListener("touchend", () => (isDragging = false));
-
-        navBar.addEventListener("touchmove", (e) => {
-          if (!isDragging) return;
-          const x = e.touches[0].pageX - navBar.offsetLeft;
-          navBar.scrollLeft = scrollLeft - (x - startX) * 1.5;
-        });
-
-        setActiveTab();
       });
     </script>
   </body>
