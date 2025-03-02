@@ -80,28 +80,7 @@
         opacity: 0.2;
         pointer-events: none;
       }
-      .logo-top {
-        width: 500px; /* Đặt kích thước lớn hơn */
-        height: 120px; /* Đặt chiều cao phù hợp */
-        background-size: contain !important; /* Đảm bảo logo không bị thu nhỏ */
-        background: url("https://i.ibb.co/P4Jg4Qh/1-removebg-preview.png")
-          no-repeat center/contain;
-        background-size: contain; /* Đảm bảo logo không bị cắt */
-        z-index: 1001;
-        transition: transform 0.3s ease;
-        padding: 5px;
-        margin-bottom: 0px;
-        backdrop-filter: blur(5px);
-      }
-      @media (max-width: 600px) {
-        .logo-top {
-          max-width: 100%;
-          height: 130px;
-        }
-      }
-      .logo-top:hover {
-        transform: scale(1.05);
-      }
+
       .nav-item a {
         text-decoration: none !important;
       }
@@ -455,9 +434,6 @@
     </style>
   </head>
   <body>
-    <!-- Logo Top -->
-    <div class="logo-top"></div>
-
     <!-- Tabs (Danh mục) -->
     <ul
       class="nav nav-tabs category-tabs justify-content-center mb-3"
@@ -547,7 +523,20 @@
         <img src="https://i.ibb.co/7JMBcSLM/5684646.png" alt="Trang chủ" />
         <span>Trang chủ</span>
       </a>
-
+      <a href="services.html" class="nav-btn">
+        <img
+          src="https://i.ibb.co/SwbKL5LF/3668636-premium-rate-rating-icon.png"
+          alt="Đánh giá"
+        />
+        <span>Đánh giá</span>
+      </a>
+      <a href="add-credit.html" class="nav-btn">
+        <img
+          src="https://i.ibb.co/yn0NTF8T/3631712-cash-money-wallet-icon.png"
+          alt="Tài khoản tôi"
+        />
+        <span>Tài khoản tôi</span>
+      </a>
       <a href="services.html" class="nav-btn">
         <img src="https://i.ibb.co/WRcbXqY/6091783.png" alt="Dịch Vụ" />
         <span>Dịch Vụ</span>
